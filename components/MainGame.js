@@ -83,6 +83,21 @@ class MainGame extends Component {
         return this.state.mineSet.has(this.posToString(x, y))
     }
 
+    ChangeFlag = (isFlag, x, y) => {
+        if (isFlag) {
+            this.state.flagSet.add(this.posToString(x, y))
+        } else {
+            this.state.flagSet.delete(this.posToString(x, y))
+        }
+        if (this.state.flagSet.size == this.state.mineSet.size) {
+            this.winGame()
+        }
+    }
+
+    winGame = () => {
+        Alert.alert("You Win!");
+        this.resetGame();
+    }
     renderBoard = () => {
         return Array.apply(null, Array(this.state.BOARD_SIZE)).map((el, rowIdx) => {
             let cellList = Array.apply(null, Array(this.state.BOARD_SIZE)).map((el, colIdx) => {
@@ -96,8 +111,8 @@ class MainGame extends Component {
                     y={rowIdx}
                     ref={(ref) => { this.grid[colIdx][rowIdx] = ref }}
                     isMine={this.isMine}
-                    handlePress={this.handlePress}
-                    handleLongPress={this.handleLongPress}
+                    focusMode={this.state.focusMode}
+                    ChangeFlag={this.ChangeFlag}
                 />
             });
 
@@ -125,6 +140,7 @@ class MainGame extends Component {
             focusMode: val
         })
         console.log(val)
+
     }
 
     render() {

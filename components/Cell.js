@@ -13,7 +13,8 @@ export default class Cell extends Component {
 
         this.state = {
             revealed: false,
-            neighbors: null
+            neighbors: null,
+            isFlag: false,
         }
     }
 
@@ -57,17 +58,37 @@ export default class Cell extends Component {
             neighbors: null
         })
     }
+    mine = () => {
+        if (this.state.isFlag) return
+        this.onReveal(true)
+    }
 
-    render() {
-        if (!this.state.revealed) {
-            return (
-                <TouchableOpacity onPress={() => { this.onReveal(true); }}>
-                    <View style={[styles.cell, { width: this.props.width, height: this.props.height }]}>
+    flag = () => {
+        this.setState({
+            isFlag: !this.state.isFlag
+        }, () => {
+            this.props.ChangeFlag(this.state.isFlag, this.props.x, this.props.y)
+        })
+    }
 
-                    </View>
-                </TouchableOpacity>
-            )
+    handlePress = () => {
+        if (!this.props.focusMode) {
+            this.mine()
         } else {
+            this.flag()
+        }
+        console.log(this.props.focusMode)
+    }
+
+    handleLongPress = () => {
+        if (this.props.focusMode) {
+            this.mine()
+        } else {
+            this.flag()
+        }
+    }
+    render() {
+        if (this.state.revealed) {
             let content = null;
             if (this.isMine()) {
                 content = (
@@ -85,6 +106,23 @@ export default class Cell extends Component {
                 </View>
             )
         }
+
+        else {
+            let content = ""
+            if (this.state.isFlag) {
+                content = "F"
+            } else {
+
+            }
+            return (
+                <TouchableOpacity onPress={() => { this.handlePress() }} onLongPress={() => { this.handleLongPress() }}>
+                    <View style={[styles.cell, { width: this.props.width, height: this.props.height }]}>
+                        <Text>{content}</Text>
+                    </View>
+                </TouchableOpacity>
+            )
+        }
+
     }
 }
 

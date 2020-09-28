@@ -7,9 +7,10 @@ class SwitchFlag extends Component {
 
     toggleSwitch = () => {
         this.setState({
-            isFocusMode: !this.state.isFocusMode
+            isFocusMode: !this.state.isFocusMode,
+        }, () => {
+            this.props.changeFocus(this.state.isFocusMode)
         })
-        this.props.changeFocus(this.state.isFocusMode)
     };
 
     render() {
