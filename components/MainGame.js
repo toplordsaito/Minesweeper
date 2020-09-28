@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Image, Alert, View, Button, TouchableHigh
 import { Dimensions } from 'react-native';
 import Cell from './Cell'
 import SwitchFlag from './SwitchFlag'
+import Timer from './Timer'
 class MainGame extends Component {
     state = {
         mine: this.props.mine,
@@ -148,6 +149,7 @@ class MainGame extends Component {
         return (
             <View style={styles.container}>
                 <SwitchFlag changeFocus={this.changeFocus} />
+                {/* <Timer/> */}
                 <View style={{ width: this.boardWidth, height: this.boardWidth, backgroundColor: '#888888', flexDirection: 'column' }}>
                     {this.renderBoard()}
                 </View>
