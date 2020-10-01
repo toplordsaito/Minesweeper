@@ -55,7 +55,8 @@ export default class Cell extends Component {
     reset = () => {
         this.setState({
             revealed: false,
-            neighbors: null
+            neighbors: null,
+            isFlag: false,
         })
     }
     mine = () => {

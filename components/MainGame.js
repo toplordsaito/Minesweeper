@@ -90,9 +90,15 @@ class MainGame extends Component {
         } else {
             this.state.flagSet.delete(this.posToString(x, y))
         }
-        if (this.state.flagSet.size == this.state.mineSet.size) {
+        if (this.eqSet(this.state.flagSet, this.state.mineSet)) {
             this.winGame()
         }
+    }
+
+    eqSet = (a, b) => {
+        if (a.size !== b.size) return false;
+        for (let item of a) if (!b.has(item)) return false;
+        return true;
     }
 
     winGame = () => {
