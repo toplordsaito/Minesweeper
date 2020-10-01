@@ -6,6 +6,7 @@ import {
     Image,
     Text
 } from 'react-native';
+import imagesList from '../assets/image'
 
 export default class Cell extends Component {
     constructor(props) {
@@ -93,7 +94,7 @@ export default class Cell extends Component {
             let content = null;
             if (this.isMine()) {
                 content = (
-                    <Image source={require('../assets/mine.png')} style={{ width: this.props.width / 2, height: this.props.height / 2 }} resizeMode="contain" />
+                    <Image source={imagesList.mine} style={{ width: this.props.width / 2, height: this.props.height / 2 }} resizeMode="contain" />
                 )
             } else if (this.state.neighbors) {
                 content = (
@@ -111,9 +112,11 @@ export default class Cell extends Component {
         else {
             let content = ""
             if (this.state.isFlag) {
-                content = "F"
+                content = (
+                    <Image source={imagesList.flag} style={{ width: this.props.width / 2, height: this.props.height / 2 }} resizeMode="contain" />
+                )
             } else {
-
+                // content = (<Text></Text>)
             }
             return (
                 <TouchableOpacity onPress={() => { this.handlePress() }} onLongPress={() => { this.handleLongPress() }}>
@@ -134,14 +137,17 @@ const styles = StyleSheet.create({
         borderTopColor: '#ffffff',
         borderLeftColor: '#ffffff',
         borderRightColor: '#7d7d7d',
-        borderBottomColor: '#7d7d7d'
+        borderBottomColor: '#7d7d7d',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     cellRevealed: {
         backgroundColor: '#bdbdbd',
         borderWidth: 1,
         borderColor: '#7d7d7d',
         alignItems: 'center',
-        justifyContent: 'center'
-    }
+        justifyContent: 'center',
+    },
+    
 
 })

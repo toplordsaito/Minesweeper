@@ -4,6 +4,7 @@ import { Dimensions } from 'react-native';
 import Cell from './Cell'
 import SwitchFlag from './SwitchFlag'
 import Timer from './Timer'
+import PropTypes from 'prop-types';
 class MainGame extends Component {
     state = {
         mine: this.props.mine,
@@ -13,6 +14,10 @@ class MainGame extends Component {
         mineSet: new Set(),
         flagSet: new Set(),
         focusMode: false,
+    };
+    static propTypes = {
+        size: PropTypes.number .isRequired,
+        mine: PropTypes.number .isRequired,
     };
     constructor(props) {
         super(props);
@@ -115,7 +120,7 @@ class MainGame extends Component {
                 style: "cancel"
             },
             {
-                text: "OK", onPress: () => { this.resetGame() }
+                text: "OK", onPress: this.resetGame
             }
         ],
         { cancelable: false }
@@ -177,7 +182,6 @@ class MainGame extends Component {
                 <View style={{ width: this.boardWidth, height: this.boardWidth, backgroundColor: '#888888', flexDirection: 'column' }}>
                     {this.renderBoard()}
                 </View>
-                <Button title="New Game" onPress={this.resetGame} />
             </View>
         );
     }

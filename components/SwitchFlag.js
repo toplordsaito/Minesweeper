@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableHighlight, Text } from "react-native";
+import { StyleSheet, View, TouchableHighlight, Text, Image } from "react-native";
+import imagesList from '../assets/image'
 class SwitchFlag extends Component {
     state = {
         isFocusMode: false //default = *
@@ -14,16 +15,20 @@ class SwitchFlag extends Component {
     };
 
     render() {
-        let content = "*"
+        let content = null
         if (this.state.isFocusMode) {
-            content = "flag"
+            content = (
+                <Image source={imagesList.flag} style={styles.toggleImage} resizeMode="contain" />
+            )
         } else {
-            content = "*"
+            content = (
+                <Image source={imagesList.mine} style={styles.toggleImage} resizeMode="contain" />
+            )
         }
         return (
             <TouchableHighlight onPress={this.toggleSwitch}>
                 <View style={styles.toggle}>
-                    <Text>{content}</Text>
+                    {content}
                 </View>
             </TouchableHighlight>
         )
@@ -35,6 +40,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#DDDDDD",
         padding: 10,
+    },
+    toggleImage: {
+        width: 50,
+        height: 50,
     }
 });
 
