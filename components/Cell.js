@@ -7,7 +7,7 @@ import {
     Text
 } from 'react-native';
 import imagesList from '../assets/image'
-// import { playFlagSound } from '../assets/sound/audio';
+import { playFlagSound, playOpenSound } from '../assets/sound/audio';
 
 export default class Cell extends Component {
     constructor(props) {
@@ -35,13 +35,10 @@ export default class Cell extends Component {
     }
 
     onReveal = (userInitiated) => {
-        if (this.state.revealed) {
-            return;
-        }
-
-        if (!userInitiated && this.isMine()) {
-            return;
-        }
+        if (this.state.isFlag) return;
+        if (this.state.revealed) return;
+        if (!userInitiated && this.isMine()) return;
+        
 
         this.setState({
             revealed: true
@@ -49,6 +46,7 @@ export default class Cell extends Component {
             if (this.isMine()) {
                 this.props.onDie();
             } else {
+                if( userInitiated) playOpenSound()
                 this.props.onReveal(this.props.x, this.props.y);
             }
         });
@@ -62,16 +60,15 @@ export default class Cell extends Component {
         })
     }
     mine = () => {
-        if (this.state.isFlag) return
         this.onReveal(true)
     }
 
     flag = () => {
+        playFlagSound()
         this.setState({
             isFlag: !this.state.isFlag
         }, () => {
             this.props.ChangeFlag(this.state.isFlag, this.props.x, this.props.y)
-            // playFlagSound()
         })
     }
 

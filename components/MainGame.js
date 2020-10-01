@@ -5,6 +5,7 @@ import Cell from './Cell'
 import SwitchFlag from './SwitchFlag'
 import Timer from './Timer'
 import PropTypes from 'prop-types';
+import { playDieSound, playVictorySound } from '../assets/sound/audio';
 class MainGame extends Component {
     state = {
         mine: this.props.mine,
@@ -16,8 +17,8 @@ class MainGame extends Component {
         focusMode: false,
     };
     static propTypes = {
-        size: PropTypes.number .isRequired,
-        mine: PropTypes.number .isRequired,
+        size: PropTypes.number.isRequired,
+        mine: PropTypes.number.isRequired,
     };
     constructor(props) {
         super(props);
@@ -51,6 +52,7 @@ class MainGame extends Component {
             }
         }
         this.restartAlert("You Lose!")
+        playDieSound()
     }
 
     revealNeighbors = (x, y) => {
@@ -107,6 +109,7 @@ class MainGame extends Component {
 
     winGame = () => {
         this.restartAlert("You Win!")
+        playVictorySound()
     }
 
     restartAlert = (text) => Alert.alert(

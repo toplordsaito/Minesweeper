@@ -1,8 +1,42 @@
-import Sound from 'react-native-sound';
+import { Audio } from 'expo-av';
 
-Sound.setCategory('Ambient', true);
 
-const flagSound = new Sound(require('./flag.wav'), error => console.log(error));
-export const playFlagSound = () => {
-    flagSound.play((success) => flagSound.reset());
+export const playFlagSound = async () => {
+    try {
+        const { sound: soundObject, status } = await Audio.Sound.createAsync(
+            require("./flag.mp3"),
+            { shouldPlay: true }
+        );
+    } catch (error) {
+    }
+}
+
+export const playOpenSound = async () => {
+    try {
+        const { sound: soundObject, status } = await Audio.Sound.createAsync(
+            require("./open.mp3"),
+            { shouldPlay: true }
+        );
+    } catch (error) {
+    }
+}
+
+export const playVictorySound = async () => {
+    try {
+        const { sound: soundObject, status } = await Audio.Sound.createAsync(
+            require("./victory.mp3"),
+            { shouldPlay: true }
+        );
+    } catch (error) {
+    }
+}
+
+export const playDieSound = async () => {
+    try {
+        const { sound: soundObject, status } = await Audio.Sound.createAsync(
+            require("./die.mp3"),
+            { shouldPlay: true }
+        );
+    } catch (error) {
+    }
 }
