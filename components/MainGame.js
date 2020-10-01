@@ -118,7 +118,7 @@ class MainGame extends Component {
         [
             {
                 text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
+                onPress: this.resetGame,
                 style: "cancel"
             },
             {
