@@ -12,6 +12,7 @@ const Home = ({navigation}) => {
         renderItem={({ item }) => (
           <Button  style={{ margin: "1%" }} title={item} onPress={()=>{navigation.navigate(item)}}/>
         )}
+        keyExtractor={(item) => item}
       />
     </View>
   );

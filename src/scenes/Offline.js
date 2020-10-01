@@ -29,18 +29,18 @@ const Offline = ({navigation}) => {
           setIndex(i);
           if (i == 0) {
             setDisabled(true);
-            setSize(10);
-            setBomb(10);
+            setSize(3);
+            setBomb(1);
           }
           if (i == 1) {
             setDisabled(true);
-            setSize(20);
-            setBomb(40);
+            setSize(10);
+            setBomb(10);
           }
           if (i == 2) {
             setDisabled(true);
-            setSize(40);
-            setBomb(450);
+            setSize(20);
+            setBomb(40);
           }
           if (i == 3) {
             setDisabled(false);
