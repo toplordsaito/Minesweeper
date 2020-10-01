@@ -41,12 +41,12 @@ class MainGame extends Component {
     }
 
     onDie = () => {
-        Alert.alert("Game Over!");
         for (let i = 0; i < this.state.BOARD_SIZE; i++) {
             for (let j = 0; j < this.state.BOARD_SIZE; j++) {
                 this.grid[i][j].revealWithoutCallback();
             }
         }
+        this.restartAlert("You Lose!")
     }
 
     revealNeighbors = (x, y) => {
@@ -102,9 +102,25 @@ class MainGame extends Component {
     }
 
     winGame = () => {
-        Alert.alert("You Win!");
-        this.resetGame();
+        this.restartAlert("You Win!")
     }
+
+    restartAlert = (text) => Alert.alert(
+        text,
+        "Are you want to restart?",
+        [
+            {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+            },
+            {
+                text: "OK", onPress: () => { this.resetGame() }
+            }
+        ],
+        { cancelable: false }
+    );
+
     renderBoard = () => {
         return Array.apply(null, Array(this.state.BOARD_SIZE)).map((el, rowIdx) => {
             let cellList = Array.apply(null, Array(this.state.BOARD_SIZE)).map((el, colIdx) => {
@@ -135,6 +151,9 @@ class MainGame extends Component {
 
     resetGame = () => {
         this.generateMine()
+        this.setState({
+            flagSet: new Set()
+        })
         for (let i = 0; i < this.state.BOARD_SIZE; i++) {
             for (let j = 0; j < this.state.BOARD_SIZE; j++) {
                 this.grid[i][j].reset();
@@ -146,7 +165,6 @@ class MainGame extends Component {
         this.setState({
             focusMode: val
         })
-        console.log(val)
 
     }
 
