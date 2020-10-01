@@ -37,8 +37,9 @@ class SwitchFlag extends Component {
 
 const styles = StyleSheet.create({
     toggle: {
+        borderRadius: 30,
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
+        backgroundColor: "#CAF0F8",
         padding: 10,
     },
     toggleImage: {

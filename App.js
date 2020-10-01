@@ -12,7 +12,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       
-      <MainGame size={3} mine={1}/>
+      <MainGame size={10} mine={10}/>
       <StatusBar style="auto" />
     </View>
   );

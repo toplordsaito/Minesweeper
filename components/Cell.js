@@ -7,6 +7,7 @@ import {
     Text
 } from 'react-native';
 import imagesList from '../assets/image'
+// import { playFlagSound } from '../assets/sound/audio';
 
 export default class Cell extends Component {
     constructor(props) {
@@ -70,6 +71,7 @@ export default class Cell extends Component {
             isFlag: !this.state.isFlag
         }, () => {
             this.props.ChangeFlag(this.state.isFlag, this.props.x, this.props.y)
+            // playFlagSound()
         })
     }
 
@@ -79,7 +81,6 @@ export default class Cell extends Component {
         } else {
             this.flag()
         }
-        console.log(this.props.focusMode)
     }
 
     handleLongPress = () => {
@@ -94,11 +95,11 @@ export default class Cell extends Component {
             let content = null;
             if (this.isMine()) {
                 content = (
-                    <Image source={imagesList.mine} style={{ width: this.props.width / 2, height: this.props.height / 2 }} resizeMode="contain" />
+                    <Image source={imagesList.mine} style={{ width: this.props.width, height: this.props.height }} resizeMode="contain" />
                 )
             } else if (this.state.neighbors) {
                 content = (
-                    <Text>{this.state.neighbors}</Text>
+                    <Text style={styles.neighborsText}>{this.state.neighbors}</Text>
                 )
             }
 
@@ -113,7 +114,7 @@ export default class Cell extends Component {
             let content = ""
             if (this.state.isFlag) {
                 content = (
-                    <Image source={imagesList.flag} style={{ width: this.props.width / 2, height: this.props.height / 2 }} resizeMode="contain" />
+                    <Image source={imagesList.flag} style={{ width: this.props.width/2, height: this.props.height/2 }} resizeMode="center" />
                 )
             } else {
                 // content = (<Text></Text>)
@@ -132,22 +133,25 @@ export default class Cell extends Component {
 
 const styles = StyleSheet.create({
     cell: {
-        backgroundColor: '#bdbdbd',
+        backgroundColor: '#023E8A',
         borderWidth: 3,
-        borderTopColor: '#ffffff',
-        borderLeftColor: '#ffffff',
-        borderRightColor: '#7d7d7d',
-        borderBottomColor: '#7d7d7d',
+        borderTopColor: '#48CAE4',
+        borderLeftColor: '#48CAE4',
+        borderRightColor: '#00B4D8',
+        borderBottomColor: '#00B4D8',
         alignItems: 'center',
         justifyContent: 'center',
     },
     cellRevealed: {
-        backgroundColor: '#bdbdbd',
+        backgroundColor: '#48CAE4',
         borderWidth: 1,
-        borderColor: '#7d7d7d',
+        borderColor: '#00B4D8',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    
+    neighborsText: {
+        color: "white"
+    }
+
 
 })

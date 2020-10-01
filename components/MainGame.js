@@ -9,7 +9,7 @@ class MainGame extends Component {
     state = {
         mine: this.props.mine,
         boardWidth: 0,
-        CELL_SIZE: Dimensions.get('screen').width / (this.props.size * 1.2), //min = 20      x/(y*1.2) > 20
+        CELL_SIZE: Dimensions.get('screen').width / (this.props.size), //min = 20      x/(y*1.2) > 20
         BOARD_SIZE: this.props.size,
         mineSet: new Set(),
         flagSet: new Set(),
@@ -38,7 +38,6 @@ class MainGame extends Component {
             let col = Math.floor(Math.random() * this.state.BOARD_SIZE);
             this.state.mineSet.add(this.posToString(col, row))
         }
-        console.log(this.state.mineSet)
     }
 
     posToString = (x, y) => {
@@ -191,7 +190,7 @@ class MainGame extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#CAF0F8',
         alignItems: 'center',
         justifyContent: 'center',
     },
