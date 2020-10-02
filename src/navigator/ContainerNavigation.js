@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import  HomeStackScreen  from './HomeStack.js'
-import  OfflineStackScreen  from './OfflineStack.js'
+import Home from '../scenes/Home.js';
+import Offline from '../scenes/Offline.js';
+import test from '../scenes/gamedemo.js'
 import  {createStackNavigator}  from '@react-navigation/stack';
 function ContainerNavigation() {
     const Stack = createStackNavigator();
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeStackScreen}  options={{title: '', headerTransparent: true}}/>
-          <Stack.Screen name="Offline" component={OfflineStackScreen} />
+          <Stack.Screen name="Home" component={Home}  options={{title: '', headerTransparent: true}}/>
+          <Stack.Screen name="Offline" component={Offline} />
+          <Stack.Screen name="OfflineGame" component={test}  options={{title: '', headerTransparent: true}} />
         </Stack.Navigator>
       </NavigationContainer>
     );
