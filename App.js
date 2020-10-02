@@ -1,23 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
-import OnlineMenu from './components/OnlineMenu';
-
+import  ContainerNavigation  from './src/navigator/ContainerNavigation'
 export default function App() {
   return (
-    <View style={styles.container}>
-      <OnlineMenu></OnlineMenu>
-      <StatusBar style="auto" />
-    </View>    
+    <ContainerNavigation/>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
