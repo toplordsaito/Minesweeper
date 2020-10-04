@@ -22,7 +22,7 @@ const Offline = ({navigation}) => {
           color: "white",
         }}
       >
-        LEV<Text style={{color:"red"}}>L</Text>E :{" "}
+        LEV<Text style={{color:"red"}}>E</Text>L :{" "}
       </Text>
       <ButtonGroup
         onPress={(i) => {
