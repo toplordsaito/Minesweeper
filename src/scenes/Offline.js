@@ -110,8 +110,9 @@ const Offline = ({navigation}) => {
       </View>
       <View
         style={{
-          flex: 0.1,
+          flex: 0.2,
           flexDirection: "row",
+          marginTop: 16,
         }}
       >
         <Text style={{ color: "white" }}>

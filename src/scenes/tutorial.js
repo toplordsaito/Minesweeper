@@ -4,6 +4,7 @@ import { View, FlatList, Image } from "react-native";
 const Tutorial = ({ navigation }) => {
   const layer = [
     {
+      id: 1,
       head: (
         <Text
           style={{
@@ -31,6 +32,7 @@ const Tutorial = ({ navigation }) => {
         "1. ถ้าคุณจะชนะเกมนี้คุณต้องค้นหาระเบิดภายในเกมให้ได้ทั้ง\n2. จากนั้นก็ทำการล็อคระเบิดไม่ให้มันทำงานได้แล้วคุณก็ชนะเกมนี้",
     },
     {
+      id: 2,
       head: (
         <Text
           style={{
@@ -103,6 +105,7 @@ const Tutorial = ({ navigation }) => {
             </Text>
           </View>
         )}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );
