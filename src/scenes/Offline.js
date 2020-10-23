@@ -22,7 +22,7 @@ const Offline = ({navigation}) => {
           color: "white",
         }}
       >
-        LEVLE :{" "}
+        LEV<Text style={{color:"red"}}>E</Text>L :{" "}
       </Text>
       <ButtonGroup
         onPress={(i) => {
@@ -66,7 +66,7 @@ const Offline = ({navigation}) => {
           color: "white",
         }}
       >
-        Block :
+        B<Text style={{color:"red"}}>L</Text>OCK :
       </Text>
       <View
         style={{
@@ -78,10 +78,13 @@ const Offline = ({navigation}) => {
           value={size}
           onValueChange={(item) => {
             setSize(item);
+            if((item*item-1) <= bomb){
+              setBomb(Math.max(item * item - 1,0))
+            }
             
           }}
           style={{ width: 100, height: 30, marginRight: 50 }}
-          minimumValue={0}
+          minimumValue={1}
           step={1}
           disabled={disabled}
           maximumValue={100}
@@ -97,7 +100,7 @@ const Offline = ({navigation}) => {
           }}
           style={{ width: 100, height: 30 }}
           minimumValue={0}
-          maximumValue={size?size * size - 1:0}
+          maximumValue={Math.max(size * size - 1,0)}
           step={1}
           disabled={disabled}
           minimumTrackTintColor="#FFFFFF"
@@ -107,8 +110,9 @@ const Offline = ({navigation}) => {
       </View>
       <View
         style={{
-          flex: 0.1,
+          flex: 0.2,
           flexDirection: "row",
+          marginTop: 16,
         }}
       >
         <Text style={{ color: "white" }}>
@@ -127,17 +131,18 @@ const Offline = ({navigation}) => {
           color: "white",
         }}
       >
-        Mode :
+        MOD<Text style={{color:"red"}}>E</Text> :
       </Text>
 
       <Picker
         itemStyle={{ height: 100, color: "white" }}
         selectedValue={mode}
         style={{
-          height: 50,
+          height:50,
           width: 200,
-          borderRadius: 10,
+          marginTop:"2.5%",
           alignSelf: "center",
+          marginBottom: "20%"
         }}
         onValueChange={(itemValue) => setMode(itemValue)}
       >
@@ -145,7 +150,7 @@ const Offline = ({navigation}) => {
         <Picker.Item label="Endless" value="Endless" />
       </Picker>
       <Button
-        style={{ marginTop: "30%", width: 120 }}
+        style={{ width: 120 }}
         title="Play Game!"
         onPress={() => {
           navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode:mode });
