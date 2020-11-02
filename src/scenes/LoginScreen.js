@@ -75,7 +75,8 @@ const Login = ({ navigation }) => {
             title={item}
             onPress={async () => {
               AsyncStorage.setItem("login", "true");
-              const user = await AsyncStorage.getItem("user");
+              let user = await AsyncStorage.getItem("user");
+              user = JSON.parse(user)
               let data;
               if (!user) {
                 console.log("new Player");
@@ -85,15 +86,16 @@ const Login = ({ navigation }) => {
                     name: "Guest",
                     avatar:
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                    facebookid: null,
+                      facebookId: null,
                     elorank: 0,
                   };
                 } else {
                   const dataFaceBook =  await logInWithFaceBook();
                   data = {
+                    id: null,
                     name: dataFaceBook.name,
                     avatar: dataFaceBook.picture.data.url,
-                    facebookid: dataFaceBook.id,
+                    facebookId: dataFaceBook.id,
                     elorank: 0,
                   };
                 }
@@ -103,9 +105,10 @@ const Login = ({ navigation }) => {
                   const dataFaceBook =  await logInWithFaceBook();
                   console.log(dataFaceBook)
                   data = {
+                    id: user.id,
                     name: dataFaceBook.name,
                     avatar: dataFaceBook.picture.data.url,
-                    facebookid: dataFaceBook.id,
+                    facebookId: dataFaceBook.id,
                     elorank: user.elorank,
                   };
                 }

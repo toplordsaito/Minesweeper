@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Text } from "react-native-elements";
 import { View, FlatList, Image } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+const userApi = require('../apis/userAPI');
 import AsyncStorage from "@react-native-community/async-storage";
 const Home = ({ navigation }) => {
   const button = [
@@ -12,6 +12,29 @@ const Home = ({ navigation }) => {
     "Logout",
     "Clear",
   ];
+  const ButtonEvent = async (item) =>{
+    if (item == 'Online'){
+      let user = await AsyncStorage.getItem('user');
+      user = JSON.parse(user)
+      // console.log("wtf: ", user)
+      const userInDb = await userApi.CreateOrUpdate(user);
+      if (userInDb != "อัพเดพสำเร็จ" && userInDb){
+      AsyncStorage.setItem("user", JSON.stringify(userInDb));}
+      console.log(userInDb)
+    }
+    if (item == "Logout") {
+      AsyncStorage.removeItem("login");
+      navigation.navigate("SplashScreen");
+    }
+    if (item == "Clear") {
+      AsyncStorage.removeItem("login");
+
+      AsyncStorage.removeItem("user");
+      navigation.navigate("SplashScreen");
+    } else {
+      navigation.navigate(item);
+    }
+  }
   return (
     <View
       style={{
@@ -49,18 +72,7 @@ const Home = ({ navigation }) => {
             style={{ margin: "1%" }}
             title={item}
             onPress={() => {
-              if (item == "Logout") {
-                AsyncStorage.removeItem("login");
-                navigation.navigate("SplashScreen");
-              }
-              if (item == "Clear") {
-                AsyncStorage.removeItem("login");
-
-                AsyncStorage.removeItem("user");
-                navigation.navigate("SplashScreen");
-              } else {
-                navigation.navigate(item);
-              }
+              ButtonEvent(item)
             }}
           />
         )}
