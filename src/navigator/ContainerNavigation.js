@@ -9,6 +9,7 @@ import JoinLobby from "../scenes/JoinLobby.js";
 import Tutorial from "../scenes/tutorial";
 import SplashScreen from "../scenes/SplashScreen";
 import Login from "../scenes/LoginScreen";
+import LeaderBoard from "../scenes/LeaderBoard";
 import { createStackNavigator } from "@react-navigation/stack";
 function ContainerNavigation() {
   const Stack = createStackNavigator();
@@ -38,6 +39,7 @@ function ContainerNavigation() {
         />
         <Stack.Screen name="Online" component={Online} />
         <Stack.Screen name="Lobby" component={Lobby} />
+        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="Join Lobby" component={JoinLobby} />
         <Stack.Screen name="Tutorial" component={Tutorial} />
       </Stack.Navigator>

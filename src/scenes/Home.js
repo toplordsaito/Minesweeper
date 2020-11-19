@@ -6,12 +6,14 @@ const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
 const Home = ({ navigation }) => {
   const button = [
+    "LeaderBoard",
     "Offline",
     "Online",
     "Ranking Board",
     "Tutorial",
     "Logout",
     "Link FaceBook",
+    
   ];
   const ButtonEvent = async (item) => {
     let user = await AsyncStorage.getItem("user");
