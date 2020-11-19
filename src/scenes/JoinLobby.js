@@ -1,34 +1,77 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Button } from "react-native-elements";
 import { TextInput, StyleSheet, View } from "react-native";
+import { useJoinRoom } from '../hooks'
 
 const MODE = ['PvP', 'Ranking', 'Battle Royal', 'Any'];
 
-export default class JoinLobby extends Component {
-  state = {
-    code: '',
+const JoinRoomButton = ({ navigation }) => {
+  const { joinRoom, isJoining } = useJoinRoom()
+  const [code, setCode] = useState();
+  const joinRoomHanler = async () => {
+    const isFound = await joinRoom(code)
+    if (isFound) {
+      navigateRoom()
+    }
   }
-  constructor(props) {
-    super(props);
+  const navigateRoom = () => {
+    console.log("code", code)
+    navigation.navigate("Lobby",
+      {
+        code,
+        role: 'member'
+      })
   }
-  updateCode = (text) => {
-    this.setState({
-      code: text,
-    })
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <TextInput keyboardType='numeric' maxLength={4} style={[styles.textInput, {flex: 1}]} onChangeText={(text) => this.updateCode(text)}></TextInput>
-        <Button
-          style={[styles.button, {flex: 1}]}
-          title={"Join"}
-          onPress={() => this.props.navigation.navigate("Lobby", {code: this.state.code, role: 'member'})}
-        />
-      </View>
-    )
-  }
+  return (
+    <View style={styles.container}>
+      <TextInput
+        keyboardType='numeric'
+        maxLength={4}
+        style={[styles.textInput, { flex: 1 }]}
+        onChangeText={setCode}>
+      </TextInput>
+      <Button
+        style={[styles.button, { flex: 1 }]}
+        title={"Join"}
+        onPress={joinRoomHanler}
+      />
+    </View>
+  )
 }
+export default JoinRoomButton
+// export default class JoinLobby extends Component {
+//   state = {
+//     code: '',
+//   }
+//   constructor(props) {
+//     super(props);
+//   }
+//   updateCode = (text) => {
+//     this.setState({
+//       code: text,
+//     })
+//   }
+//   joinRoomHanler = async (roomid) => {
+//     this.props.navigation.navigate("Lobby",
+//       {
+//         code: this.state.code,
+//         role: 'member'
+//       })
+//   }
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <TextInput keyboardType='numeric' maxLength={4} style={[styles.textInput, { flex: 1 }]} onChangeText={(text) => this.updateCode(text)}></TextInput>
+//         <Button
+//           style={[styles.button, { flex: 1 }]}
+//           title={"Join"}
+//           onPress={this.joinRoomHanler}
+//         />
+//         <JoinRoomButton />
+//       </View>
+//     )
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
