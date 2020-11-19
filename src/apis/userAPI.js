@@ -23,15 +23,15 @@ export function eloRanking(player1, player2, score1, score2) {
 export function CreateOrUpdate(profile) {
   return api
     .post("user/", profile)
-    .then((res) => {console.log(res);return res.data})
-    .catch((err) => {console.log(err.message);return null});
+    .then((res) => {return res.data})
+    .catch((err) => {return null});
 }
 
 export function findOrCreateFaceBook(profile) {
   return api
     .post("user/login", profile)
-    .then((res) => {console.log(res);return res.data})
-    .catch((err) => {console.log(err.message);return null});
+    .then((res) => {return res.data})
+    .catch((err) => {return null});
 }
 export function linkFaceBook(profile) {
   return api
