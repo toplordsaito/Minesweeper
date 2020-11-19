@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-// import { useCurrentUser } from '../../hooks'
+import { useCurrentUser } from '../../hooks'
 import { db } from '../../services'
 
 function genId(): string {
@@ -17,8 +17,9 @@ interface Output {
 }
 
 const useCreateRoom = (): Output => {
-  // const user = useCurrentUser()
-  const user = { id: "user" + Math.floor(Math.random() * 1000) }
+  const user = useCurrentUser()
+  console.log(user)
+  // const user = { id: "user" + Math.floor(Math.random() * 1000) }
   const [isCreatingRoom, setIsCreatingRoom] = useState(false)
 
   async function createRoom(): Promise<string | undefined> {
