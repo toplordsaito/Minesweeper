@@ -1,27 +1,30 @@
 import { useEffect, useState } from "react";;
 import AsyncStorage from "@react-native-community/async-storage";
-interface Output {
-  user: {
+interface User {
     id: number;
     elorank: number;
     facebookId: string;
     name: string;
     avatar: string;
-  };
+}
+interface Output {
+  user: User
 }
 
 const useCurrentUser = (): Output => {
-  const [user, setUser] = useState();
-  useEffect( () => {
-    const getUser = async () =>{
-      let userFromDevice:any = await AsyncStorage.getItem("user");
-      userFromDevice = JSON.parse(user);
-      setUser((prevState:any) => {
+  const [user, setUser] = useState({});
+  const getUser = async () =>{
+    let userFromDevice:User = JSON.parse(await AsyncStorage.getItem("user"));
+    setUser((prevState:any) => {
         return { ...prevState, ...userFromDevice };
       });
-    }
-   getUser()
-  }, [user]);
+    setUser(userFromDevice);
+  }
+  useEffect( () => {
+    return async () => {
+        await getUser()
+      }
+  }, []);
 
   return { user };
 };
