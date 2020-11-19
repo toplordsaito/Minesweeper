@@ -17,8 +17,9 @@ interface Output {
 }
 
 const useCreateRoom = (): Output => {
+
   const user = useCurrentUser()
-  console.log(user)
+  console.log("user in room :"+JSON.stringify(user))
   // const user = { id: "user" + Math.floor(Math.random() * 1000) }
   const [isCreatingRoom, setIsCreatingRoom] = useState(false)
 

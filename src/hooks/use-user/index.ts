@@ -7,26 +7,26 @@ interface User {
     name: string;
     avatar: string;
 }
-interface Output {
-  user: User
-}
 
-const useCurrentUser = (): Output => {
-  const [user, setUser] = useState({});
+const useCurrentUser = (): User => {
+  const [user, setUser] = useState<User|any>({id: 0,
+    elorank: 0,
+    facebookId: "string",
+    name: "string",
+    avatar: "string",});
   const getUser = async () =>{
+    console.log('----------------------set------------')
     let userFromDevice:User = JSON.parse(await AsyncStorage.getItem("user"));
-    setUser((prevState:any) => {
+    console.log("show : "+ JSON.stringify(userFromDevice))
+    setUser((prevState:User) => {
         return { ...prevState, ...userFromDevice };
       });
-    setUser(userFromDevice);
   }
   useEffect( () => {
-    return async () => {
-        await getUser()
-      }
+    getUser()
   }, []);
-
-  return { user };
+  
+  return user;
 };
 
 export default useCurrentUser;
