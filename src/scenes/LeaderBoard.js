@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Text } from "react-native-elements";
-import { View, FlatList, Image } from "react-native";
+import { View, FlatList, Image, TouchableOpacity } from "react-native";
 const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
 const LeaderBoard = ({ navigation }) => {
@@ -14,6 +14,10 @@ const LeaderBoard = ({ navigation }) => {
   useEffect(() => {
     getLeaderBoard();
   }, []);
+  const viewProfile = async(id) =>{
+    const userProfile = await userApi.getUserById(id);
+    navigation.navigate("Profile", { user: userProfile  });
+  }
   return (
     <View
       style={{
@@ -43,6 +47,10 @@ const LeaderBoard = ({ navigation }) => {
           </View>
         }
         renderItem={({ item }) => (
+          <TouchableOpacity
+          style={{ borderBottomWidth: 1, borderBottomColor: 'transparent' }}
+          onPress={() => viewProfile(item.id)}
+        >
           <View style={{ flex: 1, flexDirection: "row", marginBottom: 50 }}>
             <Image
               source={{
@@ -55,6 +63,7 @@ const LeaderBoard = ({ navigation }) => {
               EloRank : {item.elorank} Name: {item.name}
             </Text>
           </View>
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item}
       />

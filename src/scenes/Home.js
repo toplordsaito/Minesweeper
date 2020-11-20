@@ -6,6 +6,7 @@ const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
 const Home = ({ navigation }) => {
   const button = [
+    "Profile",
     "LeaderBoard",
     "Offline",
     "Online",
@@ -13,7 +14,6 @@ const Home = ({ navigation }) => {
     "Tutorial",
     "Logout",
     "Link FaceBook",
-    
   ];
   const ButtonEvent = async (item) => {
     let user = await AsyncStorage.getItem("user");
@@ -47,7 +47,13 @@ const Home = ({ navigation }) => {
       }
       console.log(userInDb);
     } else {
-      navigation.navigate(item);
+      if (item == "Profile") {
+        const userProfile = JSON.parse(await AsyncStorage.getItem("user"))
+        console.log("user in room :" + JSON.stringify(userProfile));
+        navigation.navigate(item, { user: userProfile  });
+      } else {
+        navigation.navigate(item);
+      }
     }
   };
   return (

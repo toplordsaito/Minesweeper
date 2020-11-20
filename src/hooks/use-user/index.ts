@@ -6,6 +6,8 @@ interface User {
     facebookId: string;
     name: string;
     avatar: string;
+    win: number;
+    lose: number;
 }
 
 const useCurrentUser = (): User => {
@@ -13,7 +15,9 @@ const useCurrentUser = (): User => {
     elorank: 0,
     facebookId: "string",
     name: "string",
-    avatar: "string",});
+    avatar: "string",
+    win: 0,
+    lose: 0});
   const getUser = async () =>{
     console.log('----------------------set------------')
     let userFromDevice:User = JSON.parse(await AsyncStorage.getItem("user"));
