@@ -28,8 +28,11 @@ class MainGame extends Component {
                 return null;
             });
         });
-        if (this.props.isOnline) {
-            this.mineSet = new Set(this.props.mineSet)
+        if (this.props.mode == "Online") {
+            this.setState({
+                mineSet: new Set(this.props.mineSet)
+            })
+            console.log("playing Online")
         } else {
             this.generateMine()
         }

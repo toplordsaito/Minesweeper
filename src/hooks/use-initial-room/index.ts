@@ -26,14 +26,13 @@ const UseInitailGame = (roomId): Output => {
           .update({
             mine: mine,
           })
-        console.log("pre-final")
+
 
       }
 
     } catch (err) {
       console.error(err)
     } finally {
-      console.log("final")
       setIsInitial(false)
       return mine
     }

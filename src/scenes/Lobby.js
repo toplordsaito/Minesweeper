@@ -48,6 +48,7 @@ const Lobby = ({ route, navigation }) => {
   startGame = async () => {
     console.log("initButton")
     let mine = await initialGame()
+    console.log(mine)
     console.log("WTFFFFFFFFFFFFFFFFFF")
     navigation.navigate("OnlineGame", { mode: "Online", code, room, mine });
   }

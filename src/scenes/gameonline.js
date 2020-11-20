@@ -15,7 +15,10 @@ const OnlineGame = ({ route, navigation }) => {
     console.log(room.size)
     console.log(room.mineSize)
     console.log(mine)
-    return (<MainGame size={room.size} mine={room.bomb} mineSet={room.mine} />)
+    return (
+      // <Text>5555</Text>
+      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={room.mine}/>
+    )
   }
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
