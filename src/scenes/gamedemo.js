@@ -11,7 +11,7 @@ const { size, bomb, mode } = route.params;
       {/* <Text>{size}</Text>
       <Text>{bomb}</Text>
       <Text>{mode}</Text> */}
-      <MainGame size={size} mine={bomb}/>
+      <MainGame size={size} mine={bomb} />
       
     </View>
   );
