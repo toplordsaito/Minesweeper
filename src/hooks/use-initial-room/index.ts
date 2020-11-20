@@ -4,7 +4,7 @@ import { db } from '../../services'
 
 interface Output {
   isInitial: boolean
-  initialGame: () => void
+  initialGame: () => Object
 }
 
 const UseInitailGame = (roomId): Output => {
@@ -13,25 +13,29 @@ const UseInitailGame = (roomId): Output => {
 
   async function initialGame() {
     setIsInitial(true)
+    let mine;
     try {
       const doc = await db.collection('rooms').doc(roomId).get()
       if (doc.exists) {
         const data = doc.data()
-        let mine = generateMine(data.mineSize, data.size)
+        mine = generateMine(data.mineSize, data.size)
         console.log(mine)
         await db
           .collection('rooms')
           .doc(roomId)
           .update({
-            mine,
+            mine: mine,
           })
+        console.log("pre-final")
 
       }
 
     } catch (err) {
       console.error(err)
     } finally {
+      console.log("final")
       setIsInitial(false)
+      return mine
     }
   }
 

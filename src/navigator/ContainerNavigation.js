@@ -3,6 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "../scenes/Home.js";
 import Offline from "../scenes/Offline.js";
 import test from "../scenes/gamedemo.js";
+import OnlineGame from "../scenes/gameonline.js";
+
 import Online from "../scenes/Online.js";
 import Lobby from "../scenes/Lobby.js";
 import JoinLobby from "../scenes/JoinLobby.js";
@@ -34,6 +36,11 @@ function ContainerNavigation() {
         <Stack.Screen
           name="OfflineGame"
           component={test}
+          options={{ title: "", headerTransparent: true }}
+        />
+        <Stack.Screen
+          name="OnlineGame"
+          component={OnlineGame}
           options={{ title: "", headerTransparent: true }}
         />
         <Stack.Screen name="Online" component={Online} />

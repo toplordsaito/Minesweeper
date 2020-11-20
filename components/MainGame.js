@@ -16,10 +16,10 @@ class MainGame extends Component {
         flagSet: new Set(),
         focusMode: false,
     };
-    static propTypes = {
-        size: PropTypes.number.isRequired,
-        mine: PropTypes.number.isRequired,
-    };
+    // static propTypes = {
+    //     size: PropTypes.number.isRequired,
+    //     mine: PropTypes.number.isRequired,
+    // };
     constructor(props) {
         super(props);
         this.boardWidth = this.state.CELL_SIZE * this.state.BOARD_SIZE;
@@ -28,7 +28,12 @@ class MainGame extends Component {
                 return null;
             });
         });
-        this.generateMine()
+        if (this.props.isOnline) {
+            this.mineSet = new Set(this.props.mineSet)
+        } else {
+            this.generateMine()
+        }
+
     }
 
 
