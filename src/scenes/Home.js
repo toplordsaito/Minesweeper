@@ -52,7 +52,8 @@ const Home = ({ navigation }) => {
         console.log("user in room :" + JSON.stringify(userProfile));
         navigation.navigate(item, { user: userProfile  });
       } else {
-        navigation.navigate(item);
+        if(item != "Logout"){
+        navigation.navigate(item);}
       }
     }
   };
