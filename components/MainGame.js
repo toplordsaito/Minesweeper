@@ -12,7 +12,7 @@ class MainGame extends Component {
         boardWidth: 0,
         CELL_SIZE: Dimensions.get('screen').width / (this.props.size), //min = 20      x/(y*1.2) > 20
         BOARD_SIZE: this.props.size,
-        mineSet: new Set(),
+        mineSet: "new Set()",
         flagSet: new Set(),
         focusMode: false,
     };
@@ -28,17 +28,17 @@ class MainGame extends Component {
                 return null;
             });
         });
-        if (this.props.mode == "Online") {
-            this.setState({
-                mineSet: new Set(this.props.mineSet)
-            })
-            console.log("playing Online")
-        } else {
-            this.generateMine()
-        }
 
     }
 
+    componentDidMount() {
+        if (this.props.mode == "Online") {
+            const gameMine = new Set(this.props.mineSet)
+            this.state.mineSet = gameMine
+        } else {
+            this.generateMine()
+        }
+    }
 
     generateMine() {
         this.state.mineSet = new Set()
@@ -59,8 +59,21 @@ class MainGame extends Component {
                 this.grid[i][j].revealWithoutCallback();
             }
         }
-        this.restartAlert("You Lose!")
+        this.onEndgame(false)
         playDieSound()
+    }
+
+
+    onEndgame = (isVictory) => {
+        if (this.props.mode == "Online") {
+            return this.props.onEndgame(isVictory)
+        }
+        if (isVictory) {
+            this.restartAlert("You Win!")
+        } {
+            this.restartAlert("You Lose!")
+        }
+
     }
 
     revealNeighbors = (x, y) => {
@@ -116,8 +129,10 @@ class MainGame extends Component {
     }
 
     winGame = () => {
-        this.restartAlert("You Win!")
         playVictorySound()
+        this.onEndgame(true)
+
+
     }
 
     restartAlert = (text) => Alert.alert(

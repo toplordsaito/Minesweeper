@@ -25,6 +25,7 @@ const UseInitailGame = (roomId): Output => {
           .doc(roomId)
           .update({
             mine: mine,
+            state: "playing",
           })
 
 
