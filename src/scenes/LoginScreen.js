@@ -4,45 +4,29 @@ import { View, FlatList, Image, Alert } from "react-native";
 import { CommonActions } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import  {logInWithFaceBook}  from '../components/loginWithFaceBook'
-const userApi = require('../apis/userAPI');
 import AsyncStorage from "@react-native-community/async-storage";
+import stylesTheme from "../styles/theme.styles";
+
+const userApi = require('../apis/userAPI');
+
 const Login = ({ navigation }) => {
   const button = ["Play now!!!", "Login with Facebook"];
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#212930",
-      }}
-    >
+    <View style={stylesTheme.container}>
       <FlatList
         data={button}
         ListHeaderComponent={
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{
-                marginTop: "25%",
-                marginBottom: "15%",
-                fontWeight: "bold",
-                color: "white",
-              }}
-              h1
-            >
-              M<Text style={{ color: "red" }}>i</Text>neSweeper
+          <View style={stylesTheme.innerContainer}>
+            <Text style={stylesTheme.headerText} h1>
+              M<Text style={stylesTheme.innerText}>i</Text>neSweeper
             </Text>
-            <Image
-              style={{ width: 300, height: 300, marginBottom: "15%" }}
-              source={require("../asset/logo.png")}
-            />
+            <Image style={stylesTheme.image} source={require("../asset/logo.png")}/>
           </View>
         }
         renderItem={({ item }) => (
           <Button
-            style={{ margin: "1%" }}
+            buttonStyle={stylesTheme.button}
+            titleStyle={stylesTheme.buttonTitle}
             title={item}
             onPress={async () => {
               AsyncStorage.setItem("login", "true");

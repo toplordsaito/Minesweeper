@@ -4,8 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import  ContainerNavigation  from './src/navigator/ContainerNavigation'
 import { LogBox } from 'react-native';
 
-import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux"
+import { createStore, combineReducers } from "redux";
 import themeReducer from "./src/store/reducers/ThemeReducer"
 
 const rootReducer = combineReducers({

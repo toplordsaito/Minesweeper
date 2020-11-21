@@ -2,8 +2,10 @@ import React from "react";
 import { Button, Text } from "react-native-elements";
 import { View, FlatList, Image } from "react-native";
 import { logInWithFaceBook } from "../components/loginWithFaceBook";
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
+import stylesTheme from "../styles/theme.styles";
 const Home = ({ navigation }) => {
   const button = [
     "Profile",
@@ -57,44 +59,24 @@ const Home = ({ navigation }) => {
     }
   };
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#212930",
-      }}
-    >
+    <View style={stylesTheme.container}>
       <FlatList
         data={button}
         ListHeaderComponent={
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{
-                marginTop: "25%",
-                marginBottom: "15%",
-                fontWeight: "bold",
-                color: "white",
-              }}
-              h1
-            >
-              M<Text style={{ color: "red" }}>i</Text>neSweeper
+          <View style={[stylesTheme.innerContainer, {flex: 1, flexDirection: 'row'}]}>
+            <Image style={{width: wp('10%'), height: wp('10%'), marginRight: wp('2%')}} source={require("../asset/logo.png")}/>
+            <Text style={[stylesTheme.headerText]} h4>
+              M<Text style={stylesTheme.innerText}>i</Text>neSweeper
             </Text>
-            <Image
-              style={{ width: 300, height: 300, marginBottom: "15%" }}
-              source={require("../asset/logo.png")}
-            />
+            
           </View>
         }
         renderItem={({ item }) => (
           <Button
-            style={{ margin: "1%" }}
+            buttonStyle={stylesTheme.button}
+            titleStyle={stylesTheme.buttonTitle}
             title={item}
-            onPress={() => {
-              ButtonEvent(item);
-            }}
+            onPress={() => {ButtonEvent(item)}}
           />
         )}
         keyExtractor={(item) => item}

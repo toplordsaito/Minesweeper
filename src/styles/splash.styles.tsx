@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,8 +13,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 300,
-    height: 300,
+    width: wp('80%'),
+    height: wp('80%'),
   },
   logoText: {
     color: 'white',
@@ -22,4 +23,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Prompt_300Light',
   },
 });
+
 export default styles;
