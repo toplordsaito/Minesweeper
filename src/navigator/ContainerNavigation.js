@@ -4,7 +4,7 @@ import Home from "../scenes/Home.js";
 import Offline from "../scenes/Offline.js";
 import test from "../scenes/gamedemo.js";
 import OnlineGame from "../scenes/gameonline.js";
-
+import ResultScreen from "../scenes/ResultScreen.js";
 import Online from "../scenes/Online.js";
 import Lobby from "../scenes/Lobby.js";
 import JoinLobby from "../scenes/JoinLobby.js";
@@ -51,6 +51,12 @@ function ContainerNavigation() {
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="Join Lobby" component={JoinLobby} />
         <Stack.Screen name="Tutorial" component={Tutorial} />
+        <Stack.Screen
+          name="Result"
+          component={ResultScreen}
+          options={{ title: "", headerTransparent: true }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

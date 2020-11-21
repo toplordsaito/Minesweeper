@@ -53,7 +53,7 @@ const useCreateRoom = (): Output => {
         .doc(roomId)
         .set({
           players: [user.id],
-          isGameDone: false,
+          state: "waiting",
           times: [null, null, null, null],
           owner: user.id,
           mines: [],
