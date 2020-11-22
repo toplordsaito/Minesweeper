@@ -14,7 +14,7 @@ const list = [
 ]
 
 
-const Lobby = ({ route }) => {
+const Lobby = ({ route, navigation }) => {
   const [code, setCode] = useState(!route.params.code ? 'emty' : route.params.code);
   const [value, setValue] = useState(route.params.role === 'owner' ? route.params.value : 1);
   const [role, setRole] = useState(route.params.role);
@@ -22,6 +22,10 @@ const Lobby = ({ route }) => {
   const { isLeaving, leaveRoom } = useLeaveRoom(code)
   const { isInitialing, initialGame } = useInitailGame(code)
 
+
+  if (!isFetching && room.state == "playing") {
+    navigation.navigate("OnlineGame", { mode: "Online", code, room, mine: room.mine });
+  }
   display = () => {
     if (isFetching) {
       return (<Text>Loading Room...</Text>)
@@ -45,9 +49,12 @@ const Lobby = ({ route }) => {
     }
   }, [])
 
-  startGame = () => {
+  startGame = async () => {
     console.log("initButton")
-    initialGame()
+    let mine = await initialGame()
+    // console.log(mine)
+    // console.log("WTFFFFFFFFFFFFFFFFFF")
+    // navigation.navigate("OnlineGame", { mode: "Online", code, room, mine });
   }
 
 

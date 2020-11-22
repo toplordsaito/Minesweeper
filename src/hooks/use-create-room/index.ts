@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-// import { useCurrentUser } from '../../hooks'
+import { useCurrentUser } from '../../hooks'
 import { db } from '../../services'
 
 function genId(): string {
@@ -17,7 +17,9 @@ interface Output {
 }
 
 const useCreateRoom = (): Output => {
+
   // const user = useCurrentUser()
+  // console.log("user in room :"+JSON.stringify(user))
   const user = { id: "user" + Math.floor(Math.random() * 1000) }
   const [isCreatingRoom, setIsCreatingRoom] = useState(false)
 
@@ -51,7 +53,7 @@ const useCreateRoom = (): Output => {
         .doc(roomId)
         .set({
           players: [user.id],
-          isGameDone: false,
+          state: "waiting",
           times: [null, null, null, null],
           owner: user.id,
           mines: [],

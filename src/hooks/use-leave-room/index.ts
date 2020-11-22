@@ -31,7 +31,7 @@ const useLeavePosition = (roomId): Output => {
         if (data?.players.indexOf(userId) != -1) {
           let players = data?.players
           players.pop(data?.players.indexOf(userId))
-          if (players.length == 0) {
+          if (players.length == 0 && data.state == "waiting") {
             await db
               .collection('rooms')
               .doc(roomId)
