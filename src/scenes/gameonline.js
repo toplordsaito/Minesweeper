@@ -9,7 +9,7 @@ const OnlineGame = ({ route, navigation }) => {
   console.log("code", code)
   // const { isFetching, room } = useRoom(code)
   const button = ["Offline", "Online", "Ranking Board", "Tutorial"];
-  console.log("rroom" + room)
+  console.log("room" + room)
   Game = () => {
     console.log("*************")
     console.log(room.size)

@@ -1,14 +1,25 @@
-import { COLORS } from '../../styles/colors.styles';
+import { SWITCH_THEME } from '../actions/switchTheme';
+import { THEMES } from '../../styles/theme';
 
 const initialState = {
-  themeColor: COLORS.default,
+  colorData: THEMES.default,
 };
 
-const Theme = (state=initialState, action) => {
+const themeReducer = (state=initialState, action) => {
+  // console.log(action);
   switch (action.type) {
+    case SWITCH_THEME:
+      switch(action.theme) {
+        case 'Default':
+          return { colorData: THEMES.default };
+        case 'Light':
+          return { colorData: THEMES.light };
+        case 'Candy':
+          return { colorData: THEMES.candy };
+      }
     default:
       return state;
   }
 };
 
-export default Theme;
+export default themeReducer;

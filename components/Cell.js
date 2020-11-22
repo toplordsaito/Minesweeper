@@ -12,7 +12,6 @@ import { playFlagSound, playOpenSound } from '../assets/sound/audio';
 export default class Cell extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             revealed: false,
             neighbors: null,
@@ -149,6 +148,4 @@ const styles = StyleSheet.create({
     neighborsText: {
         color: "white"
     }
-
-
 })

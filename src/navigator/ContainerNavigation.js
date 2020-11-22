@@ -13,6 +13,7 @@ import SplashScreen from "../scenes/SplashScreen";
 import Login from "../scenes/LoginScreen";
 import LeaderBoard from "../scenes/LeaderBoard";
 import Profile from "../scenes/Profile";
+import Theme from "../scenes/ThemeSetting";
 import { createStackNavigator } from "@react-navigation/stack";
 function ContainerNavigation() {
   const Stack = createStackNavigator();
@@ -51,6 +52,7 @@ function ContainerNavigation() {
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="Join Lobby" component={JoinLobby} />
         <Stack.Screen name="Tutorial" component={Tutorial} />
+        <Stack.Screen name="Theme" component={Theme} />
       </Stack.Navigator>
     </NavigationContainer>
   );

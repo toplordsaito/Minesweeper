@@ -1,13 +1,9 @@
 import { StyleSheet } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 const stylesTheme = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#212930",
-  },
-  innerContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -19,13 +15,11 @@ const stylesTheme = StyleSheet.create({
     marginTop: "15%",
     marginBottom: "15%",
     fontWeight: "bold",
-    color: "white",
   },
   headerText:{
-    marginTop: "15%",
+    marginTop: "25%",
     marginBottom: "15%",
     fontWeight: "bold",
-    color: "white",
   },
   innerText: {
     color: "red",
@@ -37,10 +31,6 @@ const stylesTheme = StyleSheet.create({
   },
   button: {
     margin: "2%",
-    color: "#2089DB",
-  },
-  buttonTitle: {
-    color: "white",
   },
 });
 export default stylesTheme;

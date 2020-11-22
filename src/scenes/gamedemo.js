@@ -3,6 +3,8 @@ import { Button, Text } from "react-native-elements";
 import { View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import MainGame from '../../components/MainGame'
+import { useSelector } from "react-redux";
+
 const test = ({route, navigation}) => {
 const { size, bomb, mode } = route.params;
   const button = ["Offline", "Online", "Ranking Board", "Tutorial"];
@@ -11,7 +13,7 @@ const { size, bomb, mode } = route.params;
       {/* <Text>{size}</Text>
       <Text>{bomb}</Text>
       <Text>{mode}</Text> */}
-      <MainGame size={size} mine={bomb} />
+      <MainGame size={size} mine={bomb} colorData={useSelector((state) => state.theme.colorData)}/>
       
     </View>
   );

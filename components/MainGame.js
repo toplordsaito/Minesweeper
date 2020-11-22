@@ -6,11 +6,12 @@ import SwitchFlag from './SwitchFlag'
 import Timer from './Timer'
 import PropTypes from 'prop-types';
 import { playDieSound, playVictorySound } from '../assets/sound/audio';
+
 class MainGame extends Component {
     state = {
         mine: this.props.mine,
         boardWidth: 0,
-        CELL_SIZE: Dimensions.get('screen').width / (this.props.size), //min = 20      x/(y*1.2) > 20
+        CELL_SIZE: Dimensions.get('screen').width / (this.props.size), //min = 20    x/(y*1.2) > 20
         BOARD_SIZE: this.props.size,
         mineSet: new Set(),
         flagSet: new Set(),
@@ -22,6 +23,7 @@ class MainGame extends Component {
     // };
     constructor(props) {
         super(props);
+        this.colorData = this.props.colorData;
         this.boardWidth = this.state.CELL_SIZE * this.state.BOARD_SIZE;
         this.grid = Array.apply(null, Array(this.state.BOARD_SIZE)).map((el, idx) => {
             return Array.apply(null, Array(this.state.BOARD_SIZE)).map((el, idx) => {
@@ -38,7 +40,6 @@ class MainGame extends Component {
         }
 
     }
-
 
     generateMine() {
         this.state.mineSet = new Set()
@@ -186,7 +187,7 @@ class MainGame extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: this.colorData.backgroundColor}]}>
                 <SwitchFlag changeFocus={this.changeFocus} />
                 {/* <Timer/> */}
                 <View style={{ width: this.boardWidth, height: this.boardWidth, backgroundColor: '#888888', flexDirection: 'column' }}>
@@ -201,7 +202,6 @@ class MainGame extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#CAF0F8',
         alignItems: 'center',
         justifyContent: 'center',
     },

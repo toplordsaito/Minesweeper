@@ -6,7 +6,8 @@ import { LogBox } from 'react-native';
 
 import { Provider } from "react-redux"
 import { createStore, combineReducers } from "redux";
-import themeReducer from "./src/store/reducers/ThemeReducer"
+import themeReducer from "./src/store/reducers/themeReducer"
+import { useSelector, useDispatch } from "react-redux";
 
 const rootReducer = combineReducers({
   theme: themeReducer,

@@ -6,27 +6,34 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import  {logInWithFaceBook}  from '../components/loginWithFaceBook'
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesTheme from "../styles/theme.styles";
+import { useSelector, useDispatch } from "react-redux";
 
 const userApi = require('../apis/userAPI');
 
 const Login = ({ navigation }) => {
   const button = ["Play now!!!", "Login with Facebook"];
+  const colorData = {
+    backgroundColor: useSelector((state) => state.theme.colorData.backgroundColor),
+    text: useSelector((state) => state.theme.colorData.text),
+    innerText: useSelector((state) => state.theme.colorData.innerText),
+    button: useSelector((state) => state.theme.colorData.button),
+  };
   return (
-    <View style={stylesTheme.container}>
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={button}
         ListHeaderComponent={
-          <View style={stylesTheme.innerContainer}>
-            <Text style={stylesTheme.headerText} h1>
-              M<Text style={stylesTheme.innerText}>i</Text>neSweeper
+          <View style={stylesTheme.container}>
+            <Text style={[stylesTheme.headerText, {color: colorData.text}]} h1>
+              M<Text style={{color: colorData.innerText}}>i</Text>neSweeper
             </Text>
             <Image style={stylesTheme.image} source={require("../asset/logo.png")}/>
           </View>
         }
         renderItem={({ item }) => (
           <Button
-            buttonStyle={stylesTheme.button}
-            titleStyle={stylesTheme.buttonTitle}
+          buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+          titleStyle={{color: colorData.text}}
             title={item}
             onPress={async () => {
               AsyncStorage.setItem("login", "true");

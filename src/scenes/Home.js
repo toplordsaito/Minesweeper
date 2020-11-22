@@ -6,6 +6,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesTheme from "../styles/theme.styles";
+import { useSelector, useDispatch } from "react-redux";
 const Home = ({ navigation }) => {
   const button = [
     "Profile",
@@ -16,7 +17,9 @@ const Home = ({ navigation }) => {
     "Tutorial",
     "Logout",
     "Link FaceBook",
+    "Theme",
   ];
+  const colorData = useSelector((state) => state.theme.colorData);
   const ButtonEvent = async (item) => {
     let user = await AsyncStorage.getItem("user");
     user = JSON.parse(user);
@@ -59,22 +62,21 @@ const Home = ({ navigation }) => {
     }
   };
   return (
-    <View style={stylesTheme.container}>
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={button}
         ListHeaderComponent={
-          <View style={[stylesTheme.innerContainer, {flex: 1, flexDirection: 'row'}]}>
-            <Image style={{width: wp('10%'), height: wp('10%'), marginRight: wp('2%')}} source={require("../asset/logo.png")}/>
-            <Text style={[stylesTheme.headerText]} h4>
-              M<Text style={stylesTheme.innerText}>i</Text>neSweeper
+          <View style={stylesTheme.container}>
+            <Image style={stylesTheme.image} source={require("../asset/logo.png")}/>
+            <Text style={[stylesTheme.headerText, {color: colorData.text}]} h4>
+              M<Text style={{color: colorData.innerText}}>i</Text>neSweeper
             </Text>
-            
           </View>
         }
         renderItem={({ item }) => (
           <Button
-            buttonStyle={stylesTheme.button}
-            titleStyle={stylesTheme.buttonTitle}
+            buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+            titleStyle={{color: colorData.text}}
             title={item}
             onPress={() => {ButtonEvent(item)}}
           />
