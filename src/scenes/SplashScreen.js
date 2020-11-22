@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import { CommonActions } from '@react-navigation/native';
-import styles from '../styles/splash.styles';
-import stylesTheme from '../styles/theme.styles';
+import React, { useEffect, useRef } from "react";
+import { View, Image, Animated } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+import { CommonActions } from "@react-navigation/native";
+import styles from "../styles/splash.styles";
+import stylesTheme from "../styles/theme.styles";
 import { Text } from "react-native-elements";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const SplashScreen = ({ navigation }) => {
   const springVal = useRef(new Animated.Value(0.5)).current;
