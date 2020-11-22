@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import AsyncStorage from "@react-native-community/async-storage";
 import { db } from '../../services'
 import { useCurrentUser } from '../../hooks'
 interface Output {
@@ -9,12 +9,10 @@ interface Output {
 
 const useLeavePosition = (roomId): Output => {
   // const { roomId } = useParams()
-  const user = useCurrentUser()
-  const [isLeaving, setIsLeaving] = useState(false)
 
-  console.log("---------------")
-  console.log(user)
+  const [isLeaving, setIsLeaving] = useState(false)
   async function leaveRoom() {
+    let user = JSON.parse(await AsyncStorage.getItem("user"));
     setIsLeaving(true)
     try {
       const doc = await db.collection('rooms').doc(roomId).get()

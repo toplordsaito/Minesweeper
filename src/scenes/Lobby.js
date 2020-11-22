@@ -43,9 +43,9 @@ const Lobby = ({ route, navigation }) => {
     }
   }
   useEffect(() => {
-    return async () => {
+    return () => {
       console.log("leaving")
-      await leaveRoom()
+      leaveRoom()
     }
   }, [])
 

@@ -12,7 +12,7 @@ const useEndgame = (): Output => {
     // const user = { id: "user" + Math.floor(Math.random() * 1000) }
     const [isEndgame, setIsEndgame] = useState(false)
 
-    async function endGame(roomId: string) {
+    async function endGame(roomId: string, isVictory: boolean) {
         console.log("endgameing . . . . . . . .. . . . . . .")
         setIsEndgame(true)
         try {
@@ -22,7 +22,7 @@ const useEndgame = (): Output => {
                 let result = data?.result
                 result.push({
                     ...user,
-                    status: "completed",
+                    status: isVictory ? "completed" : "fail",
                 })
                 await db
                     .collection('result')

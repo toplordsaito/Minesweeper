@@ -31,7 +31,7 @@ const OnlineGame = ({ route, navigation }) => {
   );
 
   onEndgame = async (isVictory) => {
-    await endGame(code)
+    await endGame(code, isVictory)
     if (isVictory) {
       onVictory("you are 1st")
     } else {
