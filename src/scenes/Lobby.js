@@ -35,7 +35,7 @@ const Lobby = ({ route, navigation }) => {
         <ListItem key={i} bottomDivider>
           <Avatar source={{ uri: list[0].avatar_url }} />
           <ListItem.Content>
-            <ListItem.Title>{l}</ListItem.Title>
+            <ListItem.Title>{l.id}</ListItem.Title>
             <ListItem.Subtitle>{list[0].subtitle}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>

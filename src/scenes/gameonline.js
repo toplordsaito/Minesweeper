@@ -3,15 +3,16 @@ import { Button, Text } from "react-native-elements";
 import { View, FlatList, Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import MainGame from '../../components/MainGame'
-import { useRoom } from '../hooks'
+import GameStatus from '../components/GameStatus'
+import { useEndgame } from '../hooks'
 const OnlineGame = ({ route, navigation }) => {
   const { mode, code, room, mine } = route.params;
+
   console.log("code", code)
-  // const { isFetching, room } = useRoom(code)
+  const { isFetching, endGame } = useEndgame(code)
   const button = ["Offline", "Online", "Ranking Board", "Tutorial"];
 
   navigateToResult = () => {
-    console.log("navigateToResult")
     navigation.navigate("Result",
       {
         code,
@@ -29,31 +30,21 @@ const OnlineGame = ({ route, navigation }) => {
     { cancelable: false }
   );
 
-  onEndgame = (isVictory) => {
-    onVictory("you are 1st")
+  onEndgame = async (isVictory) => {
+    await endGame(code, isVictory)
+    if (isVictory) {
+      onVictory("you are 1st")
+    } else {
+      onVictory("you are 2st")
+    }
+
   }
 
-  Game = () => {
-    console.log("*************")
-    console.log(room.size)
-    console.log(room.mineSize)
-    console.log(mine)
-    return (
-      // <Text>5555</Text>
-      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={mine} onEndgame={onEndgame} />
-    )
-  }
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {
-        /* <Text>{size}</Text>
-        <Text>{bomb}</Text>
-        <Text>{mode}</Text> */
-        Game()
-      }
-
-
+      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={mine} onEndgame={onEndgame} />
+      <GameStatus code={code} onEndGame={onEndgame} />
     </View>
   );
 };
