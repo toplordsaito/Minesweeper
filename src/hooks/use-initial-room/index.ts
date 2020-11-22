@@ -29,6 +29,17 @@ const UseInitailGame = (roomId): Output => {
           })
 
 
+        await db
+          .collection('result')
+          .doc(roomId)
+          .set({
+            state: "playing",
+            players: data.players,
+            result: [],
+            currentGoal: 0
+          })
+
+
       }
 
     } catch (err) {
