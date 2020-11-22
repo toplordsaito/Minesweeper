@@ -18,9 +18,9 @@ interface Output {
 
 const useCreateRoom = (): Output => {
 
-  // const user = useCurrentUser()
+  const user = useCurrentUser()
   // console.log("user in room :"+JSON.stringify(user))
-  const user = { id: "user" + Math.floor(Math.random() * 1000) }
+  // const user = { id: "user" + Math.floor(Math.random() * 1000) }
   const [isCreatingRoom, setIsCreatingRoom] = useState(false)
 
   async function createRoom(): Promise<string | undefined> {
@@ -52,8 +52,8 @@ const useCreateRoom = (): Output => {
         .collection('rooms')
         .doc(roomId)
         .set({
-          players: [user.id],
-          isGameDone: false,
+          players: [user],
+          state: "waiting",
           times: [null, null, null, null],
           owner: user.id,
           mines: [],

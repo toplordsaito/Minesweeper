@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Text } from "react-native-elements";
 import { View, FlatList, Image } from "react-native";
 import { logInWithFaceBook } from "../components/loginWithFaceBook";
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesTheme from "../styles/theme.styles";
@@ -57,7 +56,8 @@ const Home = ({ navigation }) => {
         console.log("user in room :" + JSON.stringify(userProfile));
         navigation.navigate(item, { user: userProfile  });
       } else {
-        navigation.navigate(item);
+        if(item != "Logout"){
+        navigation.navigate(item);}
       }
     }
   };
@@ -78,7 +78,9 @@ const Home = ({ navigation }) => {
             buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
             titleStyle={{color: colorData.text}}
             title={item}
-            onPress={() => {ButtonEvent(item)}}
+            onPress={() => {
+              ButtonEvent(item);
+            }}
           />
         )}
         keyExtractor={(item) => item}

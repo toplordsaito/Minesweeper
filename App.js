@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 export default function App() {
-  // LogBox.ignoreLogs(['Setting a timer']);
+  LogBox.ignoreLogs(['Setting a timer']);
   return (
     <Provider store={store}>
       <ContainerNavigation/>

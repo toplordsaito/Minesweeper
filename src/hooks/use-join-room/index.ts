@@ -1,14 +1,15 @@
 import { useState } from 'react'
 
 import { db } from '../../services'
+import { useCurrentUser } from '../../hooks'
 interface Output {
   isJoining: boolean
   joinRoom: (userId: string, roomId: string) => void
 }
 
 const useJoinRoom = (): Output => {
-  // const user = useCurrentUser()
-  const user = { id: "user" + Math.floor(Math.random() * 1000) }
+  const user = useCurrentUser()
+  // const user = { id: "user" + Math.floor(Math.random() * 1000) }
   const [isJoining, setIsJoining] = useState(false)
 
   async function joinRoom(roomId: string) {
@@ -22,7 +23,7 @@ const useJoinRoom = (): Output => {
         if (data?.players.indexOf(user.id) != -1)
           return alert(`You can't join the game more than once!`)
         let players = data?.players
-        players.push(user.id)
+        players.push(user)
         await db
           .collection('rooms')
           .doc(roomId)

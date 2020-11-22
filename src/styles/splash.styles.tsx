@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: wp('80%'),
-    height: wp('80%'),
+    width: 300,
+    height: 300,
   },
   logoText: {
     color: 'white',
@@ -23,5 +23,4 @@ const styles = StyleSheet.create({
     fontFamily: 'Prompt_300Light',
   },
 });
-
 export default styles;

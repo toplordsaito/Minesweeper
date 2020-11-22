@@ -40,12 +40,21 @@ const Login = ({ navigation }) => {
               let user = await AsyncStorage.getItem("user");
               user = JSON.parse(user);
               let data;
+              var result = "";
+              var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+              var charactersLength = characters.length;
+              for (var i = 0; i < 5; i++) {
+                result += characters.charAt(
+                  Math.floor(Math.random() * charactersLength)
+                );
+              }
+
               if (item == "Play now!!!") {
                 if (!user) {
                   console.log("new Player");
                   data = {
                     id: null,
-                    name: "Guest",
+                    name: "Guest#"+result,
                     avatar:
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                     facebookId: null,
@@ -56,7 +65,7 @@ const Login = ({ navigation }) => {
                 }
                 AsyncStorage.setItem("user", JSON.stringify(data));
               } else {
-                console.log('logIn with FaceBook')
+                console.log("logIn with FaceBook");
                 const dataFaceBook = await logInWithFaceBook();
                 data = {
                   name: dataFaceBook.name,
@@ -64,9 +73,10 @@ const Login = ({ navigation }) => {
                   facebookId: dataFaceBook.id,
                 };
                 const userInDb = await userApi.findOrCreateFaceBook(data);
-                if (userInDb){
-                  AsyncStorage.setItem("user", JSON.stringify(userInDb));}
-                console.log(userInDb)
+                if (userInDb) {
+                  AsyncStorage.setItem("user", JSON.stringify(userInDb));
+                }
+                console.log(userInDb);
               }
               const user1 = await AsyncStorage.getItem("user");
               console.log(user1);

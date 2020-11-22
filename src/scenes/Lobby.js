@@ -22,6 +22,10 @@ const Lobby = ({ route, navigation }) => {
   const { isLeaving, leaveRoom } = useLeaveRoom(code)
   const { isInitialing, initialGame } = useInitailGame(code)
 
+
+  if (!isFetching && room.state == "playing") {
+    navigation.navigate("OnlineGame", { mode: "Online", code, room, mine: room.mine });
+  }
   display = () => {
     if (isFetching) {
       return (<Text>Loading Room...</Text>)
@@ -31,7 +35,7 @@ const Lobby = ({ route, navigation }) => {
         <ListItem key={i} bottomDivider>
           <Avatar source={{ uri: list[0].avatar_url }} />
           <ListItem.Content>
-            <ListItem.Title>{l}</ListItem.Title>
+            <ListItem.Title>{l.id}</ListItem.Title>
             <ListItem.Subtitle>{list[0].subtitle}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
@@ -48,9 +52,9 @@ const Lobby = ({ route, navigation }) => {
   startGame = async () => {
     console.log("initButton")
     let mine = await initialGame()
-    console.log(mine)
-    console.log("WTFFFFFFFFFFFFFFFFFF")
-    navigation.navigate("OnlineGame", { mode: "Online", code, room, mine });
+    // console.log(mine)
+    // console.log("WTFFFFFFFFFFFFFFFFFF")
+    // navigation.navigate("OnlineGame", { mode: "Online", code, room, mine });
   }
 
 

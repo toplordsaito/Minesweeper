@@ -14,7 +14,6 @@ const { size, bomb, mode } = route.params;
       <Text>{bomb}</Text>
       <Text>{mode}</Text> */}
       <MainGame size={size} mine={bomb} colorData={useSelector((state) => state.theme.colorData)}/>
-      
     </View>
   );
 };

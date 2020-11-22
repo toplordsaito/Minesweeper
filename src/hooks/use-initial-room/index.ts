@@ -25,6 +25,18 @@ const UseInitailGame = (roomId): Output => {
           .doc(roomId)
           .update({
             mine: mine,
+            state: "playing",
+          })
+
+
+        await db
+          .collection('result')
+          .doc(roomId)
+          .set({
+            state: "playing",
+            players: data.players,
+            result: [],
+            currentGoal: 0
           })
 
 
