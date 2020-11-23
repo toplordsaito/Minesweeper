@@ -13,6 +13,7 @@ const useJoinRoom = (): Output => {
   const [isJoining, setIsJoining] = useState(false)
 
   async function joinRoom(roomId: string) {
+    console.log("joining. . .s")
     setIsJoining(true)
     let found = false
     try {
@@ -22,6 +23,14 @@ const useJoinRoom = (): Output => {
         const data = doc.data()
         if (data?.players.indexOf(user.id) != -1)
           return alert(`You can't join the game more than once!`)
+        console.log(data?.players.length)
+        console.log(data.mode == "ranking" && data?.players.length >= 2)
+        console.log("joining. . .ooo")
+        if (data.mode == "ranking" && data?.players.length >= 2){
+          found = false
+          return false
+        }
+        console.log("joining. . .ssssss")
         let players = data?.players
         players.push(user)
         await db

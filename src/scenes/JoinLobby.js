@@ -13,6 +13,9 @@ const JoinRoomButton = ({ navigation }) => {
     if (isFound) {
       navigateRoom()
     }
+    else{
+      alert("error")
+    }
   }
   const navigateRoom = () => {
     console.log("code", code)

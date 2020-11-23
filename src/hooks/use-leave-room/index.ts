@@ -20,11 +20,6 @@ const useLeavePosition = (roomId): Output => {
         const data = doc.data()
 
         const index = data.players.findIndex(p => p.id == user.id)
-        console.log(data.players)
-        console.log(user)
-        console.log(index)
-        console.log(user.id)
-        console.log(user.id == data.players[0].id)
         if (index != -1) {
           let players = data?.players
           players.pop(index)

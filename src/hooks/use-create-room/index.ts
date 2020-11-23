@@ -54,7 +54,7 @@ const useCreateRoom = (): Output => {
         .set({
           players: [user],
           state: "waiting",
-          times: [null, null, null, null],
+          mode: "ranking",
           owner: user.id,
           mines: [],
           mineSize: 10,
