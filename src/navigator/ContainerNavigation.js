@@ -40,12 +40,12 @@ function ContainerNavigation() {
         <Stack.Screen
           name="OfflineGame"
           component={test}
-          options={{ title: "", headerTransparent: true }}
+          options={{ title: "", headerTransparent: true ,  headerLeft: () =>null}}
         />
         <Stack.Screen
           name="OnlineGame"
           component={OnlineGame}
-          options={{ title: "", headerTransparent: true }}
+          options={{ title: "", headerTransparent: true,  headerLeft: () =>null }}
         />
         <Stack.Screen name="Online" component={Online} />
         <Stack.Screen name="Profile" component={Profile} />
@@ -57,7 +57,7 @@ function ContainerNavigation() {
         <Stack.Screen
           name="Result"
           component={ResultScreen}
-          options={{ title: "", headerTransparent: true }}
+          options={{ title: "", headerTransparent: true,  headerLeft: () =>null }}
         />
 
       </Stack.Navigator>

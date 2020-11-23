@@ -12,7 +12,7 @@ function genId(): string {
 }
 
 interface Output {
-  createRoom: () => void
+  createRoom: (mode: String) => void
   isCreatingRoom: boolean
 }
 
@@ -23,7 +23,7 @@ const useCreateRoom = (): Output => {
   // const user = { id: "user" + Math.floor(Math.random() * 1000) }
   const [isCreatingRoom, setIsCreatingRoom] = useState(false)
 
-  async function createRoom(): Promise<string | undefined> {
+  async function createRoom(mode: String): Promise<string | undefined> {
     if (!user) return undefined
 
     setIsCreatingRoom(true)
@@ -54,7 +54,7 @@ const useCreateRoom = (): Output => {
         .set({
           players: [user],
           state: "waiting",
-          times: [null, null, null, null],
+          mode: mode,
           owner: user.id,
           mines: [],
           mineSize: 10,

@@ -22,6 +22,7 @@ const Home = ({ navigation }) => {
   const colorData = useSelector((state) => state.theme.colorData);
   const ButtonEvent = async (item) => {
     let user = await AsyncStorage.getItem("user");
+    
     user = JSON.parse(user);
     if (item == "Online") {
       const userInDb = await userApi.CreateOrUpdate(user);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, Button, ListItem, Text } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
-import { useRoom, useLeaveRoom, useInitailGame } from '../hooks'
+import { useRoom, useLeaveRoom, useInitailGame, useCurrentUser } from '../hooks'
 
 const MODE = ['PvP', 'Ranking', 'Battle Royal', 'Any'];
 
@@ -22,7 +22,8 @@ const Lobby = ({ route, navigation }) => {
   const { isLeaving, leaveRoom } = useLeaveRoom(code)
   const { isInitialing, initialGame } = useInitailGame(code)
 
-
+  const user = useCurrentUser()
+  const isOwner = !isFetching && user.id == room.owner
   if (!isFetching && room.state == "playing") {
     navigation.navigate("OnlineGame", { mode: "Online", code, room, mine: room.mine });
   }
@@ -33,10 +34,10 @@ const Lobby = ({ route, navigation }) => {
     else {
       return room.players.map((l, i) => (
         <ListItem key={i} bottomDivider>
-          <Avatar source={{ uri: list[0].avatar_url }} />
+          <Avatar source={{ uri: l.avatar }} />
           <ListItem.Content>
-            <ListItem.Title>{l.id}</ListItem.Title>
-            <ListItem.Subtitle>{list[0].subtitle}</ListItem.Subtitle>
+            <ListItem.Title>{l.name}</ListItem.Title>
+            <ListItem.Subtitle>{l.elorank}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
       ))
@@ -73,6 +74,7 @@ const Lobby = ({ route, navigation }) => {
           style={styles.button}
           title={"Start!!"}
           onPress={startGame}
+          disabled={!isOwner}
         />
       </View>
     </View>
