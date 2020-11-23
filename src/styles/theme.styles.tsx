@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-
 const stylesTheme = StyleSheet.create({
   container: {
     flex: 1,
@@ -14,23 +13,29 @@ const stylesTheme = StyleSheet.create({
   text:{
     marginTop: "15%",
     marginBottom: "15%",
+    fontFamily: "",
     fontWeight: "bold",
   },
   headerText:{
-    marginTop: "25%",
-    marginBottom: "15%",
+    marginTop: "10%",
     fontWeight: "bold",
   },
   innerText: {
     color: "red",
   },
   image: {
-    width: 300,
-    height: 300,
-    marginBottom: "15%",
+    width: wp("50%"),
+    height: wp("50%"),
+  },
+  longButton: {
+    width: wp("96%"),
+    height: hp("8%"),
+    margin: wp("2%"),
   },
   button: {
-    margin: "2%",
+    width: wp("46%"),
+    height: hp("8%"),
+    margin: wp("2%"),
   },
 });
 export default stylesTheme;

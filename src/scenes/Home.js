@@ -5,18 +5,19 @@ import { logInWithFaceBook } from "../components/loginWithFaceBook";
 const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesTheme from "../styles/theme.styles";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 const Home = ({ navigation }) => {
   const button = [
-    "Profile",
-    "LeaderBoard",
     "Offline",
     "Online",
-    "Ranking Board",
+    "Profile",
+    "LeaderBoard",
     "Tutorial",
-    "Logout",
-    "Link FaceBook",
     "Theme",
+    "Link FaceBook",
+    "Logout",
   ];
   const colorData = useSelector((state) => state.theme.colorData);
   const ButtonEvent = async (item) => {
@@ -65,18 +66,19 @@ const Home = ({ navigation }) => {
     <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={button}
+        numColumns={2}
         ListHeaderComponent={
-          <View style={stylesTheme.container}>
-            <Image style={stylesTheme.image} source={require("../asset/logo.png")}/>
-            <Text style={[stylesTheme.headerText, {color: colorData.text}]} h4>
+          <View style={[stylesTheme.container, {height: hp('50%')}]}>
+            <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h1>
               M<Text style={{color: colorData.innerText}}>i</Text>neSweeper
             </Text>
+            <Image style={stylesTheme.image} source={colorData.image}/>
           </View>
         }
         renderItem={({ item }) => (
           <Button
             buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
-            titleStyle={{color: colorData.text}}
+            titleStyle={{color: colorData.text, fontFamily: colorData.fontFamily}}
             title={item}
             onPress={() => {
               ButtonEvent(item);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Text } from "react-native-elements";
 import { View, FlatList, Image, Alert } from "react-native";
 import { CommonActions } from "@react-navigation/native";
@@ -6,34 +6,30 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import  {logInWithFaceBook}  from '../components/loginWithFaceBook'
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesTheme from "../styles/theme.styles";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const userApi = require('../apis/userAPI');
 
 const Login = ({ navigation }) => {
   const button = ["Play now!!!", "Login with Facebook"];
-  const colorData = {
-    backgroundColor: useSelector((state) => state.theme.colorData.backgroundColor),
-    text: useSelector((state) => state.theme.colorData.text),
-    innerText: useSelector((state) => state.theme.colorData.innerText),
-    button: useSelector((state) => state.theme.colorData.button),
-  };
+  const colorData = useSelector((state) => state.theme.colorData);
   return (
     <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={button}
+        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
         ListHeaderComponent={
           <View style={stylesTheme.container}>
-            <Text style={[stylesTheme.headerText, {color: colorData.text}]} h1>
+            <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h1>
               M<Text style={{color: colorData.innerText}}>i</Text>neSweeper
             </Text>
-            <Image style={stylesTheme.image} source={require("../asset/logo.png")}/>
+            <Image style={stylesTheme.image} source={colorData.image}/>
           </View>
         }
         renderItem={({ item }) => (
           <Button
-          buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
-          titleStyle={{color: colorData.text}}
+            buttonStyle={[stylesTheme.longButton, {backgroundColor: colorData.button}]}
+            titleStyle={{color: colorData.text, fontFamily: colorData.fontFamily}}
             title={item}
             onPress={async () => {
               AsyncStorage.setItem("login", "true");

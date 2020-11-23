@@ -12,8 +12,8 @@ const themeReducer = (state=initialState, action) => {
       switch(action.theme) {
         case 'Default':
           return { colorData: THEMES.default };
-        case 'Light':
-          return { colorData: THEMES.light };
+        case 'Metal':
+          return { colorData: THEMES.metal };
         case 'Candy':
           return { colorData: THEMES.candy };
       }
