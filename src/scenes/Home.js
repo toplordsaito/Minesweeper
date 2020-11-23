@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
       if (userInDb != "อัพเดพสำเร็จ" && userInDb) {
         AsyncStorage.setItem("user", JSON.stringify(userInDb));
       }
-      // console.log(userInDb);
+      console.log(userInDb);
     }
     if (item == "Logout") {
       AsyncStorage.removeItem("login");
@@ -50,11 +50,11 @@ const Home = ({ navigation }) => {
       if (userInDb) {
         AsyncStorage.setItem("user", JSON.stringify(userInDb));
       }
-      // console.log(userInDb);
+      console.log(userInDb);
     } else {
       if (item == "Profile") {
         const userProfile = JSON.parse(await AsyncStorage.getItem("user"))
-        // console.log("user in room :" + JSON.stringify(userProfile));
+        console.log("user in room :" + JSON.stringify(userProfile));
         navigation.navigate(item, { user: userProfile  });
       } else {
         if(item != "Logout"){

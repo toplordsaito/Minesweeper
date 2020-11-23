@@ -21,9 +21,9 @@ const useCurrentUser = (): User => {
     lose: 0
   });
   const getUser = async () => {
-    // console.log('----------------------set------------')
+    console.log('----------------------set------------')
     let userFromDevice: User = JSON.parse(await AsyncStorage.getItem("user"));
-    // console.log("show : " + JSON.stringify(userFromDevice))
+    console.log("show : " + JSON.stringify(userFromDevice))
     setUser((prevState: User) => {
       return { ...prevState, ...userFromDevice };
     });
