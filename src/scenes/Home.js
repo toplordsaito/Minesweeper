@@ -4,6 +4,8 @@ import { View, FlatList, Image } from "react-native";
 import { logInWithFaceBook } from "../components/loginWithFaceBook";
 const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
+import stylesTheme from "../styles/theme.styles";
+import { useSelector, useDispatch } from "react-redux";
 const Home = ({ navigation }) => {
   const button = [
     "Profile",
@@ -14,7 +16,9 @@ const Home = ({ navigation }) => {
     "Tutorial",
     "Logout",
     "Link FaceBook",
+    "Theme",
   ];
+  const colorData = useSelector((state) => state.theme.colorData);
   const ButtonEvent = async (item) => {
     let user = await AsyncStorage.getItem("user");
     
@@ -59,40 +63,21 @@ const Home = ({ navigation }) => {
     }
   };
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#212930",
-      }}
-    >
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={button}
         ListHeaderComponent={
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{
-                marginTop: "25%",
-                marginBottom: "15%",
-                fontWeight: "bold",
-                color: "white",
-              }}
-              h1
-            >
-              M<Text style={{ color: "red" }}>i</Text>neSweeper
+          <View style={stylesTheme.container}>
+            <Image style={stylesTheme.image} source={require("../asset/logo.png")}/>
+            <Text style={[stylesTheme.headerText, {color: colorData.text}]} h4>
+              M<Text style={{color: colorData.innerText}}>i</Text>neSweeper
             </Text>
-            <Image
-              style={{ width: 300, height: 300, marginBottom: "15%" }}
-              source={require("../asset/logo.png")}
-            />
           </View>
         }
         renderItem={({ item }) => (
           <Button
-            style={{ margin: "1%" }}
+            buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+            titleStyle={{color: colorData.text}}
             title={item}
             onPress={() => {
               ButtonEvent(item);

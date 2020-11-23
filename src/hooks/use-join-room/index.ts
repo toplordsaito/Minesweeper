@@ -4,7 +4,7 @@ import { db } from '../../services'
 import { useCurrentUser } from '../../hooks'
 interface Output {
   isJoining: boolean
-  joinRoom: (userId: string, roomId: string) => void
+  joinRoom: (roomId: string) => void
 }
 
 const useJoinRoom = (): Output => {
@@ -22,6 +22,10 @@ const useJoinRoom = (): Output => {
         const data = doc.data()
         if (data?.players.indexOf(user.id) != -1)
           return alert(`You can't join the game more than once!`)
+        if (data.mode == "Ranking" && data?.players.length >= 2){
+          found = false
+          return false
+        }
         let players = data?.players
         players.push(user)
         await db

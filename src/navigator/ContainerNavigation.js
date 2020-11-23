@@ -4,6 +4,7 @@ import Home from "../scenes/Home.js";
 import Offline from "../scenes/Offline.js";
 import test from "../scenes/gamedemo.js";
 import OnlineGame from "../scenes/gameonline.js";
+
 import ResultScreen from "../scenes/ResultScreen.js";
 import Online from "../scenes/Online.js";
 import Lobby from "../scenes/Lobby.js";
@@ -13,6 +14,7 @@ import SplashScreen from "../scenes/SplashScreen";
 import Login from "../scenes/LoginScreen";
 import LeaderBoard from "../scenes/LeaderBoard";
 import Profile from "../scenes/Profile";
+import Theme from "../scenes/ThemeSetting";
 import { createStackNavigator } from "@react-navigation/stack";
 function ContainerNavigation() {
   const Stack = createStackNavigator();
@@ -51,6 +53,7 @@ function ContainerNavigation() {
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="Join Lobby" component={JoinLobby} />
         <Stack.Screen name="Tutorial" component={Tutorial} />
+        <Stack.Screen name="Theme" component={Theme} />
         <Stack.Screen
           name="Result"
           component={ResultScreen}

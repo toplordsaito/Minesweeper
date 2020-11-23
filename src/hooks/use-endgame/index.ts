@@ -4,7 +4,7 @@ import { db } from '../../services'
 import { useCurrentUser } from '../../hooks'
 interface Output {
     isEndgame: boolean
-    endGame: (roomId: string) => void
+    endGame: (roomId: string, isVictory: boolean) => void
 }
 
 const useEndgame = (): Output => {

@@ -5,6 +5,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import MainGame from '../../components/MainGame'
 import GameStatus from '../components/GameStatus'
 import { useEndgame } from '../hooks'
+import { useSelector } from "react-redux";
+
 const OnlineGame = ({ route, navigation }) => {
   const { mode, code, room, mine } = route.params;
 
@@ -43,7 +45,7 @@ const OnlineGame = ({ route, navigation }) => {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={mine} onEndgame={onEndgame} />
+      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={mine} onEndgame={onEndgame} colorData={useSelector((state) => state.theme.colorData)}/>
       <GameStatus code={code} onEndGame={onEndgame} />
     </View>
   );

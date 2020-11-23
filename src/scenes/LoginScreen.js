@@ -3,46 +3,37 @@ import { Button, Text } from "react-native-elements";
 import { View, FlatList, Image, Alert } from "react-native";
 import { CommonActions } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { logInWithFaceBook } from "../components/loginWithFaceBook";
-const userApi = require("../apis/userAPI");
+import  {logInWithFaceBook}  from '../components/loginWithFaceBook'
 import AsyncStorage from "@react-native-community/async-storage";
+import stylesTheme from "../styles/theme.styles";
+import { useSelector, useDispatch } from "react-redux";
+
+const userApi = require('../apis/userAPI');
+
 const Login = ({ navigation }) => {
   const button = ["Play now!!!", "Login with Facebook"];
+  const colorData = {
+    backgroundColor: useSelector((state) => state.theme.colorData.backgroundColor),
+    text: useSelector((state) => state.theme.colorData.text),
+    innerText: useSelector((state) => state.theme.colorData.innerText),
+    button: useSelector((state) => state.theme.colorData.button),
+  };
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#212930",
-      }}
-    >
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={button}
         ListHeaderComponent={
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{
-                marginTop: "25%",
-                marginBottom: "15%",
-                fontWeight: "bold",
-                color: "white",
-              }}
-              h1
-            >
-              M<Text style={{ color: "red" }}>i</Text>neSweeper
+          <View style={stylesTheme.container}>
+            <Text style={[stylesTheme.headerText, {color: colorData.text}]} h1>
+              M<Text style={{color: colorData.innerText}}>i</Text>neSweeper
             </Text>
-            <Image
-              style={{ width: 300, height: 300, marginBottom: "15%" }}
-              source={require("../asset/logo.png")}
-            />
+            <Image style={stylesTheme.image} source={require("../asset/logo.png")}/>
           </View>
         }
         renderItem={({ item }) => (
           <Button
-            style={{ margin: "1%" }}
+          buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+          titleStyle={{color: colorData.text}}
             title={item}
             onPress={async () => {
               AsyncStorage.setItem("login", "true");

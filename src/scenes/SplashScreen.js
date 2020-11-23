@@ -5,6 +5,8 @@ import { CommonActions } from "@react-navigation/native";
 import styles from "../styles/splash.styles";
 import stylesTheme from "../styles/theme.styles";
 import { Text } from "react-native-elements";
+import { useSelector } from "react-redux";
+
 const SplashScreen = ({ navigation }) => {
   const springVal = useRef(new Animated.Value(0.5)).current;
   const spring = () => {
@@ -18,7 +20,7 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     spring()
     const checkStorage = async () => {
-      const user = await AsyncStorage.getItem("login");
+    const user = await AsyncStorage.getItem("login");
       if (user) {
         setTimeout(function () {
           navigation.dispatch(
@@ -36,17 +38,15 @@ const SplashScreen = ({ navigation }) => {
           );
         }, 3000);
       }
-    };
-    checkStorage();
+  }
+  checkStorage()
   }, []);
-
+  const colorData = useSelector((state) => state.theme.colorData);
   return (
-    <View style={stylesTheme.container}>
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <View style={styles.logoContainer}>
-        <Animated.Image source={require("../asset/logo.png")} style={[styles.logo, { transform: [{scale: springVal}]}]} />
-        <Text style={stylesTheme.text} h1>
-          M<Text style={{ color: "red" }}>i</Text>neSweeper
-        </Text>
+        <Animated.Image source={require('../asset/logo.png')} style={[styles.logo, { transform: [{scale: springVal}]}]} />
+        <Text style={[stylesTheme.headerText, {color: colorData.text}]} h1>M<Text style={{color: colorData.innerText}}>i</Text>neSweeper</Text>
       </View>
     </View>
   );

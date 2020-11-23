@@ -2,20 +2,43 @@ import React, { Component } from "react";
 import { Button, Text } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
 import { Picker } from "@react-native-community/picker";
-import { useCreateRoom } from "../hooks";
-const MODE = ["PvP", "Ranking", "Battle Royal", "Any"];
+import { useCreateRoom, useQuickJoinRoom } from '../hooks'
+const MODE = ['Ranking', 'Battle Royal'];
 
-const CreateRoomButton = ({ createRoomHanler }) => {
-  const { createRoom, isCreatingRoom } = useCreateRoom();
+const CreateRoomButton = ({ navigateToLobby, mode }) => {
+  const { createRoom, isCreatingRoom } = useCreateRoom()
   const handleCreateRoom = async () => {
-    const roomId = await createRoom();
-    console.log("roomId", roomId);
-    createRoomHanler(roomId);
-  };
-  return (
-    <Button style={styles.button} title={"Create"} onPress={handleCreateRoom} />
-  );
-};
+    const roomId = await createRoom(mode)
+    console.log(mode)
+    console.log("roomId", roomId)
+    navigateToLobby(roomId, true)
+  }
+  return <Button
+    style={styles.button}
+    title={"Create"}
+    onPress={handleCreateRoom}
+  />
+}
+
+const QuickRoomButton = ({ navigateToLobby, mode }) => {
+  const { isQuickJoining, QuickjoinRoom } = useQuickJoinRoom()
+  const handleQuickJoinRoom = async () => {
+    const { isFound, code } = await QuickjoinRoom(mode)
+    console.log("roomIdQuickJoin", code)
+    console.log(isFound)
+    if (isFound) {
+      navigateToLobby(code, false)
+    } else {
+      alert("No room Found")
+    }
+
+  }
+  return <Button
+    style={styles.button}
+    title={"Quick Start"}
+    onPress={handleQuickJoinRoom}
+  />
+}
 
 export default class Online extends Component {
   state = {
@@ -30,40 +53,39 @@ export default class Online extends Component {
     this.setState({
       currentValue: currentValue,
       currentMode: currentMode,
-    });
+    })
+    console.log(currentMode)
     // console.log(this.state.currentValue);
     // console.log(this.state.currentMode);
   };
 
-  createRoomHanler = async (roomid) => {
-    console.log(roomid);
+  navigateToLobby = async (roomid, isOwner) => {
+    console.log(roomid)
     this.props.navigation.navigate("Lobby", {
       value: this.state.currentValue,
-      role: "owner",
+      role: isOwner ? 'owner' : "member",
       code: roomid,
-    });
-  };
+    })
+
+  }
   renderMode = () => {
     return (
       <View style={styles.container}>
-        <Text h3 style={{ color: "white" }}>
-          MOD<Text style={{ color: "red" }}>E</Text> :
-        </Text>
-        <View style={Platform.OS === "android" ? styles.pickerAndriod : null}>
-          <Picker
-            dropdownIconColor="red"
-            style={styles.picker}
-            itemStyle={{ height: 100, color: "white" }}
-            selectedValue={this.state.currentMode}
-            onValueChange={(mode) => this.changeMode(mode)}
-          >
-            <Picker.Item label="Ranking" value="Ranking" />
-            <Picker.Item label="Battle Royal" value="Battle Royal" />
-          </Picker>
-        </View>
+        <Text h3 style={{ color: "white" }}>MOD<Text style={{ color: "red" }}>E</Text> :</Text>
+        <Picker
+          style={styles.picker}
+          itemStyle={{ height: 100, color: "white" }}
+          selectedValue={this.state.currentMode}
+          onValueChange={(mode) => this.changeMode(mode)}
+        >
+          <Picker.Item label="Ranking" value="Ranking" />
+          <Picker.Item label="Battle Royal" value="Battle Royal" />
+        </Picker>
       </View>
-    );
-  };
+    )
+  }
+
+
   render() {
     return (
       <View style={[styles.container, { backgroundColor: "#212930" }]}>
@@ -74,17 +96,13 @@ export default class Online extends Component {
             title={"Create"}
             onPress={this.handleCreateRoom}
           /> */}
-          <CreateRoomButton createRoomHanler={this.createRoomHanler} />
+          <CreateRoomButton navigateToLobby={this.navigateToLobby} mode={this.state.currentMode} />
           <Button
             style={styles.button}
             title={"Join"}
             onPress={() => this.props.navigation.navigate("Join Lobby")}
           />
-          <Button
-            style={styles.button}
-            title={"Quick Start"}
-            onPress={() => navigation.navigate("Quick Start")}
-          />
+          <QuickRoomButton navigateToLobby={this.navigateToLobby} mode={this.state.currentMode} />
         </View>
       </View>
     );

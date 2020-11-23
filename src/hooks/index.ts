@@ -17,4 +17,5 @@ export { default as useGame } from './use-game'
 export { default as useInitailGame } from './use-initial-room'
 export { default as useEndgame } from './use-endgame'
 export { default as useCurrentUser } from './use-user'
+export { default as useQuickJoinRoom } from './use-quick-join'
 
