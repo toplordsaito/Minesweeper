@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   theme: themeReducer,
 });
 const store = createStore(rootReducer);
-// LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 export default function App() {
   // LogBox.ignoreLogs(['Setting a timer']);
   return (
