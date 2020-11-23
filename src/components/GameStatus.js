@@ -5,24 +5,28 @@ import { Text } from "react-native-elements";
 const GameStatus = ({ code }) => {
     const { isFetching, game } = useGame(code)
     console.log(game)
-    if (isFetching) return <Text>Loading . . .</Text>
-    return (
-        <View style={styles.container}>
-             <Text style={{
-                fontWeight: "bold",
-              }} h4>S<Text style={{color:"red"}}>t</Text>atus <Text style={{color:"red"}}>G</Text>ame</Text>
-            {
-                game.result.map((l, i) => {
-                    console.log(l.id)
-                    console.log(l?.name)
-                    return (
-                        <Text style={styles.textlog}>Rank : {i + 1} Name : {l.name} {l.status}</Text>
+    if (!game) {
+        return (<Text>Loading . . .</Text>)
+    } else {
+        return (
+            <View style={styles.container}>
+                <Text style={{
+                    fontWeight: "bold",
+                }} h4>S<Text style={{ color: "red" }}>t</Text>atus <Text style={{ color: "red" }}>G</Text>ame</Text>
+                {
+                    game.result.map((l, i) => {
+                        console.log(l.id)
+                        console.log(l?.name)
+                        return (
+                            <Text style={styles.textlog}>Rank : {i + 1} Name : {l.name} {l.status}</Text>
+                        )
+                    }
                     )
                 }
-                )
-            }
-        </View>
-    )
+            </View>
+        )
+    }
+
 
 
 }
@@ -35,7 +39,7 @@ const styles = StyleSheet.create({
         marginBottom: "15%"
 
     },
-    textlog:{
+    textlog: {
         fontSize: 18,
         fontWeight: "bold",
     },
