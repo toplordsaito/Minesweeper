@@ -3,12 +3,13 @@ import { Button, Text } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import { useCreateRoom, useQuickJoinRoom } from '../hooks'
-const MODE = ['PvP', 'Ranking', 'Battle Royal', 'Any'];
+const MODE = ['Ranking', 'Battle Royal'];
 
-const CreateRoomButton = ({ navigateToLobby }) => {
+const CreateRoomButton = ({ navigateToLobby, mode }) => {
   const { createRoom, isCreatingRoom } = useCreateRoom()
   const handleCreateRoom = async () => {
-    const roomId = await createRoom()
+    const roomId = await createRoom(mode)
+    console.log(mode)
     console.log("roomId", roomId)
     navigateToLobby(roomId, true)
   }
@@ -19,13 +20,16 @@ const CreateRoomButton = ({ navigateToLobby }) => {
   />
 }
 
-const QuickRoomButton = ({ navigateToLobby }) => {
+const QuickRoomButton = ({ navigateToLobby, mode }) => {
   const { isQuickJoining, QuickjoinRoom } = useQuickJoinRoom()
   const handleQuickJoinRoom = async () => {
-    const { isFound, code } = await QuickjoinRoom()
+    const { isFound, code } = await QuickjoinRoom(mode)
     console.log("roomIdQuickJoin", code)
+    console.log(isFound)
     if (isFound) {
       navigateToLobby(code, false)
+    } else {
+      alert("No room Found")
     }
 
   }
@@ -50,6 +54,7 @@ export default class Online extends Component {
       currentValue: currentValue,
       currentMode: currentMode,
     })
+    console.log(currentMode)
     // console.log(this.state.currentValue);
     // console.log(this.state.currentMode);
 
@@ -74,10 +79,8 @@ export default class Online extends Component {
           selectedValue={this.state.currentMode}
           onValueChange={(mode) => this.changeMode(mode)}
         >
-          <Picker.Item label="PvP" value="PvP" />
           <Picker.Item label="Ranking" value="Ranking" />
           <Picker.Item label="Battle Royal" value="Battle Royal" />
-          <Picker.Item label="Any" value="Any" />
         </Picker>
       </View>
     )
@@ -94,13 +97,13 @@ export default class Online extends Component {
             title={"Create"}
             onPress={this.handleCreateRoom}
           /> */}
-          <CreateRoomButton navigateToLobby={this.navigateToLobby} />
+          <CreateRoomButton navigateToLobby={this.navigateToLobby} mode={this.state.currentMode} />
           <Button
             style={styles.button}
             title={"Join"}
             onPress={() => this.props.navigation.navigate("Join Lobby")}
           />
-          <QuickRoomButton navigateToLobby={this.navigateToLobby} />
+          <QuickRoomButton navigateToLobby={this.navigateToLobby} mode={this.state.currentMode} />
         </View>
       </View>
     )
