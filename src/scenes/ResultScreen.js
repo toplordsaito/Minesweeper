@@ -14,12 +14,12 @@ const ResultScreen = ({ route, navigation }) => {
     }
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            {
-                /* <Text>{size}</Text>
-          <Text>{bomb}</Text>
-          <Text>{mode}</Text> */
-            }
-            <Text>Result Page</Text>
+            <Text style={{
+                marginTop: "25%",
+                marginBottom: "15%",
+                fontWeight: "bold",
+                
+              }} h1>Result <Text style={{color:"red"}}>G</Text>ame</Text>
             <GameStatus code={code} />
             <Button
                 onPress={navigateToLobby}

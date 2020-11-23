@@ -1,26 +1,22 @@
 import React, { Component, useState } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
 import { useGame, userGame } from '../hooks'
-import { Avatar, Button, ListItem, Text } from "react-native-elements";
-
-const list = [
-    {
-        name: 'Superman',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: '2027'
-    },
-]
+import { Text } from "react-native-elements";
 const GameStatus = ({ code }) => {
     const { isFetching, game } = useGame(code)
     console.log(game)
     if (isFetching) return <Text>Loading . . .</Text>
     return (
         <View style={styles.container}>
+             <Text style={{
+                fontWeight: "bold",
+              }} h4>S<Text style={{color:"red"}}>t</Text>atus <Text style={{color:"red"}}>G</Text>ame</Text>
             {
                 game.result.map((l, i) => {
                     console.log(l.id)
+                    console.log(l?.name)
                     return (
-                        <Text>Rank:{i + 1} Name:{l.id} {l.status}</Text>
+                        <Text style={styles.textlog}>Rank : {i + 1} Name : {l.name} {l.status}</Text>
                     )
                 }
                 )
@@ -34,8 +30,14 @@ export default GameStatus
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: '20%',
+        flex: 0.2,
+        alignContent: "center",
+        marginBottom: "15%"
 
+    },
+    textlog:{
+        fontSize: 18,
+        fontWeight: "bold",
     },
     button: {
         margin: 2,

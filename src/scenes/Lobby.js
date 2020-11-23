@@ -33,10 +33,10 @@ const Lobby = ({ route, navigation }) => {
     else {
       return room.players.map((l, i) => (
         <ListItem key={i} bottomDivider>
-          <Avatar source={{ uri: list[0].avatar_url }} />
+          <Avatar source={{ uri: l.avatar }} />
           <ListItem.Content>
-            <ListItem.Title>{l.id}</ListItem.Title>
-            <ListItem.Subtitle>{list[0].subtitle}</ListItem.Subtitle>
+            <ListItem.Title>{l.name}</ListItem.Title>
+            <ListItem.Subtitle>{l.elorank}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
       ))
