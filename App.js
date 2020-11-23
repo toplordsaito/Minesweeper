@@ -11,8 +11,8 @@ import * as Font from "expo-font";
 
 const loadFonts = () => {
   return Font.loadAsync({
-    "metal": require("./assets/fonts/TheFirst-16Ag.ttf"),
-    "candy": require("./assets/fonts/Funtasia-axYAa.ttf"),
+    "metal": require("./assets/fonts/TheFirst.ttf"),
+    "candy": require("./assets/fonts/Funtasia.ttf"),
   })
 }
 const rootReducer = combineReducers({
