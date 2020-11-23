@@ -23,7 +23,7 @@ const OnlineGame = ({ route, navigation }) => {
 
   onVictory = (text) => Alert.alert(
     text,
-    "you are win",
+    "Game End",
     [
       {
         text: "go to result", onPress: navigateToResult
@@ -45,7 +45,7 @@ const OnlineGame = ({ route, navigation }) => {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={mine} onEndgame={onEndgame} colorData={useSelector((state) => state.theme.colorData)}/>
+      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={mine} onEndgame={onEndgame} colorData={useSelector((state) => state.theme.colorData)} />
       <GameStatus code={code} onEndGame={onEndgame} />
     </View>
   );
