@@ -1,4 +1,4 @@
-  import { useState } from 'react'
+import { useState } from 'react'
 import AsyncStorage from "@react-native-community/async-storage";
 import { db } from '../../services'
 import { useCurrentUser } from '../../hooks'
@@ -23,7 +23,8 @@ const useLeavePosition = (roomId): Output => {
         if (index != -1) {
           let players = data?.players
           players.pop(index)
-          if (players.length == 0 && data.state == "waiting") {
+          if (user.id == data.owner) {
+            // if (players.length == 0 && data.state == "waiting") {
             await db
               .collection('rooms')
               .doc(roomId)
