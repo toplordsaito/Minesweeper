@@ -159,4 +159,14 @@ const Offline = ({navigation}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  pickerAndriod: {
+    marginTop: "10%",
+    borderWidth: 2,
+    borderColor: "#c2c2c1",
+    borderRadius: 5,
+    backgroundColor: "white",
+  },
+});
 export default Offline;

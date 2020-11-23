@@ -9,8 +9,8 @@ const CreateRoomButton = ({ navigateToLobby, mode }) => {
   const { createRoom, isCreatingRoom } = useCreateRoom()
   const handleCreateRoom = async () => {
     const roomId = await createRoom(mode)
-    console.log(mode)
-    console.log("roomId", roomId)
+    // console.log(mode)
+    // console.log("roomId", roomId)
     navigateToLobby(roomId, true)
   }
   return <Button
@@ -24,8 +24,8 @@ const QuickRoomButton = ({ navigateToLobby, mode }) => {
   const { isQuickJoining, QuickjoinRoom } = useQuickJoinRoom()
   const handleQuickJoinRoom = async () => {
     const { isFound, code } = await QuickjoinRoom(mode)
-    console.log("roomIdQuickJoin", code)
-    console.log(isFound)
+    // console.log("roomIdQuickJoin", code)
+    // console.log(isFound)
     if (isFound) {
       navigateToLobby(code, false)
     } else {
@@ -54,13 +54,13 @@ export default class Online extends Component {
       currentValue: currentValue,
       currentMode: currentMode,
     })
-    console.log(currentMode)
+    // console.log(currentMode)
     // console.log(this.state.currentValue);
     // console.log(this.state.currentMode);
   };
 
   navigateToLobby = async (roomid, isOwner) => {
-    console.log(roomid)
+    // console.log(roomid)
     this.props.navigation.navigate("Lobby", {
       value: this.state.currentValue,
       role: isOwner ? 'owner' : "member",

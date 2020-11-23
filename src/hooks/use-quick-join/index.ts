@@ -11,7 +11,7 @@ const useQuickJoinRoom = (): Output => {
     const [isQuickJoining, setIsQuickJoining] = useState(false)
     const { joinRoom, isJoining } = useJoinRoom()
     async function QuickjoinRoom(mode: String) {
-        console.log("quick join mode", mode)
+        // console.log("quick join mode", mode)
         setIsQuickJoining(true)
         let isFound = false
         let code = null
@@ -21,7 +21,7 @@ const useQuickJoinRoom = (): Output => {
             let index = Math.floor(Math.random() * snapshot.size)
             let count = 0
             snapshot.forEach(doc => {
-                console.log(doc.id);
+                // console.log(doc.id);
                 if (count == index) {
                     code = doc.id
                     isFound = true

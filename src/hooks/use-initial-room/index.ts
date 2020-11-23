@@ -19,7 +19,7 @@ const UseInitailGame = (roomId): Output => {
       if (doc.exists) {
         const data = doc.data()
         mine = generateMine(data.mineSize, data.size)
-        console.log(mine)
+        // console.log(mine)
         await db
           .collection('rooms')
           .doc(roomId)
