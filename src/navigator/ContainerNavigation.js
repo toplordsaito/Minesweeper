@@ -57,7 +57,7 @@ function ContainerNavigation() {
         <Stack.Screen
           name="Result"
           component={ResultScreen}
-          options={{ title: "", headerTransparent: true }}
+          options={{ title: "", headerTransparent: true,  headerLeft: () =>null }}
         />
 
       </Stack.Navigator>

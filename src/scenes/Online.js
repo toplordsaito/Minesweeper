@@ -43,8 +43,8 @@ const QuickRoomButton = ({ navigateToLobby, mode }) => {
 export default class Online extends Component {
   state = {
     currentValue: 0,
-    currentMode: 'PvP',
-  }
+    currentMode: "Ranking",
+  };
   constructor(props) {
     super(props);
   }
@@ -57,8 +57,7 @@ export default class Online extends Component {
     console.log(currentMode)
     // console.log(this.state.currentValue);
     // console.log(this.state.currentMode);
-
-  }
+  };
 
   navigateToLobby = async (roomid, isOwner) => {
     console.log(roomid)
@@ -72,26 +71,31 @@ export default class Online extends Component {
   renderMode = () => {
     return (
       <View style={styles.container}>
-        <Text h3 style={{ color: "white" }}>MOD<Text style={{ color: "red" }}>E</Text> :</Text>
-        <Picker
-          style={styles.picker}
-          itemStyle={{ height: 100, color: "white" }}
-          selectedValue={this.state.currentMode}
-          onValueChange={(mode) => this.changeMode(mode)}
-        >
-          <Picker.Item label="Ranking" value="Ranking" />
-          <Picker.Item label="Battle Royal" value="Battle Royal" />
-        </Picker>
+        <Text h3 style={{ color: "white" }}>
+          MOD<Text style={{ color: "red" }}>E</Text> :
+        </Text>
+        <View style={Platform.OS === "android" ? styles.pickerAndriod : null}>
+          <Picker
+            dropdownIconColor="red"
+            style={styles.picker}
+            itemStyle={{ height: 100, color: "white" }}
+            selectedValue={this.state.currentMode}
+            onValueChange={(mode) => this.changeMode(mode)}
+          >
+            <Picker.Item label="Ranking" value="Ranking" />
+            <Picker.Item label="Battle Royal" value="Battle Royal" />
+          </Picker>
+        </View>
       </View>
-    )
-  }
+    );
+  };
 
 
   render() {
     return (
       <View style={[styles.container, { backgroundColor: "#212930" }]}>
         {this.renderMode()}
-        <View style={{ flex: 1, width: '80%' }}>
+        <View style={{ flex: 1, width: "80%" }}>
           {/* <Button
             style={styles.button}
             title={"Create"}
@@ -106,7 +110,7 @@ export default class Online extends Component {
           <QuickRoomButton navigateToLobby={this.navigateToLobby} mode={this.state.currentMode} />
         </View>
       </View>
-    )
+    );
   }
 }
 
@@ -119,9 +123,16 @@ const styles = StyleSheet.create({
   button: {
     margin: 2,
   },
+  pickerAndriod: {
+    marginTop: "10%",
+    borderWidth: 2,
+    borderColor: "#c2c2c1",
+    borderRadius: 5,
+    backgroundColor: "white",
+  },
   picker: {
     height: 50,
     width: 200,
     alignSelf: "center",
-  }
-})
+  },
+});
