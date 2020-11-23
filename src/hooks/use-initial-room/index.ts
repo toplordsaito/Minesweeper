@@ -36,7 +36,8 @@ const UseInitailGame = (roomId): Output => {
             state: "playing",
             players: data.players,
             result: [],
-            currentGoal: 0
+            currentGoal: 0,
+            mode: data.mode
           })
 
 
