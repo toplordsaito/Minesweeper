@@ -71,19 +71,24 @@ export default class Online extends Component {
   renderMode = () => {
     return (
       <View style={styles.container}>
-        <Text h3 style={{ color: "white" }}>MOD<Text style={{ color: "red" }}>E</Text> :</Text>
-        <Picker
-          style={styles.picker}
-          itemStyle={{ height: 100, color: "white" }}
-          selectedValue={this.state.currentMode}
-          onValueChange={(mode) => this.changeMode(mode)}
-        >
-          <Picker.Item label="Ranking" value="Ranking" />
-          <Picker.Item label="Battle Royal" value="Battle Royal" />
-        </Picker>
+        <Text h3 style={{ color: "white" }}>
+          MOD<Text style={{ color: "red" }}>E</Text> :
+        </Text>
+        <View style={Platform.OS === "android" ? styles.pickerAndriod : null}>
+          <Picker
+            dropdownIconColor="red"
+            style={styles.picker}
+            itemStyle={{ height: 100, color: "white" }}
+            selectedValue={this.state.currentMode}
+            onValueChange={(mode) => this.changeMode(mode)}
+          >
+            <Picker.Item label="Ranking" value="Ranking" />
+            <Picker.Item label="Battle Royal" value="Battle Royal" />
+          </Picker>
+        </View>
       </View>
-    )
-  }
+    );
+  };
 
 
   render() {
