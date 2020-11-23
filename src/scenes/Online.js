@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { Button, Text } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
 import { Picker } from "@react-native-community/picker";
-import { useCreateRoom } from '../hooks'
+import { useCreateRoom, useQuickJoinRoom } from '../hooks'
 const MODE = ['PvP', 'Ranking', 'Battle Royal', 'Any'];
 
-const CreateRoomButton = ({ createRoomHanler }) => {
+const CreateRoomButton = ({ navigateToLobby }) => {
   const { createRoom, isCreatingRoom } = useCreateRoom()
   const handleCreateRoom = async () => {
     const roomId = await createRoom()
     console.log("roomId", roomId)
-    createRoomHanler(roomId)
+    navigateToLobby(roomId, true)
   }
   return <Button
     style={styles.button}
@@ -19,6 +19,22 @@ const CreateRoomButton = ({ createRoomHanler }) => {
   />
 }
 
+const QuickRoomButton = ({ navigateToLobby }) => {
+  const { isQuickJoining, QuickjoinRoom } = useQuickJoinRoom()
+  const handleQuickJoinRoom = async () => {
+    const { isFound, code } = await QuickjoinRoom()
+    console.log("roomIdQuickJoin", code)
+    if (isFound) {
+      navigateToLobby(code, false)
+    }
+
+  }
+  return <Button
+    style={styles.button}
+    title={"Quick Start"}
+    onPress={handleQuickJoinRoom}
+  />
+}
 
 export default class Online extends Component {
   state = {
@@ -39,14 +55,14 @@ export default class Online extends Component {
 
   }
 
-  createRoomHanler = async (roomid) => {
+  navigateToLobby = async (roomid, isOwner) => {
     console.log(roomid)
     this.props.navigation.navigate("Lobby", {
       value: this.state.currentValue,
-      role: 'owner',
+      role: isOwner ? 'owner' : "member",
       code: roomid,
     })
-    
+
   }
   renderMode = () => {
     return (
@@ -66,6 +82,8 @@ export default class Online extends Component {
       </View>
     )
   }
+
+
   render() {
     return (
       <View style={[styles.container, { backgroundColor: "#212930" }]}>
@@ -76,17 +94,13 @@ export default class Online extends Component {
             title={"Create"}
             onPress={this.handleCreateRoom}
           /> */}
-          <CreateRoomButton createRoomHanler={this.createRoomHanler} />
+          <CreateRoomButton navigateToLobby={this.navigateToLobby} />
           <Button
             style={styles.button}
             title={"Join"}
             onPress={() => this.props.navigation.navigate("Join Lobby")}
           />
-          <Button
-            style={styles.button}
-            title={"Quick Start"}
-            onPress={() => navigation.navigate("Quick Start")}
-          />
+          <QuickRoomButton navigateToLobby={this.navigateToLobby} />
         </View>
       </View>
     )

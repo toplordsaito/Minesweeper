@@ -4,7 +4,7 @@ import { db } from '../../services'
 import { useCurrentUser } from '../../hooks'
 interface Output {
   isJoining: boolean
-  joinRoom: (userId: string, roomId: string) => void
+  joinRoom: (roomId: string) => void
 }
 
 const useJoinRoom = (): Output => {

@@ -6,14 +6,14 @@ import { LogBox } from 'react-native';
 
 import { Provider } from "react-redux"
 import { createStore, combineReducers } from "redux";
-import themeReducer from "./src/store/reducers/themeReducer"
+import themeReducer from "./src/store/reducers/ThemeReducer"
 import { useSelector, useDispatch } from "react-redux";
 
 const rootReducer = combineReducers({
   theme: themeReducer,
 });
 const store = createStore(rootReducer);
-
+// LogBox.ignoreAllLogs();
 export default function App() {
   // LogBox.ignoreLogs(['Setting a timer']);
   return (
