@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Text, ButtonGroup, Divider } from "react-native-elements";
 import { View, FlatList } from "react-native";
 import { Picker } from "@react-native-community/picker";
+import { CommonActions } from "@react-navigation/native";
 import Slider from "@react-native-community/slider";
 // import Icon from "react-native-vector-icons/AntDesign";
 const Offline = ({ navigation }) => {
@@ -153,7 +154,12 @@ const Offline = ({ navigation }) => {
         style={{ width: 120 }}
         title="Play Game!"
         onPress={() => {
-          navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode: mode });
+          navigation.dispatch(
+            CommonActions.reset({
+              routes: [{ name: "OfflineGame" , params: { size: size, bomb: bomb, mode: mode }}],
+            })
+          );
+         
         }}
       />
     </View>
