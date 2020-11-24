@@ -3,7 +3,6 @@ import { Avatar, Button, ListItem, Text } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
 import { useRoom, useLeaveRoom, useInitailGame, useCurrentUser } from '../hooks'
 import stylesTheme from "../styles/theme.styles";
-import { switchTheme } from "../store/actions/switchTheme";
 import { useSelector } from "react-redux";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
@@ -40,7 +39,7 @@ const Lobby = ({ route, navigation }) => {
     else {
       return room.players.map((l, i) => (
         <ListItem key={i} style={{width: wp("100%")}} bottomDivider>
-          <Avatar source={{ uri: l.avatar }} />
+          <Avatar avatarStyle={{borderRadius: 100}} source={{ uri: l.avatar }} />
           <ListItem.Content>
             <ListItem.Title style={{fontFamily: colorData.fontFamily}}>{l.name}</ListItem.Title>
             <ListItem.Subtitle style={{fontFamily: colorData.fontFamily}}>Elo: {l.elorank}{"\t\t\t"}Role: {l.id==room.owner ? "Owner" : "Member"}</ListItem.Subtitle>
@@ -76,7 +75,6 @@ const Lobby = ({ route, navigation }) => {
           C<Text style={{color: colorData.innerText}}>o</Text>de: {code}
         </Text>
       </View>
-      
       {
         display()
       }
