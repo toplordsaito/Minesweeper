@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
     "Leaderboard",
     "Tutorial",
     "Setting",
-    "Link FaceBook",
+    "Link Facebook",
     "Logout",
   ];
   const colorData = useSelector((state) => state.theme.colorData);
@@ -38,7 +38,7 @@ const Home = ({ navigation }) => {
       }
       navigation.navigate("SplashScreen");
     }
-    if (item == "Link FaceBook") {
+    if (item == "Link Facebook") {
       const dataFaceBook = await logInWithFaceBook();
       const data = {
         id: user.id,

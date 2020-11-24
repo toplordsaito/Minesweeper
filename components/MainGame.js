@@ -164,6 +164,7 @@ class MainGame extends Component {
                     isMine={this.isMine}
                     focusMode={this.state.focusMode}
                     ChangeFlag={this.ChangeFlag}
+                    colorData = {this.colorData}
                 />
             });
 

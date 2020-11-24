@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import stylesTheme from "../styles/theme.styles";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-const CreateRoomButton = ({ buttonStyle, navigateToLobby, mode, size, bomb }) => {
+const CreateRoomButton = ({ buttonStyle, titleStyle, navigateToLobby, mode, size, bomb }) => {
   const { createRoom, isCreatingRoom } = useCreateRoom()
   const handleCreateRoom = async () => {
     const roomId = await createRoom(mode, size, bomb)
@@ -18,12 +18,13 @@ const CreateRoomButton = ({ buttonStyle, navigateToLobby, mode, size, bomb }) =>
   }
   return <Button
     buttonStyle={buttonStyle}
+    titleStyle={titleStyle}
     title={"Create"}
     onPress={handleCreateRoom}
   />
 }
 
-const QuickRoomButton = ({ buttonStyle, navigateToLobby, mode }) => {
+const QuickRoomButton = ({ buttonStyle, titleStyle, navigateToLobby, mode }) => {
   const { isQuickJoining, QuickjoinRoom } = useQuickJoinRoom()
   const handleQuickJoinRoom = async () => {
     const { isFound, code } = await QuickjoinRoom(mode)
@@ -37,6 +38,7 @@ const QuickRoomButton = ({ buttonStyle, navigateToLobby, mode }) => {
   }
   return <Button
     buttonStyle={buttonStyle}
+    titleStyle={titleStyle}
     title={"Quick Start"}
     onPress={handleQuickJoinRoom}
   />
@@ -129,6 +131,7 @@ const Online = ({navigation}) => {
       <View style={[stylesTheme.innerContainer, {height: hp("40%")}]}>
         <CreateRoomButton
           buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+          titleStyle={text}
           navigateToLobby={navigateToLobby}
           mode={mode}
           size={size}
@@ -136,11 +139,13 @@ const Online = ({navigation}) => {
         />
         <Button
           buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+          titleStyle={text}
           title={"Join"}
           onPress={() => {navigation.navigate("Join Lobby")}}
         />
         <QuickRoomButton
           buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+          titleStyle={text}
           navigateToLobby={navigateToLobby}
           mode={mode}
         />
