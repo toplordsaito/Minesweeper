@@ -11,7 +11,7 @@ import * as Font from "expo-font";
 
 const loadFonts = () => {
   return Font.loadAsync({
-    "metal": require("./assets/fonts/TheFirst.ttf"),
+    "metal": require("./assets/fonts/RobotRenegades.ttf"),
     "candy": require("./assets/fonts/Funtasia.ttf"),
   })
 }

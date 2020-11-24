@@ -31,7 +31,6 @@ const QuickRoomButton = ({ navigateToLobby, mode }) => {
     } else {
       alert("No room Found")
     }
-
   }
   return <Button
     style={styles.button}

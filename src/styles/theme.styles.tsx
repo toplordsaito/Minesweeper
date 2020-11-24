@@ -7,17 +7,21 @@ const stylesTheme = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  innerContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
   logoContainer: {
     alignItems: "center",
   },
   text:{
     marginTop: "15%",
     marginBottom: "15%",
-    fontFamily: "",
     fontWeight: "bold",
   },
   headerText:{
-    marginTop: "10%",
+    marginTop: hp("3%"),
+    marginBottom: hp("2%"),
     fontWeight: "bold",
   },
   innerText: {

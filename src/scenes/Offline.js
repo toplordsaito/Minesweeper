@@ -3,7 +3,11 @@ import { Button, Text, ButtonGroup, Divider } from "react-native-elements";
 import { View, FlatList } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import Slider from "@react-native-community/slider";
-// import Icon from "react-native-vector-icons/AntDesign";
+import { useSelector } from "react-redux";
+import stylesTheme from "../styles/theme.styles";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { color } from "react-native-reanimated";
+
 const Offline = ({navigation}) => {
   const buttons = ["Easy", "Medium", "Hard", "Custom"];
   const [mode, setMode] = useState("Normal");
@@ -11,69 +15,64 @@ const Offline = ({navigation}) => {
   const [size, setSize] = useState(10);
   const [bomb, setBomb] = useState(10);
   const [disabled, setDisabled] = useState(true);
+  const colorData = useSelector((state) => state.theme.colorData);
+  const debugBackgroundColor = "green";
+  const headerView = hp("10%");
+  const sliderStyle = {width: wp("40%"), height: hp("6%"), marginLeft: wp("5%"), marginRight: wp("5%")};
+  const pickerStyle = {width: wp("60%"), hight: 50, alignSelf: "center"}
+  const pickerItemStyle = {color: colorData.text, fontFamily: colorData.fontFamily, height: hp("15%")};
+  const labelTextStyle = {color: colorData.text, fontFamily: colorData.fontFamily};
   return (
-    <View style={{ flex: 1, alignItems: "center", backgroundColor: "#212930" }}>
-      <Text
-        h3
-        style={{
-          marginTop: 25,
-          marginBottom: 10,
-          fontWeight: "bold",
-          color: "white",
-        }}
-      >
-        LEV<Text style={{color:"red"}}>E</Text>L :{" "}
-      </Text>
-      <ButtonGroup
-        onPress={(i) => {
-          setIndex(i);
-          if (i == 0) {
-            setDisabled(true);
-            setSize(3);
-            setBomb(1);
-          }
-          if (i == 1) {
-            setDisabled(true);
-            setSize(10);
-            setBomb(10);
-          }
-          if (i == 2) {
-            setDisabled(true);
-            setSize(20);
-            setBomb(40);
-          }
-          if (i == 3) {
-            setDisabled(false);
-          }
-        }}
-        selectedIndex={selectedIndex}
-        buttons={buttons}
-        containerStyle={{
-          flexDirection: "column",
-          height: "25%",
-          width: "45%",
-          borderRadius: 10,
-          backgroundColor: "#fff",
-        }}
-      />
-
-      <Text
-        h3
-        style={{
-          marginTop: 10,
-          marginBottom: 5,
-          fontWeight: "bold",
-          color: "white",
-        }}
-      >
-        B<Text style={{color:"red"}}>L</Text>OCK :
-      </Text>
-      <View
-        style={{
-          flex: 0.2,
-          flexDirection: "row",
-        }}
-      >
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
+      {/* Level */}
+      <View style={[stylesTheme.innerContainer, {height: headerView}]}>
+        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h3>
+          LEV<Text style={{color: colorData.innerText}}>E</Text>L
+        </Text>
+      </View>
+      <View style={[stylesTheme.innerContainer, {height: hp("24%")}]}>
+        <ButtonGroup
+          onPress={(i) => {
+            setIndex(i);
+            if (i == 0) {
+              setDisabled(true);
+              setSize(3);
+              setBomb(1);
+            }
+            if (i == 1) {
+              setDisabled(true);
+              setSize(10);
+              setBomb(10);
+            }
+            if (i == 2) {
+              setDisabled(true);
+              setSize(20);
+              setBomb(40);
+            }
+            if (i == 3) {
+              setDisabled(false);
+            }
+          }}
+          selectedIndex={selectedIndex}
+          selectedButtonStyle={{backgroundColor: colorData.button}}
+          selectedTextStyle={{color: colorData.text}}
+          buttons={buttons}
+          containerStyle={{
+            flexDirection: "column",
+            height: hp("22%"),
+            width: wp("60%"),
+            borderRadius: 10,
+          }}
+          textStyle={{color: colorData.buttonGroupText, fontFamily: colorData.fontFamily}}
+        />
+      </View>
+      {/* Block */}
+      <View style={[stylesTheme.innerContainer, {height: headerView}]}>
+        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h3>
+          B<Text style={{color: colorData.innerText}}>L</Text>OCK
+        </Text>
+      </View>
+      <View style={{height: hp("6%"), flexDirection: "row"}}>
         <Slider
           value={size}
           onValueChange={(item) => {
@@ -81,76 +80,63 @@ const Offline = ({navigation}) => {
             if((item*item-1) <= bomb){
               setBomb(Math.max(item * item - 1,0))
             }
-            
           }}
-          style={{ width: 100, height: 30, marginRight: 50 }}
+          style={sliderStyle}
           minimumValue={1}
           step={1}
           disabled={disabled}
           maximumValue={100}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#4285F4"
+          minimumTrackTintColor={colorData.minimumTrackTint}
+          maximumTrackTintColor="#ffffff"
           thumbTintColor="white"
         />
-
         <Slider
           value={bomb}
           onValueChange={(item) => {
             setBomb(item);
           }}
-          style={{ width: 100, height: 30 }}
+          style={sliderStyle}
           minimumValue={0}
           maximumValue={Math.max(size * size - 1,0)}
           step={1}
           disabled={disabled}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#4285F4"
+          minimumTrackTintColor={colorData.minimumTrackTint}
+          maximumTrackTintColor="#ffffff"
           thumbTintColor="white"
         />
+    </View>
+      <View style={{height: hp("4%"), flexDirection: "row"}}>
+        <View style={[stylesTheme.innerContainer, sliderStyle]}>
+          <Text style={labelTextStyle}>
+            Block Size : {size} x {size}
+          </Text>
+        </View>
+        <View style={[stylesTheme.innerContainer, sliderStyle]}>
+          <Text style={labelTextStyle}>
+            Bomb in Area: {bomb}
+          </Text>
+        </View>
       </View>
-      <View
-        style={{
-          flex: 0.2,
-          flexDirection: "row",
-          marginTop: 16,
-        }}
-      >
-        <Text style={{ color: "white" }}>
-          Block Size : {size} x {size}
-        </Text>
-        <Text style={{ color: "white", marginLeft: 40 }}>
-          Bomb in Area: {bomb}
+      {/* Mode */}
+      <View style={[stylesTheme.innerContainer, {height: headerView}]}>
+        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h3>
+          MOD<Text style={{color: colorData.innerText}}>E</Text>
         </Text>
       </View>
-      <Text
-        h3
-        style={{
-          marginTop: 10,
-          marginBottom: 10,
-          fontWeight: "bold",
-          color: "white",
-        }}
-      >
-        MOD<Text style={{color:"red"}}>E</Text> :
-      </Text>
-
-      <Picker
-        itemStyle={{ height: 100, color: "white" }}
-        selectedValue={mode}
-        style={{
-          height:50,
-          width: 200,
-          marginTop:"2.5%",
-          alignSelf: "center",
-          marginBottom: "20%"
-        }}
-        onValueChange={(itemValue) => setMode(itemValue)}
-      >
-        <Picker.Item label="Normal" value="Normal" />
-        <Picker.Item label="Endless" value="Endless" />
-      </Picker>
+      <View style={[stylesTheme.innerContainer]}>
+        <Picker
+          itemStyle={pickerItemStyle}
+          selectedValue={mode}
+          style={pickerStyle}
+          onValueChange={(itemValue) => setMode(itemValue)}
+        >
+          <Picker.Item label="Normal" value="Normal"/>
+          <Picker.Item label="Endless" value="Endless"/>
+        </Picker>
+      </View>
       <Button
-        style={{ width: 120 }}
+        buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+        titleStyle={{color: colorData.text, fontFamily: colorData.fontFamily}}
         title="Play Game!"
         onPress={() => {
           navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode:mode });
@@ -160,3 +146,4 @@ const Offline = ({navigation}) => {
   );
 };
 export default Offline;
+
