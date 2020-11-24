@@ -122,7 +122,7 @@ export default class Online extends Component {
                 onValueChange={(item) => {
                   let bomb = this.state.bomb
                   if ((item * item - 1) <= bomb) {
-                    bomb = Math.max(item * item - 1, 0)
+                    bomb = Math.max(item * item - 1, 1)
                   }
                   this.setState({
                     size: item,
@@ -134,7 +134,7 @@ export default class Online extends Component {
                 style={{ width: 100, height: 30, marginRight: 50 }}
                 minimumValue={1}
                 step={1}
-                maximumValue={100}
+                maximumValue={20}
                 minimumTrackTintColor="#FFFFFF"
                 maximumTrackTintColor="#4285F4"
                 thumbTintColor="white"
@@ -148,8 +148,8 @@ export default class Online extends Component {
                   })
                 }}
                 style={{ width: 100, height: 30 }}
-                minimumValue={0}
-                maximumValue={Math.max(this.state.size * this.state.size - 1, 0)}
+                minimumValue={1}
+                maximumValue={Math.max(this.state.size * this.state.size - 1, 1)}
                 step={1}
                 minimumTrackTintColor="#FFFFFF"
                 maximumTrackTintColor="#4285F4"
