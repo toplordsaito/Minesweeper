@@ -7,6 +7,7 @@ const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
 import stylesTheme from "../styles/theme.styles";
 import { useSelector, useDispatch } from "react-redux";
+import { CommonActions } from "@react-navigation/native";
 const Home = ({ navigation }) => {
   const button = [
     "Profile",
@@ -43,7 +44,11 @@ const Home = ({ navigation }) => {
       if (user?.facebookId) {
         AsyncStorage.removeItem("user");
       }
-      navigation.navigate("SplashScreen");
+      navigation.dispatch(
+        CommonActions.reset({
+          routes: [{ name: "SplashScreen" }],
+        })
+      );
     }
     if (item == "Link FaceBook") {
       const dataFaceBook = await logInWithFaceBook();
@@ -62,13 +67,15 @@ const Home = ({ navigation }) => {
     } else {
       if (item == "Profile") {
         const userProfile = JSON.parse(await AsyncStorage.getItem("user"))
-        console.log(userProfile)
-        let userInDb = await getUserById(userProfile.id)
-        console.log(userInDb)
-        if (userInDb?.id){
-        AsyncStorage.setItem("user", JSON.stringify(userInDb));}
-        console.log("user in room :" + JSON.stringify(userInDb));
-        navigation.navigate(item, { user: userInDb  });
+        // console.log(userProfile)
+        // let userInDb = await getUserById(userProfile.id)
+        // console.log(userInDb)
+        // if (userInDb?.id){
+        // AsyncStorage.setItem("user", JSON.stringify(userInDb));}
+        // console.log("user in room :" + JSON.stringify(userInDb));
+        console.log("user in room :" + JSON.stringify(userProfile));
+        navigation.navigate(item, { user: userProfile  });
+        // navigation.navigate(item, { user: userInDb  });
       } else {
         if(item != "Logout"){
         navigation.navigate(item);}

@@ -7,7 +7,19 @@ import GameStatus from '../components/GameStatus'
 import { getUserById } from '../apis/userAPI'
 const ResultScreen = ({ route, navigation }) => {
     const { code } = route.params;
-   
+    const setDevice = async () => {
+        console.log("sdsa")
+        let userInDevicec = await AsyncStorage.getItem("user");
+        userInDevicec = JSON.parse(userInDevicec);
+        let userInDb = await getUserById(userInDevicec["id"])
+        console.log(userInDb)
+        if ( userInDb?.id) {
+            AsyncStorage.setItem("user", JSON.stringify(userInDb));
+          }
+    }
+    useEffect(() => {
+        setDevice()
+    }, [])
     navigateToLobby = async () => {
         // console.log("sdsa")
         // let userInDevicec = await AsyncStorage.getItem("user");
