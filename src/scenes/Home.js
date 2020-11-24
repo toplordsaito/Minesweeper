@@ -13,9 +13,9 @@ const Home = ({ navigation }) => {
     "Offline",
     "Online",
     "Profile",
-    "LeaderBoard",
+    "Leaderboard",
     "Tutorial",
-    "Theme",
+    "Setting",
     "Link FaceBook",
     "Logout",
   ];
@@ -58,8 +58,9 @@ const Home = ({ navigation }) => {
         console.log("user in room :" + JSON.stringify(userProfile));
         navigation.navigate(item, { user: userProfile  });
       } else {
-        if(item != "Logout"){
-        navigation.navigate(item);}
+        if(item != "Logout") {
+          navigation.navigate(item);
+        }
       }
     }
   };

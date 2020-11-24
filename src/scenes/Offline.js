@@ -15,16 +15,12 @@ const Offline = ({navigation}) => {
   const [bomb, setBomb] = useState(10);
   const [disabled, setDisabled] = useState(true);
   const colorData = useSelector((state) => state.theme.colorData);
-  const headerView = hp("10%");
-  const sliderStyle = {width: wp("40%"), height: hp("6%"), marginLeft: wp("5%"), marginRight: wp("5%")};
-  const pickerStyle = {width: wp("60%"), hight: 50, alignSelf: "center"}
-  const pickerItemStyle = {color: colorData.text, fontFamily: colorData.fontFamily, height: hp("15%")};
-  const labelTextStyle = {color: colorData.text, fontFamily: colorData.fontFamily};
+  const text = {color: colorData.text, fontFamily: colorData.fontFamily};
   return (
     <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       {/* Level */}
-      <View style={[stylesTheme.innerContainer, {height: headerView}]}>
-        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h3>
+      <View style={stylesTheme.headerContainer}>
+        <Text style={[stylesTheme.headerText, text]} h3>
           LEV<Text style={{color: colorData.innerText}}>E</Text>L
         </Text>
       </View>
@@ -65,8 +61,8 @@ const Offline = ({navigation}) => {
         />
       </View>
       {/* Block */}
-      <View style={[stylesTheme.innerContainer, {height: headerView}]}>
-        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h3>
+      <View style={stylesTheme.headerContainer}>
+        <Text style={[stylesTheme.headerText, text]} h3>
           B<Text style={{color: colorData.innerText}}>L</Text>OCK
         </Text>
       </View>
@@ -79,7 +75,7 @@ const Offline = ({navigation}) => {
               setBomb(Math.max(item * item - 1, 1))
             }
           }}
-          style={sliderStyle}
+          style={stylesTheme.sliderStyle}
           minimumValue={1}
           step={1}
           disabled={disabled}
@@ -93,7 +89,7 @@ const Offline = ({navigation}) => {
           onValueChange={(item) => {
             setBomb(item);
           }}
-          style={sliderStyle}
+          style={stylesTheme.sliderStyle}
           minimumValue={1}
           maximumValue={Math.max(size * size - 1, 1)}
           step={1}
@@ -102,39 +98,40 @@ const Offline = ({navigation}) => {
           maximumTrackTintColor="#ffffff"
           thumbTintColor="white"
         />
-    </View>
+      </View>
       <View style={{height: hp("4%"), flexDirection: "row"}}>
-        <View style={[stylesTheme.innerContainer, sliderStyle]}>
-          <Text style={labelTextStyle}>
+        <View style={[stylesTheme.innerContainer, stylesTheme.sliderStyle]}>
+          <Text style={text}>
             Block Size : {size} x {size}
           </Text>
         </View>
-        <View style={[stylesTheme.innerContainer, sliderStyle]}>
-          <Text style={labelTextStyle}>
+        <View style={[stylesTheme.innerContainer, stylesTheme.sliderStyle]}>
+          <Text style={text}>
             Bomb in Area: {bomb}
           </Text>
         </View>
       </View>
       {/* Mode */}
-      <View style={[stylesTheme.innerContainer, {height: headerView}]}>
-        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h3>
+      <View style={stylesTheme.headerContainer}>
+        <Text style={[stylesTheme.headerText, text]} h3>
           MOD<Text style={{color: colorData.innerText}}>E</Text>
         </Text>
       </View>
-      <View style={[stylesTheme.innerContainer]}>
+      <View style={stylesTheme.innerContainer}>
         <Picker
-          itemStyle={pickerItemStyle}
+          itemStyle={[stylesTheme.pickerItemStyle, text]}
           selectedValue={mode}
-          style={pickerStyle}
+          style={stylesTheme.pickerStyle}
           onValueChange={(itemValue) => setMode(itemValue)}
         >
           <Picker.Item label="Normal" value="Normal"/>
           <Picker.Item label="Endless" value="Endless"/>
         </Picker>
       </View>
+      {/* Button */}
       <Button
         buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
-        titleStyle={{color: colorData.text, fontFamily: colorData.fontFamily}}
+        titleStyle={text}
         title="Play Game!"
         onPress={() => {
           navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode: mode });

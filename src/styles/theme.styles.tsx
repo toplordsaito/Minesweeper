@@ -11,6 +11,11 @@ const stylesTheme = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  headerContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: hp("10%"),
+  },
   logoContainer: {
     alignItems: "center",
   },
@@ -41,5 +46,18 @@ const stylesTheme = StyleSheet.create({
     height: hp("8%"),
     margin: wp("2%"),
   },
+  sliderStyle: {
+    width: wp("40%"),
+    height: hp("6%"),
+    marginLeft: wp("5%"),
+    marginRight: wp("5%"),
+  },
+  pickerStyle: {
+    width: wp("60%"),
+    alignSelf: "center",
+  },
+  pickerItemStyle: {
+    height: hp("15%"),
+  }
 });
 export default stylesTheme;

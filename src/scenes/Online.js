@@ -1,12 +1,14 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Button, Text } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import { useCreateRoom, useQuickJoinRoom } from '../hooks'
 import Slider from "@react-native-community/slider";
-const MODE = ['Ranking', 'Battle Royal'];
+import { useSelector } from "react-redux";
+import stylesTheme from "../styles/theme.styles";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-const CreateRoomButton = ({ navigateToLobby, mode, size, bomb }) => {
+const CreateRoomButton = ({ buttonStyle, navigateToLobby, mode, size, bomb }) => {
   const { createRoom, isCreatingRoom } = useCreateRoom()
   const handleCreateRoom = async () => {
     const roomId = await createRoom(mode, size, bomb)
@@ -15,13 +17,13 @@ const CreateRoomButton = ({ navigateToLobby, mode, size, bomb }) => {
     navigateToLobby(roomId, true)
   }
   return <Button
-    style={styles.button}
+    buttonStyle={buttonStyle}
     title={"Create"}
     onPress={handleCreateRoom}
   />
 }
 
-const QuickRoomButton = ({ navigateToLobby, mode }) => {
+const QuickRoomButton = ({ buttonStyle, navigateToLobby, mode }) => {
   const { isQuickJoining, QuickjoinRoom } = useQuickJoinRoom()
   const handleQuickJoinRoom = async () => {
     const { isFound, code } = await QuickjoinRoom(mode)
@@ -34,184 +36,117 @@ const QuickRoomButton = ({ navigateToLobby, mode }) => {
     }
   }
   return <Button
-    style={styles.button}
+    buttonStyle={buttonStyle}
     title={"Quick Start"}
     onPress={handleQuickJoinRoom}
   />
 }
 
-export default class Online extends Component {
-  state = {
-    currentValue: 0,
-    currentMode: "Ranking",
-    bomb: 10,
-    size: 10
-  };
-  constructor(props) {
-    super(props);
-  }
-  changeMode = (currentMode) => {
-    let currentValue = MODE.findIndex((mode) => mode === currentMode);
-    this.setState({
-      currentValue: currentValue,
-      currentMode: currentMode,
+const Online = ({navigation}) => {
+  const modes = ['Ranking', 'Battle Royal'];
+  const [mode, setMode] = useState("Ranking");
+  const [size, setSize] = useState(10);
+  const [bomb, setBomb] = useState(10);
+  const colorData = useSelector((state) => state.theme.colorData);
+  const text = {color: colorData.text, fontFamily: colorData.fontFamily};
+  const navigateToLobby = async (roomId, isOwner) => {
+    console.log(roomId)
+    navigation.navigate("Lobby", {
+      value: modes.indexOf(mode),
+      role: isOwner?"owner":"member",
+      code: roomId,
     })
-    console.log(currentMode)
-    // console.log(this.state.currentValue);
-    // console.log(this.state.currentMode);
-  };
-
-  navigateToLobby = async (roomid, isOwner) => {
-    console.log(roomid)
-    this.props.navigation.navigate("Lobby", {
-      value: this.state.currentValue,
-      role: isOwner ? 'owner' : "member",
-      code: roomid,
-    })
-
   }
-  renderMode = () => {
-    return (
-      <View style={styles.container}>
-        <Text h3 style={{ color: "white" }}>
-          MOD<Text style={{ color: "red" }}>E</Text> :
+  return (
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
+      {/* Mode */}
+      <View style={stylesTheme.headerContainer}>
+        <Text style={[stylesTheme.headerText, text]} h3>
+          MOD<Text style={{color: colorData.innerText}}>E</Text>
         </Text>
-        <View style={Platform.OS === "android" ? styles.pickerAndriod : null}>
-          <Picker
-            dropdownIconColor="red"
-            style={styles.picker}
-            itemStyle={{ height: 100, color: "white" }}
-            selectedValue={this.state.currentMode}
-            onValueChange={(mode) => this.changeMode(mode)}
-          >
-            <Picker.Item label="Ranking" value="Ranking" />
-            <Picker.Item label="Battle Royal" value="Battle Royal" />
-          </Picker>
+      </View>
+      <View style={stylesTheme.innerContainer}>
+        <Picker
+          itemStyle={[stylesTheme.pickerItemStyle, text]}
+          selectedValue={mode}
+          style={stylesTheme.pickerStyle}
+          onValueChange={(itemValue) => setMode(itemValue)}
+        >
+          <Picker.Item label="Ranking" value="Ranking"/>
+          <Picker.Item label="Battle Royal" value="Battle Royal"/>
+        </Picker>
+      </View>
+      {/* Block */}
+      <View style={stylesTheme.headerContainer}>
+        <Text style={[stylesTheme.headerText, text]} h3>
+          B<Text style={{color: colorData.innerText}}>L</Text>OCK
+        </Text>
+      </View>
+      <View style={{height: hp("6%"), flexDirection: "row"}}>
+        <Slider
+          value={size}
+          onValueChange={(item) => {
+            setSize(item);
+            if ((item * item - 1) <= bomb) {
+              setBomb(Math.max(item * item - 1, 1))
+            }
+          }}
+          style={stylesTheme.sliderStyle}
+          minimumValue={1}
+          step={1}
+          maximumValue={20}
+          minimumTrackTintColor={colorData.minimumTrackTint}
+          maximumTrackTintColor="#ffffff"
+          thumbTintColor="white"
+        />
+        <Slider
+          value={bomb}
+          onValueChange={(item) => {
+            setBomb(item);
+          }}
+          style={stylesTheme.sliderStyle}
+          minimumValue={1}
+          maximumValue={Math.max(size * size - 1, 1)}
+          step={1}
+          minimumTrackTintColor={colorData.minimumTrackTint}
+          maximumTrackTintColor="#ffffff"
+          thumbTintColor="white"
+        />
+      </View>
+      <View style={{height: hp("4%"), flexDirection: "row"}}>
+        <View style={[stylesTheme.innerContainer, stylesTheme.sliderStyle]}>
+          <Text style={text}>
+            Block Size : {size} x {size}
+          </Text>
+        </View>
+        <View style={[stylesTheme.innerContainer, stylesTheme.sliderStyle]}>
+          <Text style={text}>
+            Bomb in Area: {bomb}
+          </Text>
         </View>
       </View>
-    );
-  };
-
-
-  render() {
-    return (
-      <View style={[styles.container, { backgroundColor: "#212930" }]}>
-        {this.renderMode()}
-
-        {
-          <View>
-            <Text
-              h3
-              style={{
-                marginTop: 10,
-                marginBottom: 5,
-                fontWeight: "bold",
-                color: "white",
-              }}
-            >
-              B<Text style={{ color: "red" }}>L</Text>OCK :</Text>
-            <View
-              style={{
-                flex: 0.2,
-                flexDirection: "row",
-              }}
-            >
-              <Slider
-                value={this.state.size}
-                onValueChange={(item) => {
-                  let bomb = this.state.bomb
-                  if ((item * item - 1) <= bomb) {
-                    bomb = Math.max(item * item - 1, 1)
-                  }
-                  this.setState({
-                    size: item,
-                    bomb
-                  })
-
-
-                }}
-                style={{ width: 100, height: 30, marginRight: 50 }}
-                minimumValue={1}
-                step={1}
-                maximumValue={20}
-                minimumTrackTintColor="#FFFFFF"
-                maximumTrackTintColor="#4285F4"
-                thumbTintColor="white"
-              />
-
-              <Slider
-                value={this.state.bomb}
-                onValueChange={(item) => {
-                  this.setState({
-                    bomb: item
-                  })
-                }}
-                style={{ width: 100, height: 30 }}
-                minimumValue={1}
-                maximumValue={Math.max(this.state.size * this.state.size - 1, 1)}
-                step={1}
-                minimumTrackTintColor="#FFFFFF"
-                maximumTrackTintColor="#4285F4"
-                thumbTintColor="white"
-              />
-            </View>
-            <View
-              style={{
-                flex: 0.2,
-                flexDirection: "row",
-                marginTop: 16,
-              }}
-            >
-              <Text style={{ color: "white" }}>
-                Block Size : {this.state.size} x {this.state.size}
-              </Text>
-              <Text style={{ color: "white", marginLeft: 40 }}>
-                Bomb in Area: {this.state.bomb}
-              </Text>
-            </View></View>
-        }
-        <View style={{ flex: 1, width: "80%" }}>
-          {/* <Button
-            style={styles.button}
-            title={"Create"}
-            onPress={this.handleCreateRoom}
-          /> */}
-          <CreateRoomButton navigateToLobby={this.navigateToLobby}
-            mode={this.state.currentMode}
-            size={this.state.size}
-            bomb={this.state.bomb}
-          />
-          <Button
-            style={styles.button}
-            title={"Join"}
-            onPress={() => this.props.navigation.navigate("Join Lobby")}
-          />
-          <QuickRoomButton navigateToLobby={this.navigateToLobby} mode={this.state.currentMode} />
-        </View>
+      {/* Button */}
+      <View style={[stylesTheme.innerContainer, {height: hp("40%")}]}>
+        <CreateRoomButton
+          buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+          navigateToLobby={navigateToLobby}
+          mode={mode}
+          size={size}
+          bomb={bomb}
+        />
+        <Button
+          buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+          title={"Join"}
+          onPress={() => {navigation.navigate("Join Lobby")}}
+        />
+        <QuickRoomButton
+          buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+          navigateToLobby={navigateToLobby}
+          mode={mode}
+        />
       </View>
-    );
-  }
+    </View>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    margin: 2,
-  },
-  pickerAndriod: {
-    marginTop: "10%",
-    borderWidth: 2,
-    borderColor: "#c2c2c1",
-    borderRadius: 5,
-    backgroundColor: "white",
-  },
-  picker: {
-    height: 50,
-    width: 200,
-    alignSelf: "center",
-  },
-});
+export default Online;

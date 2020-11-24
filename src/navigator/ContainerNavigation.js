@@ -50,10 +50,10 @@ function ContainerNavigation() {
         <Stack.Screen name="Online" component={Online} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Lobby" component={Lobby} />
-        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+        <Stack.Screen name="Leaderboard" component={LeaderBoard} />
         <Stack.Screen name="Join Lobby" component={JoinLobby} />
         <Stack.Screen name="Tutorial" component={Tutorial} />
-        <Stack.Screen name="Theme" component={Theme} />
+        <Stack.Screen name="Setting" component={Theme} />
         <Stack.Screen
           name="Result"
           component={ResultScreen}
