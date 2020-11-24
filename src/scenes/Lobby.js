@@ -37,7 +37,7 @@ const Lobby = ({ route, navigation }) => {
           <Avatar source={{ uri: l.avatar }} />
           <ListItem.Content>
             <ListItem.Title>{l.name}</ListItem.Title>
-            <ListItem.Subtitle>{l.elorank}</ListItem.Subtitle>
+            <ListItem.Subtitle>Elo: {l.elorank} Role: {l.id==room.owner ? "Owner" : "Member"}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
       ))
@@ -52,10 +52,7 @@ const Lobby = ({ route, navigation }) => {
 
   startGame = async () => {
     console.log("initButton")
-    let mine = await initialGame()
-    // console.log(mine)
-    // console.log("WTFFFFFFFFFFFFFFFFFF")
-    // navigation.navigate("OnlineGame", { mode: "Online", code, room, mine });
+    let isComplete = await initialGame()
   }
 
 
@@ -64,7 +61,7 @@ const Lobby = ({ route, navigation }) => {
       {/* Looby Code */}
       <View style={styles.container}>
         <Text h3 style={{ color: "white" }}>COD<Text style={{ color: "red" }}>E</Text> : {code}</Text>
-        <Text h4 style={{ color: "white" }}>M<Text style={{ color: "red" }}>O</Text>DE : {MODE[value]}</Text>
+        <Text h4 style={{ color: "white" }}>M<Text style={{ color: "red" }}>O</Text>DE : {room ? room.mode : ""}</Text>
       </View>
       {
         display()
