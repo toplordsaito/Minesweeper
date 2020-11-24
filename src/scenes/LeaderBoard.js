@@ -31,7 +31,7 @@ const LeaderBoard = ({ navigation }) => {
         ListHeaderComponent={
           <View style={[stylesTheme.container, {height: hp('15%')}]}>
             <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily:colorData.fontFamily}]} h1>
-              Le<Text style={{color: colorData.innerText}}>a</Text>aderboard
+              Le<Text style={{color: colorData.innerText}}>a</Text>derboard
             </Text>
           </View>
         }
