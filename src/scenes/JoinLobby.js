@@ -28,7 +28,8 @@ const JoinRoomButton = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TextInput
-        keyboardType='numeric'
+        keyboardType="number-pad"
+        returnKeyType='done'
         maxLength={4}
         style={[styles.textInput, { flex: 1 }]}
         onChangeText={setCode}>
