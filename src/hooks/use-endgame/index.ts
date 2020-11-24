@@ -29,14 +29,23 @@ const useEndgame = (): Output => {
 
                 if (data.mode == "Ranking" && result.length == 1) {
                     let players = []
+                    let p1 = null
+                    let p2 = null
+                    if (result[0].id == data.players[0].id) {
+                        p1 = data.players[0].id
+                        p2 = data.players[1].id
+                    } else {
+                        p1 = data.players[1].id
+                        p2 = data.players[0].id
+                    }
                     if (result[0].status == "completed") {
                         //p1 win
                         console.log("P1 Win")
-                        players = await eloRanking(result[0].id, result[1].id, 1, 0)
+                        players = await eloRanking(p1, p2, 1, 0)
                     } else {
                         //p2 win
                         console.log("P2 Win")
-                        players = await eloRanking(result[0].id, result[1].id, 0, 1)
+                        players = await eloRanking(p1, p2, 0, 1)
                     }
                     await db
                         .collection('rooms')
