@@ -92,7 +92,8 @@ export default class Cell extends Component {
       let content = null;
       if (this.isMine()) {
         content = (
-          <Image source={imagesList.mine} style={{ width: this.props.width, height: this.props.height }} resizeMode="contain" />
+          // <Image source={imagesList.mine} style={{ width: this.props.width, height: this.props.height }} resizeMode="contain" />
+          <Image source={this.colorData.image} style={{ width: this.props.width, height: this.props.height }} resizeMode="contain" />
         )
       } else if (this.state.neighbors) {
         content = (

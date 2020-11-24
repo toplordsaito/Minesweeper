@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Text } from "react-native-elements";
 import { View, FlatList, Image, TouchableOpacity } from "react-native";
 const userApi = require("../apis/userAPI");
+import stylesTheme from "../styles/theme.styles";
 import AsyncStorage from "@react-native-community/async-storage";
 const LeaderBoard = ({ navigation }) => {
   const [leaderBoard, setLeaderBoard] = useState([]);
@@ -19,30 +20,13 @@ const LeaderBoard = ({ navigation }) => {
     navigation.navigate("Profile", { user: userProfile  });
   }
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#212930",
-      }}
-    >
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={leaderBoard}
         ListHeaderComponent={
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{
-                marginTop: "25%",
-                marginBottom: "15%",
-                fontWeight: "bold",
-                color: "white",
-              }}
-              h3
-            >
-              L<Text style={{ color: "red" }}>e</Text>aderBoard
+          <View style={[stylesTheme.container, {height: hp('15%')}]}>
+            <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily:colorData.fontFamily}]} h1>
+              Le<Text style={{color: colorData.innerText}}>a</Text>aderBoard
             </Text>
           </View>
         }

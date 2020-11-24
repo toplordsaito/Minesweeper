@@ -1,22 +1,21 @@
 import React from "react";
 import { Text } from "react-native-elements";
 import { View, FlatList, Image } from "react-native";
+import { useSelector } from "react-redux";
+import stylesTheme from "../styles/theme.styles";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 const Tutorial = ({ navigation }) => {
+  const colorData = useSelector((state) => state.theme.colorData);
   const layer = [
     {
       id: 1,
       head: (
-        <Text
-          style={{
-            marginTop: "10%",
-            marginBottom: "10%",
-            fontWeight: "bold",
-            color: "white",
-          }}
-          h2
-        >
-          Go<Text style={{ color: "red" }}>a</Text>l
-        </Text>
+        <View style={[stylesTheme.container, {height: hp('10%')}]}>
+          <Text style={[stylesTheme.headerText, {margin: 0, color: colorData.text, fontFamily:colorData.fontFamily}]} h3>
+            Go<Text style={{color: colorData.innerText}}>a</Text>l
+          </Text>
+        </View>
       ),
       img: (
         <Image
@@ -34,16 +33,11 @@ const Tutorial = ({ navigation }) => {
     {
       id: 2,
       head: (
-        <Text
-          style={{
-            marginBottom: "10%",
-            fontWeight: "bold",
-            color: "white",
-          }}
-          h2
-        >
-          How To <Text style={{ color: "red" }}>P</Text>lay
-        </Text>
+        <View style={[stylesTheme.container, {height: hp('10%')}]}>
+          <Text style={[stylesTheme.headerText, {margin: 0, color: colorData.text, fontFamily:colorData.fontFamily}]} h3>
+            How To <Text style={{color: colorData.innerText}}>P</Text>lay
+          </Text>
+        </View>
       ),
       img: (
         <Image
@@ -60,36 +54,18 @@ const Tutorial = ({ navigation }) => {
     },
   ];
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#212930",
-      }}
-    >
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={layer}
         ListHeaderComponent={
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{
-                marginTop: "10%",
-                fontWeight: "bold",
-                color: "white",
-              }}
-              h1
-            >
-              Tu<Text style={{ color: "red" }}>t</Text>orial
+          <View style={[stylesTheme.container, {height: hp('15%')}]}>
+            <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily:colorData.fontFamily}]} h1>
+              Tu<Text style={{color: colorData.innerText}}>t</Text>orial
             </Text>
           </View>
         }
         renderItem={({ item }) => (
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
+          <View style={stylesTheme.container}>
             {item.head}
             {item.img}
             <Text
@@ -97,7 +73,7 @@ const Tutorial = ({ navigation }) => {
                 marginHorizontal: "5%",
                 marginTop: "2%",
                 marginBottom: "15%",
-                color: "white",
+                color: colorData.text,
                 fontSize: 18,
               }}
             >
