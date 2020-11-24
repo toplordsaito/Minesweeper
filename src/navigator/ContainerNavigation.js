@@ -40,7 +40,7 @@ function ContainerNavigation() {
         <Stack.Screen
           name="OfflineGame"
           component={test}
-          options={{ title: "", headerTransparent: true ,  headerLeft: () =>null}}
+          options={test.navigationOptions}
         />
         <Stack.Screen
           name="OnlineGame"

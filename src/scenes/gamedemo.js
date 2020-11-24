@@ -9,20 +9,31 @@ const test = ({route, navigation}) => {
 const { size, bomb, mode } = route.params;
   const button = ["Offline", "Online", "Ranking Board", "Tutorial"];
   return (
-    <ReactNativeZoomableView
+   
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      {/* <Text>{size}</Text>
+      <Text>{bomb}</Text>
+      <Text>{mode}</Text> */}
+       <ReactNativeZoomableView
    maxZoom={1.5}
    minZoom={1}
    zoomStep={0.5}
    initialZoom={1}
    bindToBorders={true}
 >
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {/* <Text>{size}</Text>
-      <Text>{bomb}</Text>
-      <Text>{mode}</Text> */}
-      <MainGame size={size} mine={bomb} colorData={useSelector((state) => state.theme.colorData)}/>
+      <MainGame size={size} mine={bomb} goBack={navigation}  colorData={useSelector((state) => state.theme.colorData)}/>
+      </ReactNativeZoomableView>
     </View>
-    </ReactNativeZoomableView>
+   
   );
+};
+test.navigationOptions = ({ navigation, route }) => {
+
+  return {
+    headerTransparent: true,
+    title:  '',
+    headerLeft: () =>null,
+    swipeEnabled: false
+  };
 };
 export default test;

@@ -8,8 +8,10 @@ import PropTypes from 'prop-types';
 import { playDieSound, playVictorySound } from '../assets/sound/audio';
 
 class MainGame extends Component {
+    
     state = {
         mine: this.props.mine,
+        navigation :this.props?.navigation,
         boardWidth: 0,
         CELL_SIZE: Dimensions.get('screen').width / (this.props.size), //min = 20    x/(y*1.2) > 20
         BOARD_SIZE: this.props.size,
@@ -139,7 +141,7 @@ class MainGame extends Component {
         [
             {
                 text: "Cancel",
-                onPress: this.resetGame,
+                onPress: this.backLobby,
                 style: "cancel"
             },
             {
@@ -176,7 +178,9 @@ class MainGame extends Component {
 
 
     }
-
+    backLobby = () => {
+        this.props.goBack.goBack()
+    }
     resetGame = () => {
         this.generateMine()
         this.setState({
