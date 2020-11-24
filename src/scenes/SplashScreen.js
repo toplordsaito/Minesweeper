@@ -18,7 +18,7 @@ const SplashScreen = ({ navigation }) => {
   }, [dispatch, colorData]);
   const loadTheme = async () => {
     let theme = await AsyncStorage.getItem("theme");
-    if (!theme) {
+    if (theme) {
       switchThemeHandler(theme);
     }
   }
