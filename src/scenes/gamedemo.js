@@ -21,7 +21,7 @@ const { size, bomb, mode } = route.params;
    initialZoom={1}
    bindToBorders={true}
 >
-      <MainGame size={size} mine={bomb} goBack={navigation}  colorData={useSelector((state) => state.theme.colorData)}/>
+      <MainGame mode={mode} size={size} mine={bomb} goBack={navigation}  colorData={useSelector((state) => state.theme.colorData)}/>
       </ReactNativeZoomableView>
     </View>
    

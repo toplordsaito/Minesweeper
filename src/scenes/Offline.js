@@ -79,10 +79,9 @@ const Offline = ({ navigation }) => {
           value={size}
           onValueChange={(item) => {
             setSize(item);
-            if ((item * item - 1) <= bomb) {
-              setBomb(Math.max(item * item - 1, 1))
+            if (item * item - 1 <= bomb) {
+              setBomb(Math.max(item * item - 1, 1));
             }
-
           }}
           style={{ width: 100, height: 30, marginRight: 50 }}
           minimumValue={1}
@@ -143,19 +142,22 @@ const Offline = ({ navigation }) => {
           width: 200,
           marginTop: "2.5%",
           alignSelf: "center",
-          marginBottom: "20%"
+          marginBottom: "20%",
         }}
         onValueChange={(itemValue) => setMode(itemValue)}
       >
         <Picker.Item label="Normal" value="Normal" />
-        <Picker.Item label="Endless" value="Endless" />
+        <Picker.Item label="Bind" value="bind" />
       </Picker>
       <Button
         style={{ width: 120 }}
         title="Play Game!"
         onPress={() => {
-          navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode: mode });
-         
+          navigation.navigate("OfflineGame", {
+            size: size,
+            bomb: bomb,
+            mode: mode,
+          });
         }}
       />
     </View>
