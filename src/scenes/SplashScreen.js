@@ -7,6 +7,7 @@ import stylesTheme from "../styles/theme.styles";
 import { Text } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 import { switchTheme } from "../store/actions/switchTheme";
+import { playMinesweeper } from "../../assets/sound/audio";
 
 const SplashScreen = ({ navigation }) => {
   const springVal = useRef(new Animated.Value(0.5)).current;
@@ -33,26 +34,27 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     spring()
     const checkStorage = async () => {
-    const user = await AsyncStorage.getItem("login");
-      if (user) {
-        setTimeout(function () {
-          navigation.dispatch(
-            CommonActions.reset({
-              routes: [{ name: "Home" }],
-            })
-          );
-        }, 3000);
-      } else {
-        setTimeout(function () {
-          navigation.dispatch(
-            CommonActions.reset({
-              routes: [{ name: "Login" }],
-            })
-          );
-        }, 3000);
-      }
-  }
-  checkStorage()
+      playMinesweeper();
+      const user = await AsyncStorage.getItem("login");
+        if (user) {
+          setTimeout(function () {
+            navigation.dispatch(
+              CommonActions.reset({
+                routes: [{ name: "Home" }],
+              })
+            );
+          }, 3000);
+        } else {
+          setTimeout(function () {
+            navigation.dispatch(
+              CommonActions.reset({
+                routes: [{ name: "Login" }],
+              })
+            );
+          }, 3000);
+        }
+    }
+    checkStorage()
   }, []);
   
   return (

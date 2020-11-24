@@ -40,3 +40,13 @@ export const playDieSound = async () => {
     } catch (error) {
     }
 }
+
+export const playMinesweeper = async () => {
+    try {
+        const { sound: soundObject, status } = await Audio.Sound.createAsync(
+            require("./minesweeper.mp3"),
+            { shouldPlay: true }
+        );
+    } catch (error) {
+    }
+}
