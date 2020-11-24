@@ -79,12 +79,10 @@ class MainGame extends Component {
   };
 
   onEndgame = (isVictory) => {
-    console.log("Endgame", this.props.mode);
     if (this.props.mode == "Online") {
       return this.props.onEndgame(isVictory);
     }
     this.restartAlert(isVictory ? "You Win!" : "You Lose!");
-    console.log("----------------endgame----------------");
   };
 
   revealNeighbors = (x, y) => {

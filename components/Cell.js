@@ -32,7 +32,7 @@ export default class Cell extends Component {
     if (this.state.isFlag) return;
     if (this.state.revealed) return;
     if (!userInitiated && this.isMine()) return;
-    
+
 
     this.setState({
       revealed: true
@@ -40,7 +40,7 @@ export default class Cell extends Component {
       if (this.isMine()) {
         this.props.onDie();
       } else {
-        if( userInitiated) playOpenSound()
+        if (userInitiated) playOpenSound()
         this.props.onReveal(this.props.x, this.props.y);
       }
     });
@@ -91,7 +91,9 @@ export default class Cell extends Component {
         )
       } else if (this.state.neighbors) {
         content = (
-          <Text style={[styles.neighborsText, {fontFamily: this.colorData.fontFamily, color: this.colorData.text}]}>{this.state.neighbors}</Text>
+          <Text style={[styles.neighborsText, { fontFamily: this.colorData.fontFamily, color: this.colorData.text }]}>
+            {this.props.mode == "bind" ? "" : this.state.neighbors}
+          </Text>
         )
       }
 
@@ -114,7 +116,7 @@ export default class Cell extends Component {
       let content = ""
       if (this.state.isFlag) {
         content = (
-          <Image source={imagesList.flag} style={{ width: this.props.width/2, height: this.props.height/2 }} resizeMode="center" />
+          <Image source={imagesList.flag} style={{ width: this.props.width / 2, height: this.props.height / 2 }} resizeMode="center" />
         )
       } else {
         // content = (<Text></Text>)
