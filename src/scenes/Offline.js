@@ -4,7 +4,7 @@ import { View, FlatList } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import Slider from "@react-native-community/slider";
 // import Icon from "react-native-vector-icons/AntDesign";
-const Offline = ({navigation}) => {
+const Offline = ({ navigation }) => {
   const buttons = ["Easy", "Medium", "Hard", "Custom"];
   const [mode, setMode] = useState("Normal");
   const [selectedIndex, setIndex] = useState(1);
@@ -22,7 +22,7 @@ const Offline = ({navigation}) => {
           color: "white",
         }}
       >
-        LEV<Text style={{color:"red"}}>E</Text>L :{" "}
+        LEV<Text style={{ color: "red" }}>E</Text>L :{" "}
       </Text>
       <ButtonGroup
         onPress={(i) => {
@@ -66,7 +66,7 @@ const Offline = ({navigation}) => {
           color: "white",
         }}
       >
-        B<Text style={{color:"red"}}>L</Text>OCK :
+        B<Text style={{ color: "red" }}>L</Text>OCK :
       </Text>
       <View
         style={{
@@ -78,16 +78,16 @@ const Offline = ({navigation}) => {
           value={size}
           onValueChange={(item) => {
             setSize(item);
-            if((item*item-1) <= bomb){
-              setBomb(Math.max(item * item - 1,0))
+            if ((item * item - 1) <= bomb) {
+              setBomb(Math.max(item * item - 1, 1))
             }
-            
+
           }}
           style={{ width: 100, height: 30, marginRight: 50 }}
           minimumValue={1}
           step={1}
           disabled={disabled}
-          maximumValue={100}
+          maximumValue={20}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#4285F4"
           thumbTintColor="white"
@@ -99,8 +99,8 @@ const Offline = ({navigation}) => {
             setBomb(item);
           }}
           style={{ width: 100, height: 30 }}
-          minimumValue={0}
-          maximumValue={Math.max(size * size - 1,0)}
+          minimumValue={1}
+          maximumValue={Math.max(size * size - 1, 1)}
           step={1}
           disabled={disabled}
           minimumTrackTintColor="#FFFFFF"
@@ -131,16 +131,16 @@ const Offline = ({navigation}) => {
           color: "white",
         }}
       >
-        MOD<Text style={{color:"red"}}>E</Text> :
+        MOD<Text style={{ color: "red" }}>E</Text> :
       </Text>
 
       <Picker
         itemStyle={{ height: 100, color: "white" }}
         selectedValue={mode}
         style={{
-          height:50,
+          height: 50,
           width: 200,
-          marginTop:"2.5%",
+          marginTop: "2.5%",
           alignSelf: "center",
           marginBottom: "20%"
         }}
@@ -153,7 +153,7 @@ const Offline = ({navigation}) => {
         style={{ width: 120 }}
         title="Play Game!"
         onPress={() => {
-          navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode:mode });
+          navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode: mode });
         }}
       />
     </View>
