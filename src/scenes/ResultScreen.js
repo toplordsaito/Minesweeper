@@ -43,15 +43,15 @@ const ResultScreen = ({ route, navigation }) => {
     )
   }
   return (
-    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
-      <View style={[stylesTheme.container, {height: hp('15%')}]}>
-        <Text style={[stylesTheme.headerText, text]} h1>
+    <View style={[stylesTheme.logoContainer, {height: "100%", backgroundColor: colorData.backgroundColor}]}>
+      <View style={[stylesTheme.logoContainer, {marginTop: hp('10%'), height: hp('20%')}]}>
+        <Text style={[stylesTheme.headerText, text]} h2>
           Game <Text style={{color: colorData.innerText}}>R</Text>esult
         </Text>
       </View>
       <GameStatus code={code} />
       <Button
-        buttonStyle={[stylesTheme.longButton, {backgroundColor: colorData.button}]}
+        buttonStyle={[stylesTheme.longButton, {marginTop: wp("60%"), backgroundColor: colorData.button}]}
         titleStyle={text}
         onPress={navigateToLobby}
         title="Go to Lobby"

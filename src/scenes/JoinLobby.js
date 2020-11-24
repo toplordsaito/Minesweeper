@@ -2,12 +2,17 @@ import React, { Component, useState } from "react";
 import { Button } from "react-native-elements";
 import { TextInput, StyleSheet, View } from "react-native";
 import { useJoinRoom } from '../hooks'
+import stylesTheme from "../styles/theme.styles";
+import { useSelector } from "react-redux";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const MODE = ['PvP', 'Ranking', 'Battle Royal', 'Any'];
 
 const JoinRoomButton = ({ navigation }) => {
   const { joinRoom, isJoining } = useJoinRoom()
   const [code, setCode] = useState();
+  const colorData = useSelector((state) => state.theme.colorData);
+  const text = {color: colorData.text, fontFamily: colorData.fontFamily};
   const joinRoomHanler = async () => {
     const isFound = await joinRoom(code)
     if (isFound) {
@@ -26,18 +31,19 @@ const JoinRoomButton = ({ navigation }) => {
       })
   }
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {flexDirection: "column", backgroundColor: colorData.backgroundColor}]}>
       <TextInput
         keyboardType="number-pad"
         returnKeyType='done'
         maxLength={4}
-        style={[styles.textInput, { flex: 1 }]}
+        style={[styles.textInput, {width: wp("96%"), margin: wp("2%"), fontFamily: colorData.fontFamily}]}
         onChangeText={setCode}>
       </TextInput>
       <Button
-        style={[styles.button, { flex: 1 }]}
-        title={"Join"}
+        buttonStyle={[stylesTheme.longButton, {backgroundColor: colorData.button}]}
+        titleStyle={text}
         onPress={joinRoomHanler}
+        title="Join"
       />
     </View>
   )
