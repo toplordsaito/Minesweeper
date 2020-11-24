@@ -1,12 +1,27 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { View, Image, Animated } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { CommonActions } from "@react-navigation/native";
 import styles from "../styles/splash.styles";
 import stylesTheme from "../styles/theme.styles";
 import { Text } from "react-native-elements";
+import { useSelector, useDispatch } from "react-redux";
+import { switchTheme } from "../store/actions/switchTheme";
+
 const SplashScreen = ({ navigation }) => {
   const springVal = useRef(new Animated.Value(0.5)).current;
+  const colorData = useSelector((state) => state.theme.colorData);
+  const dispatch = useDispatch()
+  const switchThemeHandler = useCallback((theme) => {
+    dispatch(switchTheme(theme));
+  }, [dispatch, colorData]);
+  const loadTheme = async () => {
+    let theme = await AsyncStorage.getItem("theme");
+    if (!theme) {
+      switchThemeHandler(theme);
+    }
+  }
+  loadTheme();
   const spring = () => {
     Animated.spring(springVal, {
       toValue: 1,
@@ -18,7 +33,7 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     spring()
     const checkStorage = async () => {
-      const user = await AsyncStorage.getItem("login");
+    const user = await AsyncStorage.getItem("login");
       if (user) {
         setTimeout(function () {
           navigation.dispatch(
@@ -36,17 +51,15 @@ const SplashScreen = ({ navigation }) => {
           );
         }, 3000);
       }
-    };
-    checkStorage();
+  }
+  checkStorage()
   }, []);
-
+  
   return (
-    <View style={stylesTheme.container}>
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <View style={styles.logoContainer}>
-        <Animated.Image source={require("../asset/logo.png")} style={[styles.logo, { transform: [{scale: springVal}]}]} />
-        <Text style={stylesTheme.text} h1>
-          M<Text style={{ color: "red" }}>i</Text>neSweeper
-        </Text>
+        <Animated.Image source={colorData.image} style={[styles.logo, { transform: [{scale: springVal}]}]} />
+        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h1>M<Text style={{color: colorData.innerText}}>i</Text>neSweeper</Text>
       </View>
     </View>
   );

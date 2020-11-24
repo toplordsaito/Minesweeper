@@ -18,31 +18,28 @@ const useLeavePosition = (roomId): Output => {
       const doc = await db.collection('rooms').doc(roomId).get()
       if (doc.exists) {
         const data = doc.data()
-
-        const index = data.players.findIndex(p => p.id == user.id)
-        console.log(data.players)
-        console.log(user)
-        console.log(index)
-        console.log(user.id)
-        console.log(user.id == data.players[0].id)
-        if (index != -1) {
-          let players = data?.players
-          players.pop(index)
-          if (players.length == 0 && data.state == "waiting") {
-            await db
-              .collection('rooms')
-              .doc(roomId)
-              .delete()
-              .then(() => console.log("delete room", roomId))
-          } else {
-            await db
-              .collection('rooms')
-              .doc(roomId)
-              .update({
-                players: players,
-              })
+        let players = data.players.filter(p => p.id != user.id)
+        if (players.length == 0 && data.state == "waiting") {
+          await db
+            .collection('rooms')
+            .doc(roomId)
+            .delete()
+            .then(() => console.log("delete room", roomId))
+        } else {
+          let owner = data.owner
+          if (user.id == owner) {
+            let index = Math.floor(Math.random() * players.length)
+            owner = players[index].id
           }
+          await db
+            .collection('rooms')
+            .doc(roomId)
+            .update({
+              players: players,
+              owner: owner
+            })
         }
+
       }
     } catch (err) {
       console.error(err)

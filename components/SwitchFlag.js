@@ -5,7 +5,10 @@ class SwitchFlag extends Component {
     state = {
         isFocusMode: false //default = *
     }
-
+    constructor(props) {
+        super(props);
+        this.colorData = this.props.colorData;
+    }
     toggleSwitch = () => {
         this.setState({
             isFocusMode: !this.state.isFocusMode,
@@ -27,7 +30,7 @@ class SwitchFlag extends Component {
         }
         return (
             <TouchableHighlight onPress={this.toggleSwitch}>
-                <View style={styles.toggle}>
+                <View style={[styles.toggle, {backgroundColor: this.colorData.button}]}>
                     {content}
                 </View>
             </TouchableHighlight>
@@ -37,7 +40,8 @@ class SwitchFlag extends Component {
 
 const styles = StyleSheet.create({
     toggle: {
-        borderRadius: 30,
+        borderRadius: 200,
+        marginBottom: 20,
         alignItems: "center",
         backgroundColor: "#CAF0F8",
         padding: 10,

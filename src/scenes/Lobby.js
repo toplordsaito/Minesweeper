@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, Button, ListItem, Text } from "react-native-elements";
 import { StyleSheet, View } from "react-native";
-import { useRoom, useLeaveRoom, useInitailGame } from '../hooks'
+import { useRoom, useLeaveRoom, useInitailGame, useCurrentUser } from '../hooks'
+import stylesTheme from "../styles/theme.styles";
+import { useSelector } from "react-redux";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const MODE = ['PvP', 'Ranking', 'Battle Royal', 'Any'];
 
@@ -21,8 +24,11 @@ const Lobby = ({ route, navigation }) => {
   const { isFetching, room } = useRoom(code)
   const { isLeaving, leaveRoom } = useLeaveRoom(code)
   const { isInitialing, initialGame } = useInitailGame(code)
+  const colorData = useSelector((state) => state.theme.colorData);
+  const text = {color: colorData.text, fontFamily: colorData.fontFamily};
 
-
+  const user = useCurrentUser()
+  const isOwner = !isFetching && user.id == room.owner
   if (!isFetching && room.state == "playing") {
     navigation.navigate("OnlineGame", { mode: "Online", code, room, mine: room.mine });
   }
@@ -32,11 +38,11 @@ const Lobby = ({ route, navigation }) => {
     }
     else {
       return room.players.map((l, i) => (
-        <ListItem key={i} bottomDivider>
-          <Avatar source={{ uri: list[0].avatar_url }} />
+        <ListItem key={i} style={{width: wp("100%")}} bottomDivider>
+          <Avatar avatarStyle={{borderRadius: 100}} source={{ uri: l.avatar }} />
           <ListItem.Content>
-            <ListItem.Title>{l.id}</ListItem.Title>
-            <ListItem.Subtitle>{list[0].subtitle}</ListItem.Subtitle>
+            <ListItem.Title style={{fontFamily: colorData.fontFamily}}>{l.name}</ListItem.Title>
+            <ListItem.Subtitle style={{fontFamily: colorData.fontFamily}}>Elo: {l.elorank}{"\t\t\t"}Role: {l.id==room.owner ? "Owner" : "Member"}</ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
       ))
@@ -51,28 +57,34 @@ const Lobby = ({ route, navigation }) => {
 
   startGame = async () => {
     console.log("initButton")
-    let mine = await initialGame()
-    // console.log(mine)
-    // console.log("WTFFFFFFFFFFFFFFFFFF")
-    // navigation.navigate("OnlineGame", { mode: "Online", code, room, mine });
+    let isComplete = await initialGame()
   }
 
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#212930" }}>
-      {/* Looby Code */}
-      <View style={styles.container}>
-        <Text h3 style={{ color: "white" }}>COD<Text style={{ color: "red" }}>E</Text> : {code}</Text>
-        <Text h4 style={{ color: "white" }}>M<Text style={{ color: "red" }}>O</Text>DE : {MODE[value]}</Text>
+    <View style={[stylesTheme.logoContainer, {height: "100%", backgroundColor: colorData.backgroundColor}]}>
+      {/* Mode */}
+      <View style={[stylesTheme.logoContainer, {height: hp('12%')}]}>
+        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily:colorData.fontFamily}]} h1>
+          {room?room.mode:""}
+        </Text>
+      </View>
+      {/* Code */}
+      <View style={[stylesTheme.logoContainer, {height: hp('15%')}]}>
+        <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily:colorData.fontFamily}]} h3>
+          C<Text style={{color: colorData.innerText}}>o</Text>de: {code}
+        </Text>
       </View>
       {
         display()
       }
-      <View style={{ position: 'absolute', bottom: 10, marginHorizontal: '10%', width: '80%' }}>
+      <View style={{ position: 'absolute', bottom: 0}}>
         <Button
-          style={styles.button}
-          title={"Start!!"}
+          buttonStyle={[stylesTheme.longButton, {backgroundColor: colorData.button}]}
+          titleStyle={text}
+          title={"Start !!!"}
           onPress={startGame}
+          disabled={!isOwner}
         />
       </View>
     </View>

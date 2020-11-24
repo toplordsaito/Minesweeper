@@ -2,37 +2,56 @@ import React from "react";
 import { Button, Text } from "react-native-elements";
 import { View, FlatList, Image } from "react-native";
 import { logInWithFaceBook } from "../components/loginWithFaceBook";
+import { getUserById } from '../apis/userAPI'
 const userApi = require("../apis/userAPI");
 import AsyncStorage from "@react-native-community/async-storage";
+import stylesTheme from "../styles/theme.styles";
+import { useSelector } from "react-redux";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { CommonActions } from "@react-navigation/native";
+
 const Home = ({ navigation }) => {
   const button = [
-    "Profile",
-    "LeaderBoard",
     "Offline",
     "Online",
-    "Ranking Board",
+    "Profile",
+    "Leaderboard",
     "Tutorial",
+    "Setting",
+    "Link Facebook",
     "Logout",
-    "Link FaceBook",
   ];
+  const colorData = useSelector((state) => state.theme.colorData);
   const ButtonEvent = async (item) => {
     let user = await AsyncStorage.getItem("user");
+    
     user = JSON.parse(user);
     if (item == "Online") {
-      const userInDb = await userApi.CreateOrUpdate(user);
+      if (!(user?.id)){
+      const userInDb = await userApi.CreateOrUpdate(user)
       if (userInDb != "อัพเดพสำเร็จ" && userInDb) {
         AsyncStorage.setItem("user", JSON.stringify(userInDb));
       }
       console.log(userInDb);
     }
+    else{
+      console.log('not update')
+    }
+
+    }
     if (item == "Logout") {
       AsyncStorage.removeItem("login");
-      if (user.facebookId) {
+      AsyncStorage.removeItem("user");
+      if (user?.facebookId) {
         AsyncStorage.removeItem("user");
       }
-      navigation.navigate("SplashScreen");
+      navigation.dispatch(
+        CommonActions.reset({
+          routes: [{ name: "SplashScreen" }],
+        })
+      );
     }
-    if (item == "Link FaceBook") {
+    if (item == "Link Facebook") {
       const dataFaceBook = await logInWithFaceBook();
       const data = {
         id: user.id,
@@ -49,49 +68,39 @@ const Home = ({ navigation }) => {
     } else {
       if (item == "Profile") {
         const userProfile = JSON.parse(await AsyncStorage.getItem("user"))
+        // console.log(userProfile)
+        // let userInDb = await getUserById(userProfile.id)
+        // console.log(userInDb)
+        // if (userInDb?.id){
+        // AsyncStorage.setItem("user", JSON.stringify(userInDb));}
+        // console.log("user in room :" + JSON.stringify(userInDb));
         console.log("user in room :" + JSON.stringify(userProfile));
         navigation.navigate(item, { user: userProfile  });
+        // navigation.navigate(item, { user: userInDb  });
       } else {
-        if(item != "Logout"){
-        navigation.navigate(item);}
+        if(item != "Logout") {
+          navigation.navigate(item);
+        }
       }
     }
   };
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#212930",
-      }}
-    >
+    <View style={[stylesTheme.container, {backgroundColor: colorData.backgroundColor}]}>
       <FlatList
         data={button}
+        numColumns={2}
         ListHeaderComponent={
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{
-                marginTop: "25%",
-                marginBottom: "15%",
-                fontWeight: "bold",
-                color: "white",
-              }}
-              h1
-            >
-              M<Text style={{ color: "red" }}>i</Text>neSweeper
+          <View style={[stylesTheme.container, {height: hp('50%')}]}>
+            <Text style={[stylesTheme.headerText, {color: colorData.text, fontFamily: colorData.fontFamily}]} h1>
+              M<Text style={{color: colorData.innerText}}>i</Text>neSweeper
             </Text>
-            <Image
-              style={{ width: 300, height: 300, marginBottom: "15%" }}
-              source={require("../asset/logo.png")}
-            />
+            <Image style={stylesTheme.image} source={colorData.image}/>
           </View>
         }
         renderItem={({ item }) => (
           <Button
-            style={{ margin: "1%" }}
+            buttonStyle={[stylesTheme.button, {backgroundColor: colorData.button}]}
+            titleStyle={{color: colorData.text, fontFamily: colorData.fontFamily}}
             title={item}
             onPress={() => {
               ButtonEvent(item);

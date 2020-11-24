@@ -5,6 +5,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import MainGame from '../../components/MainGame'
 import GameStatus from '../components/GameStatus'
 import { useEndgame } from '../hooks'
+import { useSelector } from "react-redux";
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
 const OnlineGame = ({ route, navigation }) => {
   const { mode, code, room, mine } = route.params;
 
@@ -21,7 +23,7 @@ const OnlineGame = ({ route, navigation }) => {
 
   onVictory = (text) => Alert.alert(
     text,
-    "you are win",
+    "Game End",
     [
       {
         text: "go to result", onPress: navigateToResult
@@ -42,10 +44,18 @@ const OnlineGame = ({ route, navigation }) => {
 
 
   return (
+    <ReactNativeZoomableView
+   maxZoom={1.5}
+   minZoom={1}
+   zoomStep={0.5}
+   initialZoom={1}
+   bindToBorders={true}
+>
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={mine} onEndgame={onEndgame} />
+      <MainGame size={room.size} mine={room.mineSize} mode="Online" mineSet={mine} onEndgame={onEndgame} colorData={useSelector((state) => state.theme.colorData)} />
       <GameStatus code={code} onEndGame={onEndgame} />
     </View>
+    </ReactNativeZoomableView>
   );
 };
 export default OnlineGame;

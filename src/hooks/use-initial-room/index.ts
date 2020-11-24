@@ -14,10 +14,17 @@ const UseInitailGame = (roomId): Output => {
   async function initialGame() {
     setIsInitial(true)
     let mine;
+    let isComplete = true
     try {
       const doc = await db.collection('rooms').doc(roomId).get()
       if (doc.exists) {
         const data = doc.data()
+        if (data.mode == "Ranking" && data.players.length != 2) {
+          alert("Error Can't start game mode ranking require 2 people")
+          isComplete = false
+          return false
+        }
+
         mine = generateMine(data.mineSize, data.size)
         console.log(mine)
         await db
@@ -36,7 +43,8 @@ const UseInitailGame = (roomId): Output => {
             state: "playing",
             players: data.players,
             result: [],
-            currentGoal: 0
+            currentGoal: 0,
+            mode: data.mode
           })
 
 
@@ -46,7 +54,7 @@ const UseInitailGame = (roomId): Output => {
       console.error(err)
     } finally {
       setIsInitial(false)
-      return mine
+      return isComplete
     }
   }
 
