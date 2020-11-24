@@ -24,6 +24,11 @@ const UseInitailGame = (roomId): Output => {
           isComplete = false
           return false
         }
+        if (data.state != "waiting") {
+          alert("Error Can't start game please wait Other players")
+          isComplete = false
+          return false
+        }
 
         mine = generateMine(data.mineSize, data.size)
         console.log(mine)
