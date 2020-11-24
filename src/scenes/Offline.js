@@ -154,11 +154,7 @@ const Offline = ({ navigation }) => {
         style={{ width: 120 }}
         title="Play Game!"
         onPress={() => {
-          navigation.dispatch(
-            CommonActions.reset({
-              routes: [{ name: "OfflineGame" , params: { size: size, bomb: bomb, mode: mode }}],
-            })
-          );
+          navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode: mode });
          
         }}
       />
