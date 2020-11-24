@@ -14,7 +14,6 @@ const useEndgame = (): Output => {
     const [isEndgame, setIsEndgame] = useState(false)
 
     async function endGame(roomId: string, isVictory: boolean) {
-        console.log("endgameing . . . . . . . .. . . . . . .")
         setIsEndgame(true)
         try {
             const doc = await db.collection('result').doc(roomId).get()
@@ -30,10 +29,6 @@ const useEndgame = (): Output => {
 
 
                 if (data.mode == "Ranking" && result.length == 2) {
-                    console.log("elo Cal4")
-                    console.log(result)
-                    console.log(result[0])
-                    console.log(result[0].id)
                     if (result[0].status == "completed") {
                         //p1 win
                         console.log("P1 Win")

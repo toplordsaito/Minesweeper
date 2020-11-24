@@ -6,7 +6,6 @@ import Slider from "@react-native-community/slider";
 import { useSelector } from "react-redux";
 import stylesTheme from "../styles/theme.styles";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { color } from "react-native-reanimated";
 
 const Offline = ({navigation}) => {
   const buttons = ["Easy", "Medium", "Hard", "Custom"];
@@ -16,7 +15,6 @@ const Offline = ({navigation}) => {
   const [bomb, setBomb] = useState(10);
   const [disabled, setDisabled] = useState(true);
   const colorData = useSelector((state) => state.theme.colorData);
-  const debugBackgroundColor = "green";
   const headerView = hp("10%");
   const sliderStyle = {width: wp("40%"), height: hp("6%"), marginLeft: wp("5%"), marginRight: wp("5%")};
   const pickerStyle = {width: wp("60%"), hight: 50, alignSelf: "center"}
@@ -77,15 +75,15 @@ const Offline = ({navigation}) => {
           value={size}
           onValueChange={(item) => {
             setSize(item);
-            if((item*item-1) <= bomb){
-              setBomb(Math.max(item * item - 1,0))
+            if ((item * item - 1) <= bomb) {
+              setBomb(Math.max(item * item - 1, 1))
             }
           }}
           style={sliderStyle}
           minimumValue={1}
           step={1}
           disabled={disabled}
-          maximumValue={100}
+          maximumValue={20}
           minimumTrackTintColor={colorData.minimumTrackTint}
           maximumTrackTintColor="#ffffff"
           thumbTintColor="white"
@@ -96,8 +94,8 @@ const Offline = ({navigation}) => {
             setBomb(item);
           }}
           style={sliderStyle}
-          minimumValue={0}
-          maximumValue={Math.max(size * size - 1,0)}
+          minimumValue={1}
+          maximumValue={Math.max(size * size - 1, 1)}
           step={1}
           disabled={disabled}
           minimumTrackTintColor={colorData.minimumTrackTint}
@@ -139,7 +137,7 @@ const Offline = ({navigation}) => {
         titleStyle={{color: colorData.text, fontFamily: colorData.fontFamily}}
         title="Play Game!"
         onPress={() => {
-          navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode:mode });
+          navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode: mode });
         }}
       />
     </View>

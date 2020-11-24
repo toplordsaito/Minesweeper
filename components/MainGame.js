@@ -67,14 +67,12 @@ class MainGame extends Component {
 
 
     onEndgame = (isVictory) => {
+        console.log("Endgame", this.props.mode)
         if (this.props.mode == "Online") {
             return this.props.onEndgame(isVictory)
         }
-        if (isVictory) {
-            this.restartAlert("You Win!")
-        } {
-            this.restartAlert("You Lose!")
-        }
+        this.restartAlert(isVictory ? "You Win!" : "You Lose!")
+        console.log("----------------endgame----------------")
 
     }
 
@@ -133,8 +131,6 @@ class MainGame extends Component {
     winGame = () => {
         playVictorySound()
         this.onEndgame(true)
-
-
     }
 
     restartAlert = (text) => Alert.alert(
@@ -203,7 +199,7 @@ class MainGame extends Component {
     render() {
 
         return (
-            <View style={[styles.container, {backgroundColor: this.colorData.backgroundColor}]}>
+            <View style={[styles.container, { backgroundColor: this.colorData.backgroundColor }]}>
                 <SwitchFlag changeFocus={this.changeFocus} />
                 {/* <Timer/> */}
                 <View style={{ width: this.boardWidth, height: this.boardWidth, backgroundColor: '#888888', flexDirection: 'column' }}>
