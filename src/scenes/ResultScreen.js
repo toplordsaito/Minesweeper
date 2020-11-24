@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Text } from "react-native-elements";
 import { View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import AsyncStorage from "@react-native-community/async-storage";
 import GameStatus from '../components/GameStatus'
+import { getUserById } from '../apis/userAPI'
 const ResultScreen = ({ route, navigation }) => {
     const { code } = route.params;
-    navigateToLobby = () => {
+   
+    navigateToLobby = async () => {
+        // console.log("sdsa")
+        // let userInDevicec = await AsyncStorage.getItem("user");
+        // userInDevicec = JSON.parse(userInDevicec);
+        // let userInDb = await getUserById(userInDevicec["id"])
+        // console.log(userInDb)
+        // AsyncStorage.setItem("user", JSON.stringify(userInDb));
+        // if ( userInDb?.id) {
+        //     AsyncStorage.setItem("user", JSON.stringify(userInDb));
+        //   }
         navigation.navigate("Lobby",
             {
                 code,
