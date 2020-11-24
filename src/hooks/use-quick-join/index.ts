@@ -18,16 +18,19 @@ const useQuickJoinRoom = (): Output => {
         try {
             const snapshot = await db.collection('rooms').where('mode', '==', mode).where('state', '==', "waiting").get()
             console.log(snapshot.size)
-            let index = Math.floor(Math.random() * snapshot.size)
-            let count = 0
+            let rooms = []
+
             snapshot.forEach(doc => {
-                console.log(doc.id);
-                if (count == index) {
-                    code = doc.id
-                    isFound = true
-                }
-                count += 1
+                rooms.push({ ...doc.data(), id: doc.id })
             });
+            if (mode == "Ranking") {
+                rooms = rooms.filter(data => data.players.length < 2)
+            }
+            if (rooms.length >= 1) {
+                let index = Math.floor(Math.random() * rooms.length)
+                code = rooms[index].id
+                isFound = true
+            }
             if (isFound) {
                 await joinRoom(code)
             }
