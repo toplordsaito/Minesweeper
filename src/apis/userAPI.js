@@ -3,7 +3,7 @@ export function getLeaderboard() {
   return api
     .get("user/leaderboard")
     .then((res) => res.data)
-    .catch((err) =>  []);
+    .catch((err) =>  err);
 }
 
 export function getUserById(id) {
