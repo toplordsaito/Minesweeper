@@ -228,7 +228,7 @@ class MainGame extends Component {
           { backgroundColor: this.colorData.backgroundColor },
         ]}
       >
-        <SwitchFlag changeFocus={this.changeFocus} />
+        <SwitchFlag changeFocus={this.changeFocus} colorData = {this.colorData}/>
         {/* <Timer/> */}
         <View
           style={{

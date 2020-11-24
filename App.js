@@ -6,7 +6,7 @@ import { LogBox } from 'react-native';
 import { AppLoading } from 'expo';
 import { Provider } from "react-redux"
 import { createStore, combineReducers } from "redux";
-import themeReducer from "./src/store/reducers/themeReducer"
+import themeReducer from "./src/store/reducers/ThemeReducer"
 import * as Font from "expo-font";
 
 const loadFonts = () => {
