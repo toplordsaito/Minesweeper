@@ -17,7 +17,7 @@ const { size, bomb, mode } = route.params;
        <ReactNativeZoomableView
    maxZoom={1.5}
    minZoom={1}
-   zoomStep={0.5}
+   zoomStep={0}
    initialZoom={1}
    bindToBorders={true}
 >
