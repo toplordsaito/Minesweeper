@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Image,
-  Text
-} from 'react-native';
-import imagesList from '../assets/image'
-import { playFlagSound, playOpenSound } from '../assets/sound/audio';
+import React, { Component } from "react";
+import { StyleSheet, View, TouchableOpacity, Image, Text } from "react-native";
+import imagesList from "../assets/image";
+import { playFlagSound, playOpenSound } from "../assets/sound/audio";
 
 export default class Cell extends Component {
   constructor(props) {

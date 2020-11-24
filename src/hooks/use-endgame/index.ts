@@ -27,16 +27,17 @@ const useEndgame = (): Output => {
                     status: isVictory ? "completed" : "fail",
                 })
 
-
+                let players = []
                 if (data.mode == "Ranking" && result.length == 2) {
+                    
                     if (result[0].status == "completed") {
                         //p1 win
                         console.log("P1 Win")
-                        eloRanking(result[0].id, result[1].id, 1, 0)
+                        players = await eloRanking(result[0].id, result[1].id, 1, 0)
                     } else if (result[1].status == "fail") {
                         //p2 win
                         console.log("P2 Win")
-                        eloRanking(result[0].id, result[1].id, 0, 1)
+                        players = await eloRanking(result[0].id, result[1].id, 0, 1)
                     }
                 }
 
@@ -53,6 +54,7 @@ const useEndgame = (): Output => {
                     .doc(roomId)
                     .update({
                         state: "waiting",
+                        players: players
                     })
             }
         } catch (err) {

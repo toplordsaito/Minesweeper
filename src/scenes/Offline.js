@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Text, ButtonGroup, Divider } from "react-native-elements";
 import { View, FlatList } from "react-native";
 import { Picker } from "@react-native-community/picker";
+import { CommonActions } from "@react-navigation/native";
 import Slider from "@react-native-community/slider";
 import { useSelector } from "react-redux";
 import stylesTheme from "../styles/theme.styles";
@@ -71,8 +72,8 @@ const Offline = ({navigation}) => {
           value={size}
           onValueChange={(item) => {
             setSize(item);
-            if ((item * item - 1) <= bomb) {
-              setBomb(Math.max(item * item - 1, 1))
+            if (item * item - 1 <= bomb) {
+              setBomb(Math.max(item * item - 1, 1));
             }
           }}
           style={stylesTheme.sliderStyle}
@@ -125,7 +126,7 @@ const Offline = ({navigation}) => {
           onValueChange={(itemValue) => setMode(itemValue)}
         >
           <Picker.Item label="Normal" value="Normal"/>
-          <Picker.Item label="Endless" value="Endless"/>
+          <Picker.Item label="Blind" value="bind"/>
         </Picker>
       </View>
       {/* Button */}
@@ -134,7 +135,11 @@ const Offline = ({navigation}) => {
         titleStyle={text}
         title="Play Game!"
         onPress={() => {
-          navigation.navigate("OfflineGame", { size: size, bomb: bomb, mode: mode });
+          navigation.navigate("OfflineGame", {
+            size: size,
+            bomb: bomb,
+            mode: mode,
+          });
         }}
       />
     </View>
