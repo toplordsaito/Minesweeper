@@ -27,13 +27,13 @@ const useEndgame = (): Output => {
                     status: isVictory ? "completed" : "fail",
                 })
 
-                if (data.mode == "Ranking" && result.length == 2) {
+                if (data.mode == "Ranking" && result.length == 1) {
                     let players = []
                     if (result[0].status == "completed") {
                         //p1 win
                         console.log("P1 Win")
                         players = await eloRanking(result[0].id, result[1].id, 1, 0)
-                    } else if (result[1].status == "fail") {
+                    } else {
                         //p2 win
                         console.log("P2 Win")
                         players = await eloRanking(result[0].id, result[1].id, 0, 1)
