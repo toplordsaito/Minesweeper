@@ -53,14 +53,14 @@ const useEndgame = (): Output => {
                         state: "end",
                         result: result,
                     })
-                if (result.length == result.players.length) {
+              
                     await db
                         .collection('rooms')
                         .doc(roomId)
                         .update({
-                            state: "waiting",
+                            state: result.length == result.players.length?"waiting":"waitplayer",
                         })
-                }
+                
 
             }
         } catch (err) {
