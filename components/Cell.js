@@ -92,7 +92,7 @@ export default class Cell extends Component {
       } else if (this.state.neighbors) {
         content = (
           <Text style={[styles.neighborsText, { fontFamily: this.colorData.fontFamily, color: this.colorData.text }]}>
-            {this.props.mode == "bind" ? "" : this.state.neighbors}
+            {this.props.mode == "blind" ? "" : this.state.neighbors}
           </Text>
         )
       }

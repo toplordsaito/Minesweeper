@@ -126,7 +126,7 @@ const Offline = ({navigation}) => {
           onValueChange={(itemValue) => setMode(itemValue)}
         >
           <Picker.Item label="Normal" value="Normal"/>
-          <Picker.Item label="Blind" value="bind"/>
+          <Picker.Item label="Blind" value="blind"/>
         </Picker>
       </View>
       {/* Button */}
